@@ -1,0 +1,314 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+ 124               	.global	write_to_address
+ 126               	write_to_address:
+   1:main.c        **** #include "L3GD20H_GYRO.h"
+   2:main.c        **** #include "usart.h"
+   3:main.c        **** #include <stdio.h>
+   4:main.c        **** #include <stdlib.h>
+   5:main.c        **** #include <math.h>
+   6:main.c        **** #include <avr/io.h>
+   7:main.c        **** #include <avr/pgmspace.h>
+   8:main.c        **** #include "twi_master.h"
+   9:main.c        **** #include "LPS25H_BAR.h"
+  10:main.c        **** 
+  11:main.c        **** #include "altiMU_10.h"
+  12:main.c        **** #include <util/delay.h>
+  13:main.c        **** 
+  14:main.c        **** uint8_t write_to_address(unsigned char address, uint8_t data) {
+ 128               	.LM0:
+ 129               	.LFBB1:
+ 130 0000 CF93      		push r28
+ 131 0002 DF93      		push r29
+ 132               	/* prologue: function */
+ 133               	/* frame size = 0 */
+ 134               	/* stack size = 2 */
+ 135               	.L__stack_usage = 2
+ 136 0004 D82F      		mov r29,r24
+ 137 0006 C62F      		mov r28,r22
+  15:main.c        ****     if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
+ 139               	.LM1:
+ 140 0008 8AEB      		ldi r24,lo8(-70)
+ 141 000a 0E94 0000 		call i2c_start
+ 142 000e 8111      		cpse r24,__zero_reg__
+ 143 0010 00C0      		rjmp .L3
+ 144               	.LBB4:
+ 145               	.LBB5:
+  16:main.c        ****         i2c_write(address);
+ 147               	.LM2:
+ 148 0012 8D2F      		mov r24,r29
+ 149 0014 0E94 0000 		call i2c_write
+  17:main.c        ****         i2c_write(data);
+ 151               	.LM3:
+ 152 0018 8C2F      		mov r24,r28
+ 153 001a 0E94 0000 		call i2c_write
+  18:main.c        ****         i2c_stop();
+ 155               	.LM4:
+ 156 001e 0E94 0000 		call i2c_stop
+ 157 0022 81E0      		ldi r24,lo8(1)
+ 158 0024 00C0      		rjmp .L2
+ 159               	.L3:
+ 160               	.LBE5:
+ 161               	.LBE4:
+  19:main.c        ****         return 1;
+  20:main.c        ****     } else {
+  21:main.c        ****         return 0;
+ 163               	.LM5:
+ 164 0026 80E0      		ldi r24,0
+ 165               	.L2:
+ 166               	/* epilogue start */
+  22:main.c        ****     }
+  23:main.c        **** }
+ 168               	.LM6:
+ 169 0028 DF91      		pop r29
+ 170 002a CF91      		pop r28
+ 171 002c 0895      		ret
+ 173               	.Lscope1:
+ 174               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 175               	.LC0:
+ 176 0000 0A42 6566 		.string	"\nBefore: %#04x"
+ 176      6F72 653A 
+ 176      2025 2330 
+ 176      3478 00
+ 177               	.LC1:
+ 178 000f 0A57 726F 		.string	"\nWrote 0xff to: %d"
+ 178      7465 2030 
+ 178      7866 6620 
+ 178      746F 3A20 
+ 178      2564 00
+ 179               	.LC2:
+ 180 0022 0A41 6674 		.string	"\nAfter: %#04x"
+ 180      6572 3A20 
+ 180      2523 3034 
+ 180      7800 
+ 181               	.LC3:
+ 182 0030 0A57 726F 		.string	"\nWrote 0x00 to: %d"
+ 182      7465 2030 
+ 182      7830 3020 
+ 182      746F 3A20 
+ 182      2564 00
+ 183               	.LC4:
+ 184 0043 0A42 6163 		.string	"\nBack to normal: %#04x"
+ 184      6B20 746F 
+ 184      206E 6F72 
+ 184      6D61 6C3A 
+ 184      2025 2330 
+ 185               		.section	.text.startup,"ax",@progbits
+ 187               	.global	main
+ 189               	main:
+  24:main.c        **** 
+  25:main.c        **** int main(void) {
+ 191               	.LM7:
+ 192               	.LFBB2:
+ 193 0000 CF93      		push r28
+ 194 0002 DF93      		push r29
+ 195 0004 CDB7      		in r28,__SP_L__
+ 196 0006 DEB7      		in r29,__SP_H__
+ 197 0008 2F97      		sbiw r28,15
+ 198 000a 0FB6      		in __tmp_reg__,__SREG__
+ 199 000c F894      		cli
+ 200 000e DEBF      		out __SP_H__,r29
+ 201 0010 0FBE      		out __SREG__,__tmp_reg__
+ 202 0012 CDBF      		out __SP_L__,r28
+ 203               	/* prologue: function */
+ 204               	/* frame size = 15 */
+ 205               	/* stack size = 17 */
+ 206               	.L__stack_usage = 17
+  26:main.c        ****     uint8_t u8ebyte;
+  27:main.c        ****     USART0Init();
+ 208               	.LM8:
+ 209 0014 0E94 0000 		call USART0Init
+  28:main.c        ****     TWIInit();
+ 211               	.LM9:
+ 212 0018 0E94 0000 		call TWIInit
+  29:main.c        ****     //    _delay_ms(100);
+  30:main.c        ****     //Set stream pointer
+  31:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
+ 214               	.LM10:
+ 215 001c FE01      		movw r30,r28
+ 216 001e 3196      		adiw r30,1
+ 217 0020 8EE0      		ldi r24,lo8(14)
+ 218 0022 DF01      		movw r26,r30
+ 219               		0:
+ 220 0024 1D92      		st X+,__zero_reg__
+ 221 0026 8A95      		dec r24
+ 222 0028 01F4      		brne 0b
+ 223 002a 83E0      		ldi r24,lo8(3)
+ 224 002c 8C83      		std Y+4,r24
+ 225 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
+ 226 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
+ 227 0032 9A87      		std Y+10,r25
+ 228 0034 8987      		std Y+9,r24
+ 229 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
+ 230 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
+ 231 003a 9C87      		std Y+12,r25
+ 232 003c 8B87      		std Y+11,r24
+  32:main.c        ****     //assign our stream to standart I/O streams
+  33:main.c        ****     stdin = stdout = &usart0_str;
+ 234               	.LM11:
+ 235 003e F093 0000 		sts __iob+2+1,r31
+ 236 0042 E093 0000 		sts __iob+2,r30
+ 237 0046 F093 0000 		sts __iob+1,r31
+ 238 004a E093 0000 		sts __iob,r30
+  34:main.c        ****     if (read_from_address(BAR_FIFO_CTRL, &u8ebyte) == 1) {
+ 240               	.LM12:
+ 241 004e BE01      		movw r22,r28
+ 242 0050 615F      		subi r22,-15
+ 243 0052 7F4F      		sbci r23,-1
+ 244 0054 8EE2      		ldi r24,lo8(46)
+ 245 0056 0E94 0000 		call read_from_address
+ 246 005a 8130      		cpi r24,lo8(1)
+ 247 005c 01F4      		brne .L6
+  35:main.c        ****         printf("\nBefore: %#04x", u8ebyte);
+ 249               	.LM13:
+ 250 005e 8F85      		ldd r24,Y+15
+ 251 0060 1F92      		push __zero_reg__
+ 252 0062 8F93      		push r24
+ 253 0064 80E0      		ldi r24,lo8(.LC0)
+ 254 0066 90E0      		ldi r25,hi8(.LC0)
+ 255 0068 9F93      		push r25
+ 256 006a 8F93      		push r24
+ 257 006c 0E94 0000 		call printf
+ 258 0070 0F90      		pop __tmp_reg__
+ 259 0072 0F90      		pop __tmp_reg__
+ 260 0074 0F90      		pop __tmp_reg__
+ 261 0076 0F90      		pop __tmp_reg__
+ 262               	.L6:
+  36:main.c        ****     }
+  37:main.c        ****     if (write_to_address(BAR_FIFO_CTRL, 0xff) == 1) {
+ 264               	.LM14:
+ 265 0078 6FEF      		ldi r22,lo8(-1)
+ 266 007a 8EE2      		ldi r24,lo8(46)
+ 267 007c 0E94 0000 		call write_to_address
+ 268 0080 8130      		cpi r24,lo8(1)
+ 269 0082 01F4      		brne .L7
+  38:main.c        ****         printf("\nWrote 0xff to: %d", BAR_FIFO_CTRL);
+ 271               	.LM15:
+ 272 0084 1F92      		push __zero_reg__
+ 273 0086 8EE2      		ldi r24,lo8(46)
+ 274 0088 8F93      		push r24
+ 275 008a 80E0      		ldi r24,lo8(.LC1)
+ 276 008c 90E0      		ldi r25,hi8(.LC1)
+ 277 008e 9F93      		push r25
+ 278 0090 8F93      		push r24
+ 279 0092 0E94 0000 		call printf
+ 280 0096 0F90      		pop __tmp_reg__
+ 281 0098 0F90      		pop __tmp_reg__
+ 282 009a 0F90      		pop __tmp_reg__
+ 283 009c 0F90      		pop __tmp_reg__
+ 284               	.L7:
+  39:main.c        ****     }
+  40:main.c        **** 
+  41:main.c        ****     if (read_from_address(BAR_FIFO_CTRL, &u8ebyte) == 1) {
+ 286               	.LM16:
+ 287 009e BE01      		movw r22,r28
+ 288 00a0 615F      		subi r22,-15
+ 289 00a2 7F4F      		sbci r23,-1
+ 290 00a4 8EE2      		ldi r24,lo8(46)
+ 291 00a6 0E94 0000 		call read_from_address
+ 292 00aa 8130      		cpi r24,lo8(1)
+ 293 00ac 01F4      		brne .L8
+  42:main.c        ****         printf("\nAfter: %#04x", u8ebyte);
+ 295               	.LM17:
+ 296 00ae 8F85      		ldd r24,Y+15
+ 297 00b0 1F92      		push __zero_reg__
+ 298 00b2 8F93      		push r24
+ 299 00b4 80E0      		ldi r24,lo8(.LC2)
+ 300 00b6 90E0      		ldi r25,hi8(.LC2)
+ 301 00b8 9F93      		push r25
+ 302 00ba 8F93      		push r24
+ 303 00bc 0E94 0000 		call printf
+ 304 00c0 0F90      		pop __tmp_reg__
+ 305 00c2 0F90      		pop __tmp_reg__
+ 306 00c4 0F90      		pop __tmp_reg__
+ 307 00c6 0F90      		pop __tmp_reg__
+ 308               	.L8:
+  43:main.c        ****     }
+  44:main.c        ****     if (write_to_address(BAR_FIFO_CTRL, 0x00) == 1) {
+ 310               	.LM18:
+ 311 00c8 60E0      		ldi r22,0
+ 312 00ca 8EE2      		ldi r24,lo8(46)
+ 313 00cc 0E94 0000 		call write_to_address
+ 314 00d0 8130      		cpi r24,lo8(1)
+ 315 00d2 01F4      		brne .L9
+  45:main.c        ****         printf("\nWrote 0x00 to: %d", BAR_FIFO_CTRL);
+ 317               	.LM19:
+ 318 00d4 1F92      		push __zero_reg__
+ 319 00d6 8EE2      		ldi r24,lo8(46)
+ 320 00d8 8F93      		push r24
+ 321 00da 80E0      		ldi r24,lo8(.LC3)
+ 322 00dc 90E0      		ldi r25,hi8(.LC3)
+ 323 00de 9F93      		push r25
+ 324 00e0 8F93      		push r24
+ 325 00e2 0E94 0000 		call printf
+ 326 00e6 0F90      		pop __tmp_reg__
+ 327 00e8 0F90      		pop __tmp_reg__
+ 328 00ea 0F90      		pop __tmp_reg__
+ 329 00ec 0F90      		pop __tmp_reg__
+ 330               	.L9:
+  46:main.c        ****     }
+  47:main.c        ****     if (read_from_address(BAR_FIFO_CTRL, &u8ebyte) == 1) {
+ 332               	.LM20:
+ 333 00ee BE01      		movw r22,r28
+ 334 00f0 615F      		subi r22,-15
+ 335 00f2 7F4F      		sbci r23,-1
+ 336 00f4 8EE2      		ldi r24,lo8(46)
+ 337 00f6 0E94 0000 		call read_from_address
+ 338 00fa 8130      		cpi r24,lo8(1)
+ 339 00fc 01F4      		brne .L10
+  48:main.c        ****         printf("\nBack to normal: %#04x", u8ebyte);
+ 341               	.LM21:
+ 342 00fe 8F85      		ldd r24,Y+15
+ 343 0100 1F92      		push __zero_reg__
+ 344 0102 8F93      		push r24
+ 345 0104 80E0      		ldi r24,lo8(.LC4)
+ 346 0106 90E0      		ldi r25,hi8(.LC4)
+ 347 0108 9F93      		push r25
+ 348 010a 8F93      		push r24
+ 349 010c 0E94 0000 		call printf
+ 350 0110 0F90      		pop __tmp_reg__
+ 351 0112 0F90      		pop __tmp_reg__
+ 352 0114 0F90      		pop __tmp_reg__
+ 353 0116 0F90      		pop __tmp_reg__
+ 354               	.L10:
+ 355               	.L11:
+  49:main.c        ****     }
+  50:main.c        **** 
+  51:main.c        ****     while (1) {
+  52:main.c        **** 
+  53:main.c        ****     }
+ 357               	.LM22:
+ 358 0118 00C0      		rjmp .L11
+ 364               	.Lscope2:
+ 365               		.text
+ 367               	.Letext0:
+ 368               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+ 369               	.global __do_copy_data
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/cc2IngjV.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc2IngjV.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc2IngjV.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc2IngjV.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc2IngjV.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc2IngjV.s:126    .text:0000000000000000 write_to_address
+     /tmp/cc2IngjV.s:189    .text.startup:0000000000000000 main
+
+UNDEFINED SYMBOLS
+i2c_start
+i2c_write
+i2c_stop
+USART0Init
+TWIInit
+USART0SendByte
+USART0ReceiveByte
+__iob
+read_from_address
+printf
+__do_copy_data
