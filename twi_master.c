@@ -1,3 +1,9 @@
+/* 
+ * File:   twi_master.c
+ * Author: krille0x7c2
+ * source: http://www.atmel.com/images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Complete.pdf page 216
+ * Created on February 16, 2015, 6:23 PM
+ */
 #include "altiMU_10.h"
 #include <avr/io.h>
 #include "twi_master.h"
@@ -43,7 +49,7 @@ uint8_t i2c_start(unsigned char address)
 
 	return 0;
 
-}/* i2c_start */
+}
 
 
 /*************************************************************************
@@ -92,7 +98,7 @@ void i2c_start_wait(unsigned char address)
     	break;
      }
 
-}/* i2c_start_wait */
+}
 
 
 /*************************************************************************
@@ -107,7 +113,7 @@ uint8_t i2c_rep_start(unsigned char address)
 {
     return i2c_start( address );
 
-}/* i2c_rep_start */
+}
 
 
 /*************************************************************************
@@ -121,7 +127,7 @@ void i2c_stop(void)
 	// wait until stop condition is executed and bus released
 	while(TWCR & (1<<TWSTO));
 
-}/* i2c_stop */
+}
 
 
 /*************************************************************************
@@ -147,7 +153,7 @@ uint8_t i2c_write( unsigned char data )
 	if( twst != TW_MT_DATA_ACK) return 1;
 	return 0;
 
-}/* i2c_write */
+}
 
 
 /*************************************************************************
@@ -162,7 +168,7 @@ uint8_t i2c_readAck(void)
 
     return TWDR;
 
-}/* i2c_readAck */
+}
 
 
 /*************************************************************************
@@ -177,26 +183,8 @@ uint8_t i2c_readNak(void)
 	
     return TWDR;
 
-}/* i2c_readNak */
-
-uint8_t read_from_address(unsigned char address, uint8_t *data) {
-
-    if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
-        i2c_write(address);
-
-        if (i2c_rep_start(((uint8_t) BAR_SLAVE_ADDRESS << 1) | 1) == 0) {
-            *data = i2c_readNak();
-            i2c_stop();
-            return 1;
-        } else {
-            printf("%s", "double fuck");
-            return 0;
-        }
-    } else {
-        printf("%s", "fuck");
-        return 0;
-    }
-    
-
 }
+
+
+
 

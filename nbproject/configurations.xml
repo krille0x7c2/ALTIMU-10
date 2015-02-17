@@ -2,7 +2,9 @@
 <configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
+      <in>L3GD20H_GYRO.c</in>
       <in>L3GD20H_GYRO.h</in>
+      <in>LPS25H_BAR.c</in>
       <in>LPS25H_BAR.h</in>
       <in>LSM303D_ACC_MAGNETO.h</in>
       <in>altiMU_10.h</in>
@@ -52,7 +54,11 @@
           </cTool>
         </makeTool>
       </makefileType>
+      <item path="L3GD20H_GYRO.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="L3GD20H_GYRO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LPS25H_BAR.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="LPS25H_BAR.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -98,7 +104,11 @@
           </cTool>
         </makeTool>
       </makefileType>
+      <item path="L3GD20H_GYRO.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="L3GD20H_GYRO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LPS25H_BAR.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="LPS25H_BAR.h" ex="false" tool="3" flavor2="0">
       </item>

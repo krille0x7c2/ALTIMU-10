@@ -40,6 +40,18 @@
 #define GYRO_IG_DURATION  0x38//R/W
 #define GYRO_LOW_ODR  0x39
 
+typedef struct valstruct {
+    uint8_t x;
+    uint8_t y;
+    uint8_t z;
+}Val;
+
+
+extern uint8_t init_gyro(void);
+extern uint8_t read_from_gyro_reg(unsigned char address);
+extern uint8_t write_to_gyro_reg(unsigned char address, uint8_t data);
+extern struct valstruct read_gyro_values(void);
+
 
 #endif	/* L3GD20H_GYRO_H */
 

@@ -39,6 +39,12 @@
 #define BAR_RPDS_L  0x39//R/W
 #define BAR_RPDS_H  0x3A//R/W
 
+extern uint8_t read_from_bar_reg(unsigned char address);
+extern uint8_t write_to_bar_reg(unsigned char address, uint8_t data);
+extern float read_temp_celsius(void);
+extern float read_pressure_hpa(void);
+extern uint8_t init_bar(void);
+
 
 #endif	/* LPS25H_BAR_H */
 

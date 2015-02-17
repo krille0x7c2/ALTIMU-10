@@ -1,12 +1,12 @@
-main.o: main.c L3GD20H_GYRO.h usart.h twi_master.h LPS25H_BAR.h \
+main.o: main.c usart.h twi_master.h LPS25H_BAR.h L3GD20H_GYRO.h \
  altiMU_10.h
-
-L3GD20H_GYRO.h:
 
 usart.h:
 
 twi_master.h:
 
 LPS25H_BAR.h:
+
+L3GD20H_GYRO.h:
 
 altiMU_10.h:

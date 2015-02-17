@@ -131,13 +131,13 @@
  232               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 usart.c
-     /tmp/ccSfW7N9.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccSfW7N9.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccSfW7N9.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccSfW7N9.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccSfW7N9.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccSfW7N9.s:116    .text:0000000000000000 USART0Init
-     /tmp/ccSfW7N9.s:153    .text:0000000000000020 USART0SendByte
-     /tmp/ccSfW7N9.s:195    .text:0000000000000046 USART0ReceiveByte
+     /tmp/ccnQHpQX.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccnQHpQX.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccnQHpQX.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccnQHpQX.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccnQHpQX.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccnQHpQX.s:116    .text:0000000000000000 USART0Init
+     /tmp/ccnQHpQX.s:153    .text:0000000000000020 USART0SendByte
+     /tmp/ccnQHpQX.s:195    .text:0000000000000046 USART0ReceiveByte
 
 NO UNDEFINED SYMBOLS
