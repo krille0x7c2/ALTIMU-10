@@ -1,0 +1,143 @@
+   1               		.file	"usart.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+ 114               	.global	USART0Init
+ 116               	USART0Init:
+   1:usart.c       **** #include "usart.h"
+   2:usart.c       **** #include <avr/io.h>
+   3:usart.c       **** 
+   4:usart.c       **** void USART0Init(void) {
+ 118               	.LM0:
+ 119               	.LFBB1:
+ 120               	/* prologue: function */
+ 121               	/* frame size = 0 */
+ 122               	/* stack size = 0 */
+ 123               	.L__stack_usage = 0
+   5:usart.c       ****     // Set baud rate
+   6:usart.c       ****     UBRR0H = (uint8_t) (UBRR_VALUE >> 8);
+ 125               	.LM1:
+ 126 0000 1092 C500 		sts 197,__zero_reg__
+   7:usart.c       ****     UBRR0L = (uint8_t) UBRR_VALUE;
+ 128               	.LM2:
+ 129 0004 87E6      		ldi r24,lo8(103)
+ 130 0006 8093 C400 		sts 196,r24
+   8:usart.c       ****     // Set frame format to 8 data bits, no parity, 1 stop bit
+   9:usart.c       ****     UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00);
+ 132               	.LM3:
+ 133 000a E2EC      		ldi r30,lo8(-62)
+ 134 000c F0E0      		ldi r31,0
+ 135 000e 8081      		ld r24,Z
+ 136 0010 8660      		ori r24,lo8(6)
+ 137 0012 8083      		st Z,r24
+  10:usart.c       ****     //enable transmission and reception
+  11:usart.c       ****     UCSR0B |= (1 << RXEN0) | (1 << TXEN0);
+ 139               	.LM4:
+ 140 0014 E1EC      		ldi r30,lo8(-63)
+ 141 0016 F0E0      		ldi r31,0
+ 142 0018 8081      		ld r24,Z
+ 143 001a 8861      		ori r24,lo8(24)
+ 144 001c 8083      		st Z,r24
+ 145 001e 0895      		ret
+ 147               	.Lscope1:
+ 151               	.global	USART0SendByte
+ 153               	USART0SendByte:
+  12:usart.c       **** }
+  13:usart.c       **** 
+  14:usart.c       **** int USART0SendByte(char u8Data, FILE *stream) {
+ 155               	.LM5:
+ 156               	.LFBB2:
+ 157 0020 CF93      		push r28
+ 158               	/* prologue: function */
+ 159               	/* frame size = 0 */
+ 160               	/* stack size = 1 */
+ 161               	.L__stack_usage = 1
+ 162 0022 C82F      		mov r28,r24
+  15:usart.c       ****     if (u8Data == '\n') {
+ 164               	.LM6:
+ 165 0024 8A30      		cpi r24,lo8(10)
+ 166 0026 01F4      		brne .L4
+  16:usart.c       ****         USART0SendByte('\r', 0);
+ 168               	.LM7:
+ 169 0028 60E0      		ldi r22,0
+ 170 002a 70E0      		ldi r23,0
+ 171 002c 8DE0      		ldi r24,lo8(13)
+ 172 002e 0E94 0000 		call USART0SendByte
+ 173               	.L4:
+  17:usart.c       ****     }
+  18:usart.c       ****     //wait while previous byte is completed
+  19:usart.c       ****     while (!(UCSR0A & (1 << UDRE0))) {
+ 175               	.LM8:
+ 176 0032 8091 C000 		lds r24,192
+ 177 0036 85FF      		sbrs r24,5
+ 178 0038 00C0      		rjmp .L4
+  20:usart.c       ****     };
+  21:usart.c       ****     // Transmit data
+  22:usart.c       ****     UDR0 = u8Data;
+ 180               	.LM9:
+ 181 003a C093 C600 		sts 198,r28
+  23:usart.c       ****     return 0;
+  24:usart.c       **** }
+ 183               	.LM10:
+ 184 003e 80E0      		ldi r24,0
+ 185 0040 90E0      		ldi r25,0
+ 186               	/* epilogue start */
+ 187 0042 CF91      		pop r28
+ 188 0044 0895      		ret
+ 190               	.Lscope2:
+ 193               	.global	USART0ReceiveByte
+ 195               	USART0ReceiveByte:
+  25:usart.c       **** int USART0ReceiveByte(FILE *stream) {
+ 197               	.LM11:
+ 198               	.LFBB3:
+ 199 0046 CF93      		push r28
+ 200               	/* prologue: function */
+ 201               	/* frame size = 0 */
+ 202               	/* stack size = 1 */
+ 203               	.L__stack_usage = 1
+ 204               	.L9:
+  26:usart.c       ****     uint8_t u8Data;
+  27:usart.c       ****     // Wait for byte to be received
+  28:usart.c       ****     while (!(UCSR0A & (1 << RXC0))) {
+ 206               	.LM12:
+ 207 0048 2091 C000 		lds r18,192
+ 208 004c 27FF      		sbrs r18,7
+ 209 004e 00C0      		rjmp .L9
+  29:usart.c       ****     };
+  30:usart.c       ****     u8Data = UDR0;
+ 211               	.LM13:
+ 212 0050 C091 C600 		lds r28,198
+  31:usart.c       ****     //echo input data
+  32:usart.c       ****     USART0SendByte(u8Data, stream);
+ 214               	.LM14:
+ 215 0054 BC01      		movw r22,r24
+ 216 0056 8C2F      		mov r24,r28
+ 217 0058 0E94 0000 		call USART0SendByte
+  33:usart.c       ****     // Return received data
+  34:usart.c       ****     return u8Data;
+  35:usart.c       **** }
+ 219               	.LM15:
+ 220 005c 8C2F      		mov r24,r28
+ 221 005e 90E0      		ldi r25,0
+ 222               	/* epilogue start */
+ 223 0060 CF91      		pop r28
+ 224 0062 0895      		ret
+ 229               	.Lscope3:
+ 231               	.Letext0:
+ 232               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 usart.c
+     /tmp/ccsZDJWn.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccsZDJWn.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccsZDJWn.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccsZDJWn.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccsZDJWn.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccsZDJWn.s:116    .text:0000000000000000 USART0Init
+     /tmp/ccsZDJWn.s:153    .text:0000000000000020 USART0SendByte
+     /tmp/ccsZDJWn.s:195    .text:0000000000000046 USART0ReceiveByte
+
+NO UNDEFINED SYMBOLS

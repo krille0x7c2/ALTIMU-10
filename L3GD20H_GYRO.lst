@@ -1,0 +1,184 @@
+   1               		.file	"L3GD20H_GYRO.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+ 106               	.global	init_gyro
+ 108               	init_gyro:
+   1:L3GD20H_GYRO.c **** /* 
+   2:L3GD20H_GYRO.c ****  * File:   L3GD20H_GYRO.c
+   3:L3GD20H_GYRO.c ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
+   4:L3GD20H_GYRO.c ****  *
+   5:L3GD20H_GYRO.c ****  * Created on February 17, 2015, 8:46 AM
+   6:L3GD20H_GYRO.c ****  */
+   7:L3GD20H_GYRO.c **** //TODO Write documentation
+   8:L3GD20H_GYRO.c **** #include <avr/io.h>
+   9:L3GD20H_GYRO.c **** #include "twi_master.h"
+  10:L3GD20H_GYRO.c **** #include "L3GD20H_GYRO.h"
+  11:L3GD20H_GYRO.c **** #include "ALTIMU_10.h"
+  12:L3GD20H_GYRO.c **** 
+  13:L3GD20H_GYRO.c **** /*************************************************************************
+  14:L3GD20H_GYRO.c ****  Initiate the gyro more details later.... 
+  15:L3GD20H_GYRO.c ****  
+  16:L3GD20H_GYRO.c ****  *************************************************************************/
+  17:L3GD20H_GYRO.c **** 
+  18:L3GD20H_GYRO.c **** void init_gyro(void) {
+ 110               	.LM0:
+ 111               	.LFBB1:
+ 112               	/* prologue: function */
+ 113               	/* frame size = 0 */
+ 114               	/* stack size = 0 */
+ 115               	.L__stack_usage = 0
+  19:L3GD20H_GYRO.c **** 
+  20:L3GD20H_GYRO.c ****     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_LOW_ODR, 0x00);
+ 117               	.LM1:
+ 118 0000 40E0      		ldi r20,0
+ 119 0002 69E3      		ldi r22,lo8(57)
+ 120 0004 8BE6      		ldi r24,lo8(107)
+ 121 0006 0E94 0000 		call write_to_reg
+  21:L3GD20H_GYRO.c ****     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL4, 0x00);
+ 123               	.LM2:
+ 124 000a 40E0      		ldi r20,0
+ 125 000c 63E2      		ldi r22,lo8(35)
+ 126 000e 8BE6      		ldi r24,lo8(107)
+ 127 0010 0E94 0000 		call write_to_reg
+  22:L3GD20H_GYRO.c ****     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x6F);
+ 129               	.LM3:
+ 130 0014 4FE6      		ldi r20,lo8(111)
+ 131 0016 60E2      		ldi r22,lo8(32)
+ 132 0018 8BE6      		ldi r24,lo8(107)
+ 133 001a 0C94 0000 		jmp write_to_reg
+ 135               	.Lscope1:
+ 138               	.global	read_gyro_values
+ 140               	read_gyro_values:
+  23:L3GD20H_GYRO.c **** }/*init_gyro*/
+  24:L3GD20H_GYRO.c **** 
+  25:L3GD20H_GYRO.c **** //TODO
+  26:L3GD20H_GYRO.c **** 
+  27:L3GD20H_GYRO.c **** /*************************************************************************
+  28:L3GD20H_GYRO.c ****  Read the raw values from all three axis. 16-bit resolution
+  29:L3GD20H_GYRO.c ****  
+  30:L3GD20H_GYRO.c ****  Input: Pointer to data structure, passed by reference.
+  31:L3GD20H_GYRO.c ****  
+  32:L3GD20H_GYRO.c ****  *************************************************************************/
+  33:L3GD20H_GYRO.c **** void read_gyro_values(struct gyro_data *_gyro_data_) {
+ 142               	.LM4:
+ 143               	.LFBB2:
+ 144 001e DF92      		push r13
+ 145 0020 EF92      		push r14
+ 146 0022 FF92      		push r15
+ 147 0024 0F93      		push r16
+ 148 0026 1F93      		push r17
+ 149 0028 CF93      		push r28
+ 150 002a DF93      		push r29
+ 151               	/* prologue: function */
+ 152               	/* frame size = 0 */
+ 153               	/* stack size = 7 */
+ 154               	.L__stack_usage = 7
+ 155 002c 8C01      		movw r16,r24
+  34:L3GD20H_GYRO.c **** 
+  35:L3GD20H_GYRO.c ****     if (i2c_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
+ 157               	.LM5:
+ 158 002e 86ED      		ldi r24,lo8(-42)
+ 159 0030 0E94 0000 		call i2c_start
+ 160 0034 8111      		cpse r24,__zero_reg__
+ 161 0036 00C0      		rjmp .L2
+  36:L3GD20H_GYRO.c ****         i2c_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the MSB high
+ 163               	.LM6:
+ 164 0038 88EA      		ldi r24,lo8(-88)
+ 165 003a 0E94 0000 		call i2c_write
+  37:L3GD20H_GYRO.c **** 
+  38:L3GD20H_GYRO.c ****         if (i2c_rep_start(((uint8_t) GYRO_SLAVE_ADDRESS << 1) | 1) == 0) {
+ 167               	.LM7:
+ 168 003e 87ED      		ldi r24,lo8(-41)
+ 169 0040 0E94 0000 		call i2c_rep_start
+ 170 0044 8111      		cpse r24,__zero_reg__
+ 171 0046 00C0      		rjmp .L2
+ 172               	.LBB2:
+  39:L3GD20H_GYRO.c ****             uint8_t xlg = i2c_read(ACK);
+ 174               	.LM8:
+ 175 0048 0E94 0000 		call i2c_readAck
+ 176 004c F82E      		mov r15,r24
+  40:L3GD20H_GYRO.c ****             uint8_t xhg = i2c_read(ACK);
+ 178               	.LM9:
+ 179 004e 0E94 0000 		call i2c_readAck
+ 180 0052 D82E      		mov r13,r24
+  41:L3GD20H_GYRO.c **** 
+  42:L3GD20H_GYRO.c ****             uint8_t ylg = i2c_read(ACK);
+ 182               	.LM10:
+ 183 0054 0E94 0000 		call i2c_readAck
+ 184 0058 D82F      		mov r29,r24
+  43:L3GD20H_GYRO.c ****             uint8_t yhg = i2c_read(ACK);
+ 186               	.LM11:
+ 187 005a 0E94 0000 		call i2c_readAck
+ 188 005e E82E      		mov r14,r24
+  44:L3GD20H_GYRO.c **** 
+  45:L3GD20H_GYRO.c ****             uint8_t zlg = i2c_read(ACK);
+ 190               	.LM12:
+ 191 0060 0E94 0000 		call i2c_readAck
+ 192 0064 C82F      		mov r28,r24
+  46:L3GD20H_GYRO.c ****             uint8_t zhg = i2c_read(NAK);
+ 194               	.LM13:
+ 195 0066 0E94 0000 		call i2c_readNak
+  47:L3GD20H_GYRO.c **** 
+  48:L3GD20H_GYRO.c ****             _gyro_data_->x = (int16_t) (xhg << 8 | xlg);
+ 197               	.LM14:
+ 198 006a 2F2D      		mov r18,r15
+ 199 006c 30E0      		ldi r19,0
+ 200 006e 3D29      		or r19,r13
+ 201 0070 F801      		movw r30,r16
+ 202 0072 3183      		std Z+1,r19
+ 203 0074 2083      		st Z,r18
+  49:L3GD20H_GYRO.c ****             _gyro_data_->y = (int16_t) (yhg << 8 | ylg);
+ 205               	.LM15:
+ 206 0076 2D2F      		mov r18,r29
+ 207 0078 30E0      		ldi r19,0
+ 208 007a 3E29      		or r19,r14
+ 209 007c 3383      		std Z+3,r19
+ 210 007e 2283      		std Z+2,r18
+  50:L3GD20H_GYRO.c ****             _gyro_data_->z = (int16_t) (zhg << 8 | zlg);
+ 212               	.LM16:
+ 213 0080 2C2F      		mov r18,r28
+ 214 0082 30E0      		ldi r19,0
+ 215 0084 382B      		or r19,r24
+ 216 0086 3583      		std Z+5,r19
+ 217 0088 2483      		std Z+4,r18
+ 218               	.L2:
+ 219               	/* epilogue start */
+ 220               	.LBE2:
+  51:L3GD20H_GYRO.c **** 
+  52:L3GD20H_GYRO.c ****         }
+  53:L3GD20H_GYRO.c ****     }
+  54:L3GD20H_GYRO.c **** }/*read_gyro_values*/
+ 222               	.LM17:
+ 223 008a DF91      		pop r29
+ 224 008c CF91      		pop r28
+ 225 008e 1F91      		pop r17
+ 226 0090 0F91      		pop r16
+ 227 0092 FF90      		pop r15
+ 228 0094 EF90      		pop r14
+ 229 0096 DF90      		pop r13
+ 230 0098 0895      		ret
+ 239               	.Lscope2:
+ 241               	.Letext0:
+ 242               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 L3GD20H_GYRO.c
+     /tmp/ccQPEC19.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccQPEC19.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccQPEC19.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccQPEC19.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccQPEC19.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccQPEC19.s:108    .text:0000000000000000 init_gyro
+     /tmp/ccQPEC19.s:140    .text:000000000000001e read_gyro_values
+
+UNDEFINED SYMBOLS
+write_to_reg
+i2c_start
+i2c_write
+i2c_rep_start
+i2c_readAck
+i2c_readNak

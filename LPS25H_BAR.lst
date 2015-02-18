@@ -1,0 +1,276 @@
+   1               		.file	"LPS25H_BAR.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+ 101               	.global	__floatsisf
+ 102               	.global	__divsf3
+ 103               	.global	__addsf3
+ 105               	.global	read_temp_celsius
+ 107               	read_temp_celsius:
+   1:LPS25H_BAR.c  **** /* 
+   2:LPS25H_BAR.c  ****  * File:   LPS25H_BAR.c
+   3:LPS25H_BAR.c  ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
+   4:LPS25H_BAR.c  ****  *
+   5:LPS25H_BAR.c  ****  * Created on February 17, 2015, 8:46 AM
+   6:LPS25H_BAR.c  ****  */
+   7:LPS25H_BAR.c  **** //TODO Write documentation
+   8:LPS25H_BAR.c  **** #include <avr/io.h>
+   9:LPS25H_BAR.c  **** #include "twi_master.h"
+  10:LPS25H_BAR.c  **** #include "LPS25H_BAR.h"
+  11:LPS25H_BAR.c  **** #include "ALTIMU_10.h"
+  12:LPS25H_BAR.c  **** 
+  13:LPS25H_BAR.c  **** /*************************************************************************
+  14:LPS25H_BAR.c  ****  Read the tempature
+  15:LPS25H_BAR.c  ****  
+  16:LPS25H_BAR.c  ****  Return: float value in Celsius
+  17:LPS25H_BAR.c  ****  
+  18:LPS25H_BAR.c  **** *************************************************************************/
+  19:LPS25H_BAR.c  **** 
+  20:LPS25H_BAR.c  **** float read_temp_celsius(void) {
+ 109               	.LM0:
+ 110               	.LFBB1:
+ 111 0000 CF93      		push r28
+ 112               	/* prologue: function */
+ 113               	/* frame size = 0 */
+ 114               	/* stack size = 1 */
+ 115               	.L__stack_usage = 1
+  21:LPS25H_BAR.c  ****     if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
+ 117               	.LM1:
+ 118 0002 8AEB      		ldi r24,lo8(-70)
+ 119 0004 0E94 0000 		call i2c_start
+ 120 0008 8823      		tst r24
+ 121 000a 01F0      		breq .L2
+ 122               	.L4:
+  22:LPS25H_BAR.c  ****         i2c_write(BAR_TEMP_OUT_L | (1 << 7));
+  23:LPS25H_BAR.c  **** 
+  24:LPS25H_BAR.c  ****         if (i2c_rep_start(((uint8_t) BAR_SLAVE_ADDRESS << 1) | 1) == 0) {
+  25:LPS25H_BAR.c  ****             uint8_t tl = i2c_read(ACK);
+  26:LPS25H_BAR.c  ****             uint8_t th = i2c_read(NAK);
+  27:LPS25H_BAR.c  ****             int16_t temp = (int16_t) (th << 8 | tl);
+  28:LPS25H_BAR.c  ****             return (45.5 + ((float) temp) / 480); //To Celsius
+  29:LPS25H_BAR.c  **** 
+  30:LPS25H_BAR.c  ****         }
+  31:LPS25H_BAR.c  **** 
+  32:LPS25H_BAR.c  ****     }
+  33:LPS25H_BAR.c  ****     return 1;
+ 124               	.LM2:
+ 125 000c 60E0      		ldi r22,0
+ 126 000e 70E0      		ldi r23,0
+ 127 0010 80E8      		ldi r24,lo8(-128)
+ 128 0012 9FE3      		ldi r25,lo8(63)
+ 129 0014 00C0      		rjmp .L3
+ 130               	.L2:
+  22:LPS25H_BAR.c  ****         i2c_write(BAR_TEMP_OUT_L | (1 << 7));
+ 132               	.LM3:
+ 133 0016 8BEA      		ldi r24,lo8(-85)
+ 134 0018 0E94 0000 		call i2c_write
+  24:LPS25H_BAR.c  ****             uint8_t tl = i2c_read(ACK);
+ 136               	.LM4:
+ 137 001c 8BEB      		ldi r24,lo8(-69)
+ 138 001e 0E94 0000 		call i2c_rep_start
+ 139 0022 8111      		cpse r24,__zero_reg__
+ 140 0024 00C0      		rjmp .L4
+ 141               	.LBB2:
+  25:LPS25H_BAR.c  ****             uint8_t th = i2c_read(NAK);
+ 143               	.LM5:
+ 144 0026 0E94 0000 		call i2c_readAck
+ 145 002a C82F      		mov r28,r24
+  26:LPS25H_BAR.c  ****             int16_t temp = (int16_t) (th << 8 | tl);
+ 147               	.LM6:
+ 148 002c 0E94 0000 		call i2c_readNak
+  27:LPS25H_BAR.c  ****             return (45.5 + ((float) temp) / 480); //To Celsius
+ 150               	.LM7:
+ 151 0030 6C2F      		mov r22,r28
+ 152 0032 70E0      		ldi r23,0
+ 153 0034 782B      		or r23,r24
+  28:LPS25H_BAR.c  **** 
+ 155               	.LM8:
+ 156 0036 8827      		clr r24
+ 157 0038 77FD      		sbrc r23,7
+ 158 003a 8095      		com r24
+ 159 003c 982F      		mov r25,r24
+ 160 003e 0E94 0000 		call __floatsisf
+ 161 0042 20E0      		ldi r18,0
+ 162 0044 30E0      		ldi r19,0
+ 163 0046 40EF      		ldi r20,lo8(-16)
+ 164 0048 53E4      		ldi r21,lo8(67)
+ 165 004a 0E94 0000 		call __divsf3
+ 166 004e 20E0      		ldi r18,0
+ 167 0050 30E0      		ldi r19,0
+ 168 0052 46E3      		ldi r20,lo8(54)
+ 169 0054 52E4      		ldi r21,lo8(66)
+ 170 0056 0E94 0000 		call __addsf3
+ 171               	.L3:
+ 172               	/* epilogue start */
+ 173               	.LBE2:
+  34:LPS25H_BAR.c  **** }/*read_temp_celsius*/
+ 175               	.LM9:
+ 176 005a CF91      		pop r28
+ 177 005c 0895      		ret
+ 182               	.Lscope1:
+ 183               	.global	__mulsf3
+ 185               	.global	read_pressure_hpa
+ 187               	read_pressure_hpa:
+  35:LPS25H_BAR.c  **** 
+  36:LPS25H_BAR.c  **** 
+  37:LPS25H_BAR.c  **** /*************************************************************************
+  38:LPS25H_BAR.c  ****  Read the pressure
+  39:LPS25H_BAR.c  ****  
+  40:LPS25H_BAR.c  ****  Return: float value in hpa
+  41:LPS25H_BAR.c  ****  
+  42:LPS25H_BAR.c  **** ************************************************************************/
+  43:LPS25H_BAR.c  **** float read_pressure_hpa(void) {
+ 189               	.LM10:
+ 190               	.LFBB2:
+ 191 005e 0F93      		push r16
+ 192 0060 1F93      		push r17
+ 193 0062 CF93      		push r28
+ 194 0064 DF93      		push r29
+ 195               	/* prologue: function */
+ 196               	/* frame size = 0 */
+ 197               	/* stack size = 4 */
+ 198               	.L__stack_usage = 4
+  44:LPS25H_BAR.c  ****     if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
+ 200               	.LM11:
+ 201 0066 8AEB      		ldi r24,lo8(-70)
+ 202 0068 0E94 0000 		call i2c_start
+ 203 006c 8823      		tst r24
+ 204 006e 01F0      		breq .L7
+ 205               	.L9:
+  45:LPS25H_BAR.c  ****         i2c_write(BAR_PRESS_POUT_XL | (1 << 7));
+  46:LPS25H_BAR.c  **** 
+  47:LPS25H_BAR.c  ****         if (i2c_rep_start(((uint8_t) BAR_SLAVE_ADDRESS << 1) | 1) == 0) {
+  48:LPS25H_BAR.c  ****             uint8_t pxl = i2c_read(ACK);
+  49:LPS25H_BAR.c  ****             uint8_t pl = i2c_read(ACK);
+  50:LPS25H_BAR.c  ****             uint8_t ph = i2c_read(NAK);
+  51:LPS25H_BAR.c  **** 
+  52:LPS25H_BAR.c  ****             int32_t temp = (int32_t) (int8_t) ph << 16 | (uint16_t) pl << 8 | pxl;
+  53:LPS25H_BAR.c  ****             return ((float) temp / 4096);
+  54:LPS25H_BAR.c  ****         }
+  55:LPS25H_BAR.c  ****     }
+  56:LPS25H_BAR.c  ****     return 1;
+ 207               	.LM12:
+ 208 0070 60E0      		ldi r22,0
+ 209 0072 70E0      		ldi r23,0
+ 210 0074 80E8      		ldi r24,lo8(-128)
+ 211 0076 9FE3      		ldi r25,lo8(63)
+ 212 0078 00C0      		rjmp .L8
+ 213               	.L7:
+  45:LPS25H_BAR.c  ****         i2c_write(BAR_PRESS_POUT_XL | (1 << 7));
+ 215               	.LM13:
+ 216 007a 88EA      		ldi r24,lo8(-88)
+ 217 007c 0E94 0000 		call i2c_write
+  47:LPS25H_BAR.c  ****             uint8_t pxl = i2c_read(ACK);
+ 219               	.LM14:
+ 220 0080 8BEB      		ldi r24,lo8(-69)
+ 221 0082 0E94 0000 		call i2c_rep_start
+ 222 0086 8111      		cpse r24,__zero_reg__
+ 223 0088 00C0      		rjmp .L9
+ 224               	.LBB3:
+  48:LPS25H_BAR.c  ****             uint8_t pl = i2c_read(ACK);
+ 226               	.LM15:
+ 227 008a 0E94 0000 		call i2c_readAck
+ 228 008e D82F      		mov r29,r24
+  49:LPS25H_BAR.c  ****             uint8_t ph = i2c_read(NAK);
+ 230               	.LM16:
+ 231 0090 0E94 0000 		call i2c_readAck
+ 232 0094 C82F      		mov r28,r24
+  50:LPS25H_BAR.c  **** 
+ 234               	.LM17:
+ 235 0096 0E94 0000 		call i2c_readNak
+  52:LPS25H_BAR.c  ****             return ((float) temp / 4096);
+ 237               	.LM18:
+ 238 009a 9927      		clr r25
+ 239 009c 87FD      		sbrc r24,7
+ 240 009e 9095      		com r25
+ 241 00a0 A92F      		mov r26,r25
+ 242 00a2 B92F      		mov r27,r25
+ 243 00a4 9C01      		movw r18,r24
+ 244 00a6 1127      		clr r17
+ 245 00a8 0027      		clr r16
+ 246 00aa 4C2F      		mov r20,r28
+ 247 00ac 50E0      		ldi r21,0
+ 248 00ae 542F      		mov r21,r20
+ 249 00b0 4427      		clr r20
+ 250 00b2 60E0      		ldi r22,0
+ 251 00b4 70E0      		ldi r23,0
+ 252 00b6 D901      		movw r26,r18
+ 253 00b8 C801      		movw r24,r16
+ 254 00ba 842B      		or r24,r20
+ 255 00bc 952B      		or r25,r21
+ 256 00be A62B      		or r26,r22
+ 257 00c0 B72B      		or r27,r23
+ 258 00c2 BC01      		movw r22,r24
+ 259 00c4 CD01      		movw r24,r26
+ 260 00c6 6D2B      		or r22,r29
+  53:LPS25H_BAR.c  ****         }
+ 262               	.LM19:
+ 263 00c8 0E94 0000 		call __floatsisf
+ 264 00cc 20E0      		ldi r18,0
+ 265 00ce 30E0      		ldi r19,0
+ 266 00d0 40E8      		ldi r20,lo8(-128)
+ 267 00d2 59E3      		ldi r21,lo8(57)
+ 268 00d4 0E94 0000 		call __mulsf3
+ 269               	.L8:
+ 270               	/* epilogue start */
+ 271               	.LBE3:
+  57:LPS25H_BAR.c  **** 
+  58:LPS25H_BAR.c  **** }/*read_pressure_hpa*/
+ 273               	.LM20:
+ 274 00d8 DF91      		pop r29
+ 275 00da CF91      		pop r28
+ 276 00dc 1F91      		pop r17
+ 277 00de 0F91      		pop r16
+ 278 00e0 0895      		ret
+ 285               	.Lscope2:
+ 287               	.global	init_bar
+ 289               	init_bar:
+  59:LPS25H_BAR.c  **** 
+  60:LPS25H_BAR.c  **** //TODO
+  61:LPS25H_BAR.c  **** /*************************************************************************
+  62:LPS25H_BAR.c  ****  Initialize the bar,, more info on the way
+  63:LPS25H_BAR.c  ****  
+  64:LPS25H_BAR.c  **** ************************************************************************/
+  65:LPS25H_BAR.c  **** 
+  66:LPS25H_BAR.c  **** void init_bar(void) {
+ 291               	.LM21:
+ 292               	.LFBB3:
+ 293               	/* prologue: function */
+ 294               	/* frame size = 0 */
+ 295               	/* stack size = 0 */
+ 296               	.L__stack_usage = 0
+  67:LPS25H_BAR.c  ****     write_to_reg(BAR_SLAVE_ADDRESS,BAR_CTRL_REG1, 0xB0);
+ 298               	.LM22:
+ 299 00e2 40EB      		ldi r20,lo8(-80)
+ 300 00e4 60E2      		ldi r22,lo8(32)
+ 301 00e6 8DE5      		ldi r24,lo8(93)
+ 302 00e8 0C94 0000 		jmp write_to_reg
+ 304               	.Lscope3:
+ 306               	.Letext0:
+ 307               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 LPS25H_BAR.c
+     /tmp/ccHF7YBp.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccHF7YBp.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccHF7YBp.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccHF7YBp.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccHF7YBp.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccHF7YBp.s:107    .text:0000000000000000 read_temp_celsius
+     /tmp/ccHF7YBp.s:187    .text:000000000000005e read_pressure_hpa
+     /tmp/ccHF7YBp.s:289    .text:00000000000000e2 init_bar
+
+UNDEFINED SYMBOLS
+__floatsisf
+__divsf3
+__addsf3
+i2c_start
+i2c_write
+i2c_rep_start
+i2c_readAck
+i2c_readNak
+__mulsf3
+write_to_reg
