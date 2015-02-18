@@ -1,8 +1,0 @@
-LSM303D_ACC_MAG.o: LSM303D_ACC_MAG.c ALTIMU_10.h LSM303D_ACC_MAG.h \
- twi_master.h
-
-ALTIMU_10.h:
-
-LSM303D_ACC_MAG.h:
-
-twi_master.h:
