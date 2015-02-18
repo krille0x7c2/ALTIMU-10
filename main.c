@@ -27,7 +27,7 @@ int main(void) {
 
     //Set stream pointer
     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
-    //assign our stream to standart I/O streams
+    //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-)
     stdin = stdout = &usart0_str;
     /*acc*/
     //    init_gyro();
