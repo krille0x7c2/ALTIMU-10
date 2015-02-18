@@ -16,6 +16,7 @@
       <in>usart.c</in>
       <in>usart.h</in>
     </df>
+    <itemPath>.gitignore</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
