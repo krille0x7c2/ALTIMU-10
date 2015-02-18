@@ -6,113 +6,88 @@
    6               	__zero_reg__ = 1
    8               		.text
    9               	.Ltext0:
- 125               		.section	.rodata.str1.1,"aMS",@progbits,1
- 126               	.LC0:
- 127 0000 5B58 3A20 		.string	"[X: %d Y: %d Z: %d]"
- 127      2564 2059 
- 127      3A20 2564 
- 127      205A 3A20 
- 127      2564 5D00 
- 128               		.section	.text.startup,"ax",@progbits
- 130               	.global	main
- 132               	main:
-   1:main.c        **** #include "usart.h"
-   2:main.c        **** #include <stdio.h>
-   3:main.c        **** #include <stdlib.h>
-   4:main.c        **** #include <math.h>
-   5:main.c        **** #include <avr/io.h>
-   6:main.c        **** #include <avr/pgmspace.h>
-   7:main.c        **** #include "twi_master.h"
-   8:main.c        **** #include "LPS25H_BAR.h"
-   9:main.c        **** #include "L3GD20H_GYRO.h"
-  10:main.c        **** 
-  11:main.c        **** #include "altiMU_10.h"
-  12:main.c        **** #include <util/delay.h>
-  13:main.c        **** 
-  14:main.c        **** /*
-  15:main.c        ****  *Main
-  16:main.c        ****  * 
-  17:main.c        ****  *  
-  18:main.c        ****  */
-  19:main.c        **** 
-  20:main.c        **** 
-  21:main.c        **** 
+ 125               		.section	.text.startup,"ax",@progbits
+ 127               	.global	main
+ 129               	main:
+   1:main.c        **** /* 
+   2:main.c        ****  * File:   main.c
+   3:main.c        ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
+   4:main.c        ****  *
+   5:main.c        ****  * Created on February 16, 2015, 6:03 PM
+   6:main.c        ****  */
+   7:main.c        **** #include <avr/io.h>
+   8:main.c        **** #include <stdio.h>
+   9:main.c        **** #include <stdlib.h>
+  10:main.c        **** #include "twi_master.h"
+  11:main.c        **** #include "LPS25H_BAR.h"
+  12:main.c        **** #include "L3GD20H_GYRO.h"
+  13:main.c        **** #include "ALTIMU_10.h"
+  14:main.c        **** #include "usart.h"
+  15:main.c        **** #include <util/delay.h>
+  16:main.c        **** 
+  17:main.c        **** /*
+  18:main.c        ****  *Main
+  19:main.c        ****  * 
+  20:main.c        ****  *  
+  21:main.c        ****  */
   22:main.c        **** 
-  23:main.c        **** int main(void) {
- 134               	.LM0:
- 135               	.LFBB1:
- 136 0000 CF93      		push r28
- 137 0002 DF93      		push r29
- 138 0004 CDB7      		in r28,__SP_L__
- 139 0006 DEB7      		in r29,__SP_H__
- 140 0008 2E97      		sbiw r28,14
- 141 000a 0FB6      		in __tmp_reg__,__SREG__
- 142 000c F894      		cli
- 143 000e DEBF      		out __SP_H__,r29
- 144 0010 0FBE      		out __SREG__,__tmp_reg__
- 145 0012 CDBF      		out __SP_L__,r28
- 146               	/* prologue: function */
- 147               	/* frame size = 14 */
- 148               	/* stack size = 16 */
- 149               	.L__stack_usage = 16
-  24:main.c        ****     USART0Init();
- 151               	.LM1:
- 152 0014 0E94 0000 		call USART0Init
-  25:main.c        ****     TWIInit();
- 154               	.LM2:
- 155 0018 0E94 0000 		call TWIInit
-  26:main.c        ****     
-  27:main.c        ****     //Set stream pointer
-  28:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
- 157               	.LM3:
- 158 001c FE01      		movw r30,r28
- 159 001e 3196      		adiw r30,1
- 160 0020 8EE0      		ldi r24,lo8(14)
- 161 0022 DF01      		movw r26,r30
- 162               		0:
- 163 0024 1D92      		st X+,__zero_reg__
- 164 0026 8A95      		dec r24
- 165 0028 01F4      		brne 0b
- 166 002a 83E0      		ldi r24,lo8(3)
- 167 002c 8C83      		std Y+4,r24
- 168 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
- 169 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
- 170 0032 9A87      		std Y+10,r25
- 171 0034 8987      		std Y+9,r24
- 172 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
- 173 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
- 174 003a 9C87      		std Y+12,r25
- 175 003c 8B87      		std Y+11,r24
-  29:main.c        ****     //assign our stream to standart I/O streams
-  30:main.c        ****     stdin = stdout = &usart0_str;
- 177               	.LM4:
- 178 003e F093 0000 		sts __iob+2+1,r31
- 179 0042 E093 0000 		sts __iob+2,r30
- 180 0046 F093 0000 		sts __iob+1,r31
- 181 004a E093 0000 		sts __iob,r30
-  31:main.c        ****      /*acc*/
-  32:main.c        ****     init_gyro();
- 183               	.LM5:
- 184 004e 0E94 0000 		call init_gyro
- 185               	.LBB5:
-  33:main.c        ****     
-  34:main.c        ****     /*pressure*/
-  35:main.c        **** //    init_bar();
-  36:main.c        **** 
-  37:main.c        ****     while (1) {
-  38:main.c        ****         _delay_ms(1000);
-  39:main.c        ****         
-  40:main.c        ****         /*acc*/
-  41:main.c        ****         struct valstruct val;
-  42:main.c        ****         val = read_gyro_values();
-  43:main.c        ****         printf("[X: %d Y: %d Z: %d]",val.x,val.y,val.z);
- 187               	.LM6:
- 188 0052 00E0      		ldi r16,lo8(.LC0)
- 189 0054 10E0      		ldi r17,hi8(.LC0)
- 190               	.L2:
- 191               	.LBB6:
- 192               	.LBB7:
- 194               	.Ltext1:
+  23:main.c        **** 
+  24:main.c        **** int main(void) {
+ 131               	.LM0:
+ 132               	.LFBB1:
+ 133 0000 CF93      		push r28
+ 134 0002 DF93      		push r29
+ 135 0004 CDB7      		in r28,__SP_L__
+ 136 0006 DEB7      		in r29,__SP_H__
+ 137 0008 2E97      		sbiw r28,14
+ 138 000a 0FB6      		in __tmp_reg__,__SREG__
+ 139 000c F894      		cli
+ 140 000e DEBF      		out __SP_H__,r29
+ 141 0010 0FBE      		out __SREG__,__tmp_reg__
+ 142 0012 CDBF      		out __SP_L__,r28
+ 143               	/* prologue: function */
+ 144               	/* frame size = 14 */
+ 145               	/* stack size = 16 */
+ 146               	.L__stack_usage = 16
+  25:main.c        ****     USART0Init();
+ 148               	.LM1:
+ 149 0014 0E94 0000 		call USART0Init
+  26:main.c        ****     TWIInit();
+ 151               	.LM2:
+ 152 0018 0E94 0000 		call TWIInit
+  27:main.c        **** 
+  28:main.c        ****     //Set stream pointer
+  29:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
+ 154               	.LM3:
+ 155 001c FE01      		movw r30,r28
+ 156 001e 3196      		adiw r30,1
+ 157 0020 8EE0      		ldi r24,lo8(14)
+ 158 0022 DF01      		movw r26,r30
+ 159               		0:
+ 160 0024 1D92      		st X+,__zero_reg__
+ 161 0026 8A95      		dec r24
+ 162 0028 01F4      		brne 0b
+ 163 002a 83E0      		ldi r24,lo8(3)
+ 164 002c 8C83      		std Y+4,r24
+ 165 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
+ 166 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
+ 167 0032 9A87      		std Y+10,r25
+ 168 0034 8987      		std Y+9,r24
+ 169 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
+ 170 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
+ 171 003a 9C87      		std Y+12,r25
+ 172 003c 8B87      		std Y+11,r24
+  30:main.c        ****     //assign our stream to standart I/O streams
+  31:main.c        ****     stdin = stdout = &usart0_str;
+ 174               	.LM4:
+ 175 003e F093 0000 		sts __iob+2+1,r31
+ 176 0042 E093 0000 		sts __iob+2,r30
+ 177 0046 F093 0000 		sts __iob+1,r31
+ 178 004a E093 0000 		sts __iob,r30
+ 179               	.L2:
+ 180               	.LBB4:
+ 181               	.LBB5:
+ 183               	.Ltext1:
    1:/usr/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -276,60 +251,31 @@
  161:/usr/avr/include/util/delay.h **** 	#endif
  162:/usr/avr/include/util/delay.h **** 
  163:/usr/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
- 196               	.LM7:
- 197 0056 BFEF      		ldi r27,lo8(3199999)
- 198 0058 23ED      		ldi r18,hi8(3199999)
- 199 005a 80E3      		ldi r24,hlo8(3199999)
- 200 005c B150      		1: subi r27,1
- 201 005e 2040      		sbci r18,0
- 202 0060 8040      		sbci r24,0
- 203 0062 01F4      		brne 1b
- 204 0064 00C0      		rjmp .
- 205 0066 0000      		nop
- 206               	.LBE7:
- 207               	.LBE6:
- 209               	.Ltext2:
-  42:main.c        ****         printf("[X: %d Y: %d Z: %d]",val.x,val.y,val.z);
- 211               	.LM8:
- 212 0068 0E94 0000 		call read_gyro_values
- 214               	.LM9:
- 215 006c 1F92      		push __zero_reg__
- 216 006e 8F93      		push r24
- 217 0070 1F92      		push __zero_reg__
- 218 0072 7F93      		push r23
- 219 0074 1F92      		push __zero_reg__
- 220 0076 6F93      		push r22
- 221 0078 1F93      		push r17
- 222 007a 0F93      		push r16
- 223 007c 0E94 0000 		call printf
- 224               	.LBE5:
-  44:main.c        ****         
-  45:main.c        ****        /*pressure*/
-  46:main.c        **** //        printf("%f ", read_temp_celsius());
-  47:main.c        **** //        printf("%f hpa", read_pressure_hpa());
-  48:main.c        **** //        i2c_stop();
-  49:main.c        **** 
-  50:main.c        ****     }
- 226               	.LM10:
- 227 0080 0FB6      		in __tmp_reg__,__SREG__
- 228 0082 F894      		cli
- 229 0084 DEBF      		out __SP_H__,r29
- 230 0086 0FBE      		out __SREG__,__tmp_reg__
- 231 0088 CDBF      		out __SP_L__,r28
- 232 008a 00C0      		rjmp .L2
- 237               	.Lscope1:
- 238               		.text
- 240               	.Letext0:
- 241               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
- 242               	.global __do_copy_data
+ 185               	.LM5:
+ 186 004e BFEF      		ldi r27,lo8(3199999)
+ 187 0050 23ED      		ldi r18,hi8(3199999)
+ 188 0052 80E3      		ldi r24,hlo8(3199999)
+ 189 0054 B150      		1: subi r27,1
+ 190 0056 2040      		sbci r18,0
+ 191 0058 8040      		sbci r24,0
+ 192 005a 01F4      		brne 1b
+ 193 005c 00C0      		rjmp .
+ 194 005e 0000      		nop
+ 195 0060 00C0      		rjmp .L2
+ 196               	.LBE5:
+ 197               	.LBE4:
+ 202               	.Lscope1:
+ 203               		.text
+ 205               	.Letext0:
+ 206               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/cclv2YTb.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cclv2YTb.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cclv2YTb.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cclv2YTb.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cclv2YTb.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cclv2YTb.s:132    .text.startup:0000000000000000 main
+     /tmp/ccwZLY2u.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccwZLY2u.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccwZLY2u.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccwZLY2u.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccwZLY2u.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccwZLY2u.s:129    .text.startup:0000000000000000 main
 
 UNDEFINED SYMBOLS
 USART0Init
@@ -337,7 +283,3 @@ TWIInit
 USART0SendByte
 USART0ReceiveByte
 __iob
-init_gyro
-read_gyro_values
-printf
-__do_copy_data

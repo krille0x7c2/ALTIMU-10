@@ -1,0 +1,176 @@
+   1               		.file	"ALTIMU_10.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+ 105               	.global	write_to_reg
+ 107               	write_to_reg:
+   1:ALTIMU_10.c   **** /* 
+   2:ALTIMU_10.c   ****  * File:   ALTIMU_10.c
+   3:ALTIMU_10.c   ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
+   4:ALTIMU_10.c   ****  *
+   5:ALTIMU_10.c   ****  * Created on February 17, 2015, 8:46 AM
+   6:ALTIMU_10.c   ****  */
+   7:ALTIMU_10.c   **** //TODO Write documentation
+   8:ALTIMU_10.c   **** #include <avr/io.h>
+   9:ALTIMU_10.c   **** #include "ALTIMU_10.h"
+  10:ALTIMU_10.c   **** #include "twi_master.h"
+  11:ALTIMU_10.c   **** 
+  12:ALTIMU_10.c   **** 
+  13:ALTIMU_10.c   **** /*************************************************************************
+  14:ALTIMU_10.c   ****  Write to slave register
+  15:ALTIMU_10.c   ****  
+  16:ALTIMU_10.c   ****  Input: [7-bit address to the slave] [Register value on slave] [Byte to send]
+  17:ALTIMU_10.c   ****  
+  18:ALTIMU_10.c   ****  Return: 0 if success
+  19:ALTIMU_10.c   ****          1 if fail
+  20:ALTIMU_10.c   ****  
+  21:ALTIMU_10.c   **** *************************************************************************/
+  22:ALTIMU_10.c   **** 
+  23:ALTIMU_10.c   **** uint8_t write_to_reg(unsigned char address_slave,unsigned char reg_slave, uint8_t data){
+ 109               	.LM0:
+ 110               	.LFBB1:
+ 111 0000 0F93      		push r16
+ 112 0002 1F93      		push r17
+ 113 0004 CF93      		push r28
+ 114 0006 DF93      		push r29
+ 115 0008 1F92      		push __zero_reg__
+ 116 000a CDB7      		in r28,__SP_L__
+ 117 000c DEB7      		in r29,__SP_H__
+ 118               	/* prologue: function */
+ 119               	/* frame size = 1 */
+ 120               	/* stack size = 5 */
+ 121               	.L__stack_usage = 5
+ 122 000e 042F      		mov r16,r20
+  24:ALTIMU_10.c   ****      if (i2c_start(address_slave << 1) == 0) {
+ 124               	.LM1:
+ 125 0010 880F      		lsl r24
+ 126 0012 6983      		std Y+1,r22
+ 127 0014 0E94 0000 		call i2c_start
+ 128 0018 182F      		mov r17,r24
+ 129 001a 6981      		ldd r22,Y+1
+ 130 001c 8111      		cpse r24,__zero_reg__
+ 131 001e 00C0      		rjmp .L3
+  25:ALTIMU_10.c   ****         i2c_write(reg_slave);
+ 133               	.LM2:
+ 134 0020 862F      		mov r24,r22
+ 135 0022 0E94 0000 		call i2c_write
+  26:ALTIMU_10.c   ****         i2c_write(data);
+ 137               	.LM3:
+ 138 0026 802F      		mov r24,r16
+ 139 0028 0E94 0000 		call i2c_write
+  27:ALTIMU_10.c   ****         i2c_stop();
+ 141               	.LM4:
+ 142 002c 0E94 0000 		call i2c_stop
+  28:ALTIMU_10.c   ****         return 0;
+ 144               	.LM5:
+ 145 0030 00C0      		rjmp .L2
+ 146               	.L3:
+  29:ALTIMU_10.c   ****     } else {
+  30:ALTIMU_10.c   ****         return 1;
+ 148               	.LM6:
+ 149 0032 11E0      		ldi r17,lo8(1)
+ 150               	.L2:
+  31:ALTIMU_10.c   ****     }
+  32:ALTIMU_10.c   **** }/*write_to_reg*/
+ 152               	.LM7:
+ 153 0034 812F      		mov r24,r17
+ 154               	/* epilogue start */
+ 155 0036 0F90      		pop __tmp_reg__
+ 156 0038 DF91      		pop r29
+ 157 003a CF91      		pop r28
+ 158 003c 1F91      		pop r17
+ 159 003e 0F91      		pop r16
+ 160 0040 0895      		ret
+ 162               	.Lscope1:
+ 165               	.global	read_from_reg
+ 167               	read_from_reg:
+  33:ALTIMU_10.c   **** 
+  34:ALTIMU_10.c   **** /*************************************************************************
+  35:ALTIMU_10.c   ****  Read from slave register
+  36:ALTIMU_10.c   ****  
+  37:ALTIMU_10.c   ****  Input: [7-bit address to the slave] [Register value on slave]
+  38:ALTIMU_10.c   ****  
+  39:ALTIMU_10.c   ****  Return: Byte if success
+  40:ALTIMU_10.c   ****          1 if fail
+  41:ALTIMU_10.c   ****  
+  42:ALTIMU_10.c   **** *************************************************************************/
+  43:ALTIMU_10.c   **** uint8_t read_from_reg(unsigned char address_slave,unsigned reg_slave){
+ 169               	.LM8:
+ 170               	.LFBB2:
+ 171 0042 1F93      		push r17
+ 172 0044 CF93      		push r28
+ 173 0046 DF93      		push r29
+ 174 0048 1F92      		push __zero_reg__
+ 175 004a CDB7      		in r28,__SP_L__
+ 176 004c DEB7      		in r29,__SP_H__
+ 177               	/* prologue: function */
+ 178               	/* frame size = 1 */
+ 179               	/* stack size = 4 */
+ 180               	.L__stack_usage = 4
+ 181 004e 182F      		mov r17,r24
+  44:ALTIMU_10.c   ****       if (i2c_start(address_slave << 1) == 0) {
+ 183               	.LM9:
+ 184 0050 880F      		lsl r24
+ 185 0052 6983      		std Y+1,r22
+ 186 0054 0E94 0000 		call i2c_start
+ 187 0058 6981      		ldd r22,Y+1
+ 188 005a 8111      		cpse r24,__zero_reg__
+ 189 005c 00C0      		rjmp .L7
+  45:ALTIMU_10.c   ****         i2c_write(reg_slave);
+ 191               	.LM10:
+ 192 005e 862F      		mov r24,r22
+ 193 0060 0E94 0000 		call i2c_write
+  46:ALTIMU_10.c   ****         if (i2c_rep_start(((uint8_t) address_slave << 1) | 1) == 0) {
+ 195               	.LM11:
+ 196 0064 812F      		mov r24,r17
+ 197 0066 880F      		lsl r24
+ 198 0068 8160      		ori r24,lo8(1)
+ 199 006a 0E94 0000 		call i2c_rep_start
+ 200 006e 8111      		cpse r24,__zero_reg__
+ 201 0070 00C0      		rjmp .L7
+ 202               	/* epilogue start */
+  47:ALTIMU_10.c   ****             return i2c_read(NAK);
+  48:ALTIMU_10.c   ****         }
+  49:ALTIMU_10.c   ****     }
+  50:ALTIMU_10.c   ****     return 1;
+  51:ALTIMU_10.c   **** }
+ 204               	.LM12:
+ 205 0072 0F90      		pop __tmp_reg__
+ 206 0074 DF91      		pop r29
+ 207 0076 CF91      		pop r28
+ 208 0078 1F91      		pop r17
+  47:ALTIMU_10.c   ****             return i2c_read(NAK);
+ 210               	.LM13:
+ 211 007a 0C94 0000 		jmp i2c_readNak
+ 212               	.L7:
+ 214               	.LM14:
+ 215 007e 81E0      		ldi r24,lo8(1)
+ 216               	/* epilogue start */
+ 217 0080 0F90      		pop __tmp_reg__
+ 218 0082 DF91      		pop r29
+ 219 0084 CF91      		pop r28
+ 220 0086 1F91      		pop r17
+ 221 0088 0895      		ret
+ 223               	.Lscope2:
+ 225               	.Letext0:
+ 226               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ALTIMU_10.c
+     /tmp/ccE6X2sB.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccE6X2sB.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccE6X2sB.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccE6X2sB.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccE6X2sB.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccE6X2sB.s:107    .text:0000000000000000 write_to_reg
+     /tmp/ccE6X2sB.s:167    .text:0000000000000042 read_from_reg
+
+UNDEFINED SYMBOLS
+i2c_start
+i2c_write
+i2c_stop
+i2c_rep_start
+i2c_readNak

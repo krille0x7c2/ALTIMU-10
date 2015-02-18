@@ -6,15 +6,15 @@
    6               	__zero_reg__ = 1
    8               		.text
    9               	.Ltext0:
- 102               	.global	TWIInit
- 104               	TWIInit:
+ 104               	.global	TWIInit
+ 106               	TWIInit:
    1:twi_master.c  **** /* 
    2:twi_master.c  ****  * File:   twi_master.c
-   3:twi_master.c  ****  * Author: krille0x7c2
+   3:twi_master.c  ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
    4:twi_master.c  ****  * source: http://www.atmel.com/images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA
    5:twi_master.c  ****  * Created on February 16, 2015, 6:23 PM
    6:twi_master.c  ****  */
-   7:twi_master.c  **** #include "altiMU_10.h"
+   7:twi_master.c  **** #include "ALTIMU_10.h"
    8:twi_master.c  **** #include <avr/io.h>
    9:twi_master.c  **** #include "twi_master.h"
   10:twi_master.c  **** #include <inttypes.h>
@@ -22,29 +22,29 @@
   12:twi_master.c  **** #include <util/delay.h>
   13:twi_master.c  **** void TWIInit(void)
   14:twi_master.c  **** {
- 106               	.LM0:
- 107               	.LFBB1:
- 108               	/* prologue: function */
- 109               	/* frame size = 0 */
- 110               	/* stack size = 0 */
- 111               	.L__stack_usage = 0
+ 108               	.LM0:
+ 109               	.LFBB1:
+ 110               	/* prologue: function */
+ 111               	/* frame size = 0 */
+ 112               	/* stack size = 0 */
+ 113               	.L__stack_usage = 0
   15:twi_master.c  ****     //set SCL to 400kHz
   16:twi_master.c  ****     TWSR = 0x00;
- 113               	.LM1:
- 114 0000 1092 B900 		sts 185,__zero_reg__
+ 115               	.LM1:
+ 116 0000 1092 B900 		sts 185,__zero_reg__
   17:twi_master.c  ****     TWBR = 0x0C;
- 116               	.LM2:
- 117 0004 8CE0      		ldi r24,lo8(12)
- 118 0006 8093 B800 		sts 184,r24
+ 118               	.LM2:
+ 119 0004 8CE0      		ldi r24,lo8(12)
+ 120 0006 8093 B800 		sts 184,r24
   18:twi_master.c  ****     //enable TWI
   19:twi_master.c  ****     TWCR = (1<<TWEN);
- 120               	.LM3:
- 121 000a 84E0      		ldi r24,lo8(4)
- 122 000c 8093 BC00 		sts 188,r24
- 123 0010 0895      		ret
- 125               	.Lscope1:
- 128               	.global	i2c_start
- 130               	i2c_start:
+ 122               	.LM3:
+ 123 000a 84E0      		ldi r24,lo8(4)
+ 124 000c 8093 BC00 		sts 188,r24
+ 125 0010 0895      		ret
+ 127               	.Lscope1:
+ 130               	.global	i2c_start
+ 132               	i2c_start:
   20:twi_master.c  **** }
   21:twi_master.c  **** /*************************************************************************	
   22:twi_master.c  ****   Issues a start condition and sends address and transfer direction.
@@ -52,90 +52,90 @@
   24:twi_master.c  **** *************************************************************************/
   25:twi_master.c  **** uint8_t i2c_start(unsigned char address)
   26:twi_master.c  **** {
- 132               	.LM4:
- 133               	.LFBB2:
- 134               	/* prologue: function */
- 135               	/* frame size = 0 */
- 136               	/* stack size = 0 */
- 137               	.L__stack_usage = 0
+ 134               	.LM4:
+ 135               	.LFBB2:
+ 136               	/* prologue: function */
+ 137               	/* frame size = 0 */
+ 138               	/* stack size = 0 */
+ 139               	.L__stack_usage = 0
   27:twi_master.c  ****     uint8_t   twst;
   28:twi_master.c  **** 
   29:twi_master.c  **** 	// send START condition
   30:twi_master.c  **** 	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
- 139               	.LM5:
- 140 0012 94EA      		ldi r25,lo8(-92)
- 141 0014 9093 BC00 		sts 188,r25
- 142               	.L3:
+ 141               	.LM5:
+ 142 0012 94EA      		ldi r25,lo8(-92)
+ 143 0014 9093 BC00 		sts 188,r25
+ 144               	.L3:
   31:twi_master.c  **** 
   32:twi_master.c  **** 	// wait until transmission completed
   33:twi_master.c  **** 	while(!(TWCR & (1<<TWINT)));
- 144               	.LM6:
- 145 0018 9091 BC00 		lds r25,188
- 146 001c 97FF      		sbrs r25,7
- 147 001e 00C0      		rjmp .L3
+ 146               	.LM6:
+ 147 0018 9091 BC00 		lds r25,188
+ 148 001c 97FF      		sbrs r25,7
+ 149 001e 00C0      		rjmp .L3
   34:twi_master.c  **** 
   35:twi_master.c  **** 	// check value of TWI Status Register. Mask prescaler bits.
   36:twi_master.c  **** 	twst = TW_STATUS & 0xF8;
- 149               	.LM7:
- 150 0020 9091 B900 		lds r25,185
- 151 0024 987F      		andi r25,lo8(-8)
+ 151               	.LM7:
+ 152 0020 9091 B900 		lds r25,185
+ 153 0024 987F      		andi r25,lo8(-8)
   37:twi_master.c  **** 	if ( (twst != TW_START) && (twst != TW_REP_START)) return 1;
- 153               	.LM8:
- 154 0026 9830      		cpi r25,lo8(8)
- 155 0028 01F0      		breq .L4
- 157               	.LM9:
- 158 002a 9031      		cpi r25,lo8(16)
- 159 002c 01F0      		breq .L4
- 160               	.L7:
- 162               	.LM10:
- 163 002e 81E0      		ldi r24,lo8(1)
- 164 0030 0895      		ret
- 165               	.L4:
- 166               	.LBB4:
- 167               	.LBB5:
+ 155               	.LM8:
+ 156 0026 9830      		cpi r25,lo8(8)
+ 157 0028 01F0      		breq .L4
+ 159               	.LM9:
+ 160 002a 9031      		cpi r25,lo8(16)
+ 161 002c 01F0      		breq .L4
+ 162               	.L7:
+ 164               	.LM10:
+ 165 002e 81E0      		ldi r24,lo8(1)
+ 166 0030 0895      		ret
+ 167               	.L4:
+ 168               	.LBB4:
+ 169               	.LBB5:
   38:twi_master.c  **** 
   39:twi_master.c  **** 	// send device address
   40:twi_master.c  **** 	TWDR = address;
- 169               	.LM11:
- 170 0032 8093 BB00 		sts 187,r24
+ 171               	.LM11:
+ 172 0032 8093 BB00 		sts 187,r24
   41:twi_master.c  **** 	TWCR = (1<<TWINT) | (1<<TWEN);
- 172               	.LM12:
- 173 0036 84E8      		ldi r24,lo8(-124)
- 174 0038 8093 BC00 		sts 188,r24
- 175               	.L6:
+ 174               	.LM12:
+ 175 0036 84E8      		ldi r24,lo8(-124)
+ 176 0038 8093 BC00 		sts 188,r24
+ 177               	.L6:
   42:twi_master.c  **** 
   43:twi_master.c  **** 	// wail until transmission completed and ACK/NACK has been received
   44:twi_master.c  **** 	while(!(TWCR & (1<<TWINT)));
- 177               	.LM13:
- 178 003c 8091 BC00 		lds r24,188
- 179 0040 87FF      		sbrs r24,7
- 180 0042 00C0      		rjmp .L6
+ 179               	.LM13:
+ 180 003c 8091 BC00 		lds r24,188
+ 181 0040 87FF      		sbrs r24,7
+ 182 0042 00C0      		rjmp .L6
   45:twi_master.c  **** 
   46:twi_master.c  **** 	// check value of TWI Status Register. Mask prescaler bits.
   47:twi_master.c  **** 	twst = TW_STATUS & 0xF8;
- 182               	.LM14:
- 183 0044 8091 B900 		lds r24,185
- 184 0048 887F      		andi r24,lo8(-8)
+ 184               	.LM14:
+ 185 0044 8091 B900 		lds r24,185
+ 186 0048 887F      		andi r24,lo8(-8)
   48:twi_master.c  **** 	if ( (twst != TW_MT_SLA_ACK) && (twst != TW_MR_SLA_ACK) ) return 1;
- 186               	.LM15:
- 187 004a 8831      		cpi r24,lo8(24)
- 188 004c 01F0      		breq .L8
- 189 004e 8034      		cpi r24,lo8(64)
- 190 0050 01F4      		brne .L7
- 191               	.L8:
+ 188               	.LM15:
+ 189 004a 8831      		cpi r24,lo8(24)
+ 190 004c 01F0      		breq .L8
+ 191 004e 8034      		cpi r24,lo8(64)
+ 192 0050 01F4      		brne .L7
+ 193               	.L8:
   49:twi_master.c  **** 
   50:twi_master.c  **** 	return 0;
- 193               	.LM16:
- 194 0052 80E0      		ldi r24,0
- 195               	.LBE5:
- 196               	.LBE4:
+ 195               	.LM16:
+ 196 0052 80E0      		ldi r24,0
+ 197               	.LBE5:
+ 198               	.LBE4:
   51:twi_master.c  **** 
   52:twi_master.c  **** }
- 198               	.LM17:
- 199 0054 0895      		ret
- 207               	.Lscope2:
- 210               	.global	i2c_start_wait
- 212               	i2c_start_wait:
+ 200               	.LM17:
+ 201 0054 0895      		ret
+ 209               	.Lscope2:
+ 212               	.global	i2c_start_wait
+ 214               	i2c_start_wait:
   53:twi_master.c  **** 
   54:twi_master.c  **** 
   55:twi_master.c  **** /*************************************************************************
@@ -146,12 +146,12 @@
   60:twi_master.c  **** *************************************************************************/
   61:twi_master.c  **** void i2c_start_wait(unsigned char address)
   62:twi_master.c  **** {
- 214               	.LM18:
- 215               	.LFBB3:
- 216               	/* prologue: function */
- 217               	/* frame size = 0 */
- 218               	/* stack size = 0 */
- 219               	.L__stack_usage = 0
+ 216               	.LM18:
+ 217               	.LFBB3:
+ 218               	/* prologue: function */
+ 219               	/* frame size = 0 */
+ 220               	/* stack size = 0 */
+ 221               	.L__stack_usage = 0
   63:twi_master.c  ****     uint8_t   twst;
   64:twi_master.c  **** 
   65:twi_master.c  **** 
@@ -159,8 +159,8 @@
   67:twi_master.c  ****     {
   68:twi_master.c  **** 	    // send START condition
   69:twi_master.c  **** 	    TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
- 221               	.LM19:
- 222 0056 24EA      		ldi r18,lo8(-92)
+ 223               	.LM19:
+ 224 0056 24EA      		ldi r18,lo8(-92)
   70:twi_master.c  ****     
   71:twi_master.c  ****     	// wait until transmission completed
   72:twi_master.c  ****     	while(!(TWCR & (1<<TWINT)));
@@ -172,8 +172,8 @@
   78:twi_master.c  ****     	// send device address
   79:twi_master.c  ****     	TWDR = address;
   80:twi_master.c  ****     	TWCR = (1<<TWINT) | (1<<TWEN);
- 224               	.LM20:
- 225 0058 34E8      		ldi r19,lo8(-124)
+ 226               	.LM20:
+ 227 0058 34E8      		ldi r19,lo8(-124)
   81:twi_master.c  ****     
   82:twi_master.c  ****     	// wail until transmission completed
   83:twi_master.c  ****     	while(!(TWCR & (1<<TWINT)));
@@ -184,72 +184,72 @@
   88:twi_master.c  ****     	{    	    
   89:twi_master.c  ****     	    /* device busy, send stop condition to terminate write operation */
   90:twi_master.c  **** 	        TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
- 227               	.LM21:
- 228 005a 44E9      		ldi r20,lo8(-108)
- 229               	.L19:
+ 229               	.LM21:
+ 230 005a 44E9      		ldi r20,lo8(-108)
+ 231               	.L19:
   69:twi_master.c  ****     
- 231               	.LM22:
- 232 005c 2093 BC00 		sts 188,r18
- 233               	.L20:
+ 233               	.LM22:
+ 234 005c 2093 BC00 		sts 188,r18
+ 235               	.L20:
   72:twi_master.c  ****     
- 235               	.LM23:
- 236 0060 9091 BC00 		lds r25,188
- 237 0064 97FF      		sbrs r25,7
- 238 0066 00C0      		rjmp .L20
+ 237               	.LM23:
+ 238 0060 9091 BC00 		lds r25,188
+ 239 0064 97FF      		sbrs r25,7
+ 240 0066 00C0      		rjmp .L20
   75:twi_master.c  ****     	if ( (twst != TW_START) && (twst != TW_REP_START)) continue;
- 240               	.LM24:
- 241 0068 9091 B900 		lds r25,185
- 242 006c 987F      		andi r25,lo8(-8)
+ 242               	.LM24:
+ 243 0068 9091 B900 		lds r25,185
+ 244 006c 987F      		andi r25,lo8(-8)
   76:twi_master.c  ****     
- 244               	.LM25:
- 245 006e 9830      		cpi r25,lo8(8)
- 246 0070 01F0      		breq .L21
+ 246               	.LM25:
+ 247 006e 9830      		cpi r25,lo8(8)
+ 248 0070 01F0      		breq .L21
   76:twi_master.c  ****     
- 248               	.LM26:
- 249 0072 9031      		cpi r25,lo8(16)
- 250 0074 01F4      		brne .L19
- 251               	.L21:
+ 250               	.LM26:
+ 251 0072 9031      		cpi r25,lo8(16)
+ 252 0074 01F4      		brne .L19
+ 253               	.L21:
   79:twi_master.c  ****     	TWCR = (1<<TWINT) | (1<<TWEN);
- 253               	.LM27:
- 254 0076 8093 BB00 		sts 187,r24
+ 255               	.LM27:
+ 256 0076 8093 BB00 		sts 187,r24
   80:twi_master.c  ****     
- 256               	.LM28:
- 257 007a 3093 BC00 		sts 188,r19
- 258               	.L23:
+ 258               	.LM28:
+ 259 007a 3093 BC00 		sts 188,r19
+ 260               	.L23:
   83:twi_master.c  ****     
- 260               	.LM29:
- 261 007e 9091 BC00 		lds r25,188
- 262 0082 97FF      		sbrs r25,7
- 263 0084 00C0      		rjmp .L23
+ 262               	.LM29:
+ 263 007e 9091 BC00 		lds r25,188
+ 264 0082 97FF      		sbrs r25,7
+ 265 0084 00C0      		rjmp .L23
   86:twi_master.c  ****     	if ( (twst == TW_MT_SLA_NACK )||(twst ==TW_MR_DATA_NACK) ) 
- 265               	.LM30:
- 266 0086 9091 B900 		lds r25,185
- 267 008a 987F      		andi r25,lo8(-8)
+ 267               	.LM30:
+ 268 0086 9091 B900 		lds r25,185
+ 269 008a 987F      		andi r25,lo8(-8)
   87:twi_master.c  ****     	{    	    
- 269               	.LM31:
- 270 008c 9032      		cpi r25,lo8(32)
- 271 008e 01F0      		breq .L24
+ 271               	.LM31:
+ 272 008c 9032      		cpi r25,lo8(32)
+ 273 008e 01F0      		breq .L24
   87:twi_master.c  ****     	{    	    
- 273               	.LM32:
- 274 0090 9835      		cpi r25,lo8(88)
- 275 0092 01F4      		brne .L18
- 276               	.L24:
- 278               	.LM33:
- 279 0094 4093 BC00 		sts 188,r20
- 280               	.L26:
+ 275               	.LM32:
+ 276 0090 9835      		cpi r25,lo8(88)
+ 277 0092 01F4      		brne .L18
+ 278               	.L24:
+ 280               	.LM33:
+ 281 0094 4093 BC00 		sts 188,r20
+ 282               	.L26:
   91:twi_master.c  **** 	        
   92:twi_master.c  **** 	        // wait until stop condition is executed and bus released
   93:twi_master.c  **** 	        while(TWCR & (1<<TWSTO));
- 282               	.LM34:
- 283 0098 9091 BC00 		lds r25,188
- 284 009c 94FD      		sbrc r25,4
- 285 009e 00C0      		rjmp .L26
- 286 00a0 00C0      		rjmp .L19
- 287               	.L18:
- 288 00a2 0895      		ret
- 290               	.Lscope3:
- 293               	.global	i2c_rep_start
- 295               	i2c_rep_start:
+ 284               	.LM34:
+ 285 0098 9091 BC00 		lds r25,188
+ 286 009c 94FD      		sbrc r25,4
+ 287 009e 00C0      		rjmp .L26
+ 288 00a0 00C0      		rjmp .L19
+ 289               	.L18:
+ 290 00a2 0895      		ret
+ 292               	.Lscope3:
+ 295               	.global	i2c_rep_start
+ 297               	i2c_rep_start:
   94:twi_master.c  **** 	        
   95:twi_master.c  ****     	    continue;
   96:twi_master.c  ****     	}
@@ -270,18 +270,18 @@
  111:twi_master.c  **** *************************************************************************/
  112:twi_master.c  **** uint8_t i2c_rep_start(unsigned char address)
  113:twi_master.c  **** {
- 297               	.LM35:
- 298               	.LFBB4:
- 299               	/* prologue: function */
- 300               	/* frame size = 0 */
- 301               	/* stack size = 0 */
- 302               	.L__stack_usage = 0
+ 299               	.LM35:
+ 300               	.LFBB4:
+ 301               	/* prologue: function */
+ 302               	/* frame size = 0 */
+ 303               	/* stack size = 0 */
+ 304               	.L__stack_usage = 0
  114:twi_master.c  ****     return i2c_start( address );
- 304               	.LM36:
- 305 00a4 0C94 0000 		jmp i2c_start
- 307               	.Lscope4:
- 309               	.global	i2c_stop
- 311               	i2c_stop:
+ 306               	.LM36:
+ 307 00a4 0C94 0000 		jmp i2c_start
+ 309               	.Lscope4:
+ 311               	.global	i2c_stop
+ 313               	i2c_stop:
  115:twi_master.c  **** 
  116:twi_master.c  **** }
  117:twi_master.c  **** 
@@ -291,33 +291,33 @@
  121:twi_master.c  **** *************************************************************************/
  122:twi_master.c  **** void i2c_stop(void)
  123:twi_master.c  **** {
- 313               	.LM37:
- 314               	.LFBB5:
- 315               	/* prologue: function */
- 316               	/* frame size = 0 */
- 317               	/* stack size = 0 */
- 318               	.L__stack_usage = 0
+ 315               	.LM37:
+ 316               	.LFBB5:
+ 317               	/* prologue: function */
+ 318               	/* frame size = 0 */
+ 319               	/* stack size = 0 */
+ 320               	.L__stack_usage = 0
  124:twi_master.c  ****     /* send stop condition */
  125:twi_master.c  **** 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
- 320               	.LM38:
- 321 00a8 84E9      		ldi r24,lo8(-108)
- 322 00aa 8093 BC00 		sts 188,r24
- 323               	.L38:
+ 322               	.LM38:
+ 323 00a8 84E9      		ldi r24,lo8(-108)
+ 324 00aa 8093 BC00 		sts 188,r24
+ 325               	.L38:
  126:twi_master.c  **** 	
  127:twi_master.c  **** 	// wait until stop condition is executed and bus released
  128:twi_master.c  **** 	while(TWCR & (1<<TWSTO));
- 325               	.LM39:
- 326 00ae 8091 BC00 		lds r24,188
- 327 00b2 84FD      		sbrc r24,4
- 328 00b4 00C0      		rjmp .L38
- 329               	/* epilogue start */
+ 327               	.LM39:
+ 328 00ae 8091 BC00 		lds r24,188
+ 329 00b2 84FD      		sbrc r24,4
+ 330 00b4 00C0      		rjmp .L38
+ 331               	/* epilogue start */
  129:twi_master.c  **** 
  130:twi_master.c  **** }
- 331               	.LM40:
- 332 00b6 0895      		ret
- 334               	.Lscope5:
- 337               	.global	i2c_write
- 339               	i2c_write:
+ 333               	.LM40:
+ 334 00b6 0895      		ret
+ 336               	.Lscope5:
+ 339               	.global	i2c_write
+ 341               	i2c_write:
  131:twi_master.c  **** 
  132:twi_master.c  **** 
  133:twi_master.c  **** /*************************************************************************
@@ -329,51 +329,51 @@
  139:twi_master.c  **** *************************************************************************/
  140:twi_master.c  **** uint8_t i2c_write( unsigned char data )
  141:twi_master.c  **** {	
- 341               	.LM41:
- 342               	.LFBB6:
- 343               	/* prologue: function */
- 344               	/* frame size = 0 */
- 345               	/* stack size = 0 */
- 346               	.L__stack_usage = 0
+ 343               	.LM41:
+ 344               	.LFBB6:
+ 345               	/* prologue: function */
+ 346               	/* frame size = 0 */
+ 347               	/* stack size = 0 */
+ 348               	.L__stack_usage = 0
  142:twi_master.c  ****     uint8_t   twst;
  143:twi_master.c  ****     
  144:twi_master.c  **** 	// send data to the previously addressed device
  145:twi_master.c  **** 	TWDR = data;
- 348               	.LM42:
- 349 00b8 8093 BB00 		sts 187,r24
+ 350               	.LM42:
+ 351 00b8 8093 BB00 		sts 187,r24
  146:twi_master.c  **** 	TWCR = (1<<TWINT) | (1<<TWEN);
- 351               	.LM43:
- 352 00bc 84E8      		ldi r24,lo8(-124)
- 353 00be 8093 BC00 		sts 188,r24
- 354               	.L41:
+ 353               	.LM43:
+ 354 00bc 84E8      		ldi r24,lo8(-124)
+ 355 00be 8093 BC00 		sts 188,r24
+ 356               	.L41:
  147:twi_master.c  **** 
  148:twi_master.c  **** 	// wait until transmission completed
  149:twi_master.c  **** 	while(!(TWCR & (1<<TWINT)));
- 356               	.LM44:
- 357 00c2 8091 BC00 		lds r24,188
- 358 00c6 87FF      		sbrs r24,7
- 359 00c8 00C0      		rjmp .L41
+ 358               	.LM44:
+ 359 00c2 8091 BC00 		lds r24,188
+ 360 00c6 87FF      		sbrs r24,7
+ 361 00c8 00C0      		rjmp .L41
  150:twi_master.c  **** 
- 151:twi_master.c  **** 	// check value of TWI Status Register. Mask prescaler bits
+ 151:twi_master.c  **** 	// check value of TWI Status Register. Mask prescaler bits only need the top 5 bits
  152:twi_master.c  **** 	twst = TW_STATUS & 0xF8;
- 361               	.LM45:
- 362 00ca 9091 B900 		lds r25,185
- 363 00ce 987F      		andi r25,lo8(-8)
+ 363               	.LM45:
+ 364 00ca 9091 B900 		lds r25,185
+ 365 00ce 987F      		andi r25,lo8(-8)
  153:twi_master.c  **** 	if( twst != TW_MT_DATA_ACK) return 1;
- 365               	.LM46:
- 366 00d0 81E0      		ldi r24,lo8(1)
- 367 00d2 9832      		cpi r25,lo8(40)
- 368 00d4 01F4      		brne .L42
- 369 00d6 80E0      		ldi r24,0
- 370               	.L42:
+ 367               	.LM46:
+ 368 00d0 81E0      		ldi r24,lo8(1)
+ 369 00d2 9832      		cpi r25,lo8(40)
+ 370 00d4 01F4      		brne .L42
+ 371 00d6 80E0      		ldi r24,0
+ 372               	.L42:
  154:twi_master.c  **** 	return 0;
  155:twi_master.c  **** 
  156:twi_master.c  **** }
- 372               	.LM47:
- 373 00d8 0895      		ret
- 375               	.Lscope6:
- 377               	.global	i2c_readAck
- 379               	i2c_readAck:
+ 374               	.LM47:
+ 375 00d8 0895      		ret
+ 377               	.Lscope6:
+ 379               	.global	i2c_readAck
+ 381               	i2c_readAck:
  157:twi_master.c  **** 
  158:twi_master.c  **** 
  159:twi_master.c  **** /*************************************************************************
@@ -383,33 +383,33 @@
  163:twi_master.c  **** *************************************************************************/
  164:twi_master.c  **** uint8_t i2c_readAck(void)
  165:twi_master.c  **** {
- 381               	.LM48:
- 382               	.LFBB7:
- 383               	/* prologue: function */
- 384               	/* frame size = 0 */
- 385               	/* stack size = 0 */
- 386               	.L__stack_usage = 0
+ 383               	.LM48:
+ 384               	.LFBB7:
+ 385               	/* prologue: function */
+ 386               	/* frame size = 0 */
+ 387               	/* stack size = 0 */
+ 388               	.L__stack_usage = 0
  166:twi_master.c  **** 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
- 388               	.LM49:
- 389 00da 84EC      		ldi r24,lo8(-60)
- 390 00dc 8093 BC00 		sts 188,r24
- 391               	.L45:
+ 390               	.LM49:
+ 391 00da 84EC      		ldi r24,lo8(-60)
+ 392 00dc 8093 BC00 		sts 188,r24
+ 393               	.L45:
  167:twi_master.c  **** 	while(!(TWCR & (1<<TWINT)));    
- 393               	.LM50:
- 394 00e0 8091 BC00 		lds r24,188
- 395 00e4 87FF      		sbrs r24,7
- 396 00e6 00C0      		rjmp .L45
+ 395               	.LM50:
+ 396 00e0 8091 BC00 		lds r24,188
+ 397 00e4 87FF      		sbrs r24,7
+ 398 00e6 00C0      		rjmp .L45
  168:twi_master.c  **** 
  169:twi_master.c  ****     return TWDR;
- 398               	.LM51:
- 399 00e8 8091 BB00 		lds r24,187
+ 400               	.LM51:
+ 401 00e8 8091 BB00 		lds r24,187
  170:twi_master.c  **** 
  171:twi_master.c  **** }
- 401               	.LM52:
- 402 00ec 0895      		ret
- 404               	.Lscope7:
- 406               	.global	i2c_readNak
- 408               	i2c_readNak:
+ 403               	.LM52:
+ 404 00ec 0895      		ret
+ 406               	.Lscope7:
+ 408               	.global	i2c_readNak
+ 410               	i2c_readNak:
  172:twi_master.c  **** 
  173:twi_master.c  **** 
  174:twi_master.c  **** /*************************************************************************
@@ -419,47 +419,47 @@
  178:twi_master.c  **** *************************************************************************/
  179:twi_master.c  **** uint8_t i2c_readNak(void)
  180:twi_master.c  **** {
- 410               	.LM53:
- 411               	.LFBB8:
- 412               	/* prologue: function */
- 413               	/* frame size = 0 */
- 414               	/* stack size = 0 */
- 415               	.L__stack_usage = 0
+ 412               	.LM53:
+ 413               	.LFBB8:
+ 414               	/* prologue: function */
+ 415               	/* frame size = 0 */
+ 416               	/* stack size = 0 */
+ 417               	.L__stack_usage = 0
  181:twi_master.c  **** 	TWCR = (1<<TWINT) | (1<<TWEN);
- 417               	.LM54:
- 418 00ee 84E8      		ldi r24,lo8(-124)
- 419 00f0 8093 BC00 		sts 188,r24
- 420               	.L48:
+ 419               	.LM54:
+ 420 00ee 84E8      		ldi r24,lo8(-124)
+ 421 00f0 8093 BC00 		sts 188,r24
+ 422               	.L48:
  182:twi_master.c  **** 	while(!(TWCR & (1<<TWINT)));
- 422               	.LM55:
- 423 00f4 8091 BC00 		lds r24,188
- 424 00f8 87FF      		sbrs r24,7
- 425 00fa 00C0      		rjmp .L48
+ 424               	.LM55:
+ 425 00f4 8091 BC00 		lds r24,188
+ 426 00f8 87FF      		sbrs r24,7
+ 427 00fa 00C0      		rjmp .L48
  183:twi_master.c  **** 	
  184:twi_master.c  ****     return TWDR;
- 427               	.LM56:
- 428 00fc 8091 BB00 		lds r24,187
+ 429               	.LM56:
+ 430 00fc 8091 BB00 		lds r24,187
  185:twi_master.c  **** 
- 186:twi_master.c  **** }
- 430               	.LM57:
- 431 0100 0895      		ret
- 433               	.Lscope8:
- 435               	.Letext0:
- 436               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+ 186:twi_master.c  **** }...
+ 432               	.LM57:
+ 433 0100 0895      		ret
+ 435               	.Lscope8:
+ 437               	.Letext0:
+ 438               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 twi_master.c
-     /tmp/cchbqEzc.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cchbqEzc.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cchbqEzc.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cchbqEzc.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cchbqEzc.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cchbqEzc.s:104    .text:0000000000000000 TWIInit
-     /tmp/cchbqEzc.s:130    .text:0000000000000012 i2c_start
-     /tmp/cchbqEzc.s:212    .text:0000000000000056 i2c_start_wait
-     /tmp/cchbqEzc.s:295    .text:00000000000000a4 i2c_rep_start
-     /tmp/cchbqEzc.s:311    .text:00000000000000a8 i2c_stop
-     /tmp/cchbqEzc.s:339    .text:00000000000000b8 i2c_write
-     /tmp/cchbqEzc.s:379    .text:00000000000000da i2c_readAck
-     /tmp/cchbqEzc.s:408    .text:00000000000000ee i2c_readNak
+     /tmp/ccPpQuXw.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccPpQuXw.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccPpQuXw.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccPpQuXw.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccPpQuXw.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccPpQuXw.s:106    .text:0000000000000000 TWIInit
+     /tmp/ccPpQuXw.s:132    .text:0000000000000012 i2c_start
+     /tmp/ccPpQuXw.s:214    .text:0000000000000056 i2c_start_wait
+     /tmp/ccPpQuXw.s:297    .text:00000000000000a4 i2c_rep_start
+     /tmp/ccPpQuXw.s:313    .text:00000000000000a8 i2c_stop
+     /tmp/ccPpQuXw.s:341    .text:00000000000000b8 i2c_write
+     /tmp/ccPpQuXw.s:381    .text:00000000000000da i2c_readAck
+     /tmp/ccPpQuXw.s:410    .text:00000000000000ee i2c_readNak
 
 NO UNDEFINED SYMBOLS

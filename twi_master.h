@@ -1,14 +1,14 @@
 /* 
  * File:   twi_master.h
- * Author: krille0x7c2
+ * Author: Christian Bodelsson<bodelsson@gmail.com>
  *
  * Created on February 16, 2015, 6:23 PM
  */
 
 #ifndef TWI_MASTER_H
 #define	TWI_MASTER_H
-#define I2C_READ    1
-#define I2C_WRITE   0
+#define ACK 1
+#define NAK 0
 #define i2c_read(ack)  (ack) ? i2c_readAck() : i2c_readNak(); 
 void TWIInit(void);
 extern uint8_t i2c_readNak(void);

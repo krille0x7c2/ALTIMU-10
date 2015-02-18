@@ -1,10 +1,10 @@
 /* 
  * File:   twi_master.c
- * Author: krille0x7c2
+ * Author: Christian Bodelsson<bodelsson@gmail.com>
  * source: http://www.atmel.com/images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Complete.pdf page 216
  * Created on February 16, 2015, 6:23 PM
  */
-#include "altiMU_10.h"
+#include "ALTIMU_10.h"
 #include <avr/io.h>
 #include "twi_master.h"
 #include <inttypes.h>
@@ -148,7 +148,7 @@ uint8_t i2c_write( unsigned char data )
 	// wait until transmission completed
 	while(!(TWCR & (1<<TWINT)));
 
-	// check value of TWI Status Register. Mask prescaler bits
+	// check value of TWI Status Register. Mask prescaler bits only need the top 5 bits
 	twst = TW_STATUS & 0xF8;
 	if( twst != TW_MT_DATA_ACK) return 1;
 	return 0;
@@ -184,7 +184,3 @@ uint8_t i2c_readNak(void)
     return TWDR;
 
 }
-
-
-
-

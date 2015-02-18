@@ -1,6 +1,6 @@
 /* 
  * File:   LSM303D_ACC_MAGNETO.h
- * Author: krille0x7c2
+ * Author: Christian Bodelsson<bodelsson@gmail.com>
  *
  * Created on February 17, 2015, 9:22 AM
  */

@@ -1,6 +1,6 @@
 /* 
  * File:   L3GD20H_GYRO.h
- * Author: krille0x7c2
+ * Author: Christian Bodelsson<bodelsson@gmail.com>
  *
  * Created on February 17, 2015, 9:21 AM
  */
@@ -47,10 +47,8 @@ typedef struct valstruct {
 }Val;
 
 
-extern uint8_t init_gyro(void);
-extern uint8_t read_from_gyro_reg(unsigned char address);
-extern uint8_t write_to_gyro_reg(unsigned char address, uint8_t data);
-extern struct valstruct read_gyro_values(void);
+void init_gyro(void);
+struct valstruct read_gyro_values(void);
 
 
 #endif	/* L3GD20H_GYRO_H */
