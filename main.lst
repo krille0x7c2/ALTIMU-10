@@ -6,16 +6,9 @@
    6               	__zero_reg__ = 1
    8               		.text
    9               	.Ltext0:
- 137               		.section	.rodata.str1.1,"aMS",@progbits,1
- 138               	.LC0:
- 139 0000 5B58 3A20 		.string	"[X: %f Y: %f Z: %f]\n"
- 139      2566 2059 
- 139      3A20 2566 
- 139      205A 3A20 
- 139      2566 5D0A 
- 140               		.section	.text.startup,"ax",@progbits
- 142               	.global	main
- 144               	main:
+ 137               		.section	.text.startup,"ax",@progbits
+ 139               	.global	main
+ 141               	main:
    1:main.c        **** /* 
    2:main.c        ****  * File:   main.c
    3:main.c        ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
@@ -31,107 +24,83 @@
   13:main.c        **** #include "ALTIMU_10.h"
   14:main.c        **** #include "usart.h"
   15:main.c        **** #include "LSM303D_ACC_MAG.h"
-  16:main.c        **** #include "timer.h"
-  17:main.c        **** #include <util/delay.h>
-  18:main.c        **** 
-  19:main.c        **** /*
-  20:main.c        ****  *Main
-  21:main.c        ****  * 
-  22:main.c        ****  *  
-  23:main.c        ****  */
+  16:main.c        **** #include <util/delay.h>
+  17:main.c        **** 
+  18:main.c        **** /*
+  19:main.c        ****  *Main
+  20:main.c        ****  * 
+  21:main.c        ****  *  
+  22:main.c        ****  */
+  23:main.c        **** 
   24:main.c        **** 
-  25:main.c        **** 
-  26:main.c        **** int main(void) {
- 146               	.LM0:
- 147               	.LFBB1:
- 148 0000 CF93      		push r28
- 149 0002 DF93      		push r29
- 150 0004 CDB7      		in r28,__SP_L__
- 151 0006 DEB7      		in r29,__SP_H__
- 152 0008 A097      		sbiw r28,32
- 153 000a 0FB6      		in __tmp_reg__,__SREG__
- 154 000c F894      		cli
- 155 000e DEBF      		out __SP_H__,r29
- 156 0010 0FBE      		out __SREG__,__tmp_reg__
- 157 0012 CDBF      		out __SP_L__,r28
- 158               	/* prologue: function */
- 159               	/* frame size = 32 */
- 160               	/* stack size = 34 */
- 161               	.L__stack_usage = 34
-  27:main.c        ****     USART0Init();
- 163               	.LM1:
- 164 0014 0E94 0000 		call USART0Init
-  28:main.c        ****     TWIInit();
- 166               	.LM2:
- 167 0018 0E94 0000 		call TWIInit
-  29:main.c        ****     Gyro_raw gyro_raw;
-  30:main.c        ****     Gyro_dps gyro_dps;
-  31:main.c        ****     Gyro_angle gyro_angle;
-  32:main.c        ****     
-  33:main.c        ****     Acc_raw acc_raw;
-  34:main.c        ****     Acc_angle acc_angel;
-  35:main.c        ****     
-  36:main.c        ****     Mag_raw mag_raw;
-  37:main.c        **** 
-  38:main.c        ****     //Set stream pointer
-  39:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
- 169               	.LM3:
- 170 001c FE01      		movw r30,r28
- 171 001e 3196      		adiw r30,1
- 172 0020 8EE0      		ldi r24,lo8(14)
- 173 0022 DF01      		movw r26,r30
- 174               		0:
- 175 0024 1D92      		st X+,__zero_reg__
- 176 0026 8A95      		dec r24
- 177 0028 01F4      		brne 0b
- 178 002a 83E0      		ldi r24,lo8(3)
- 179 002c 8C83      		std Y+4,r24
- 180 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
- 181 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
- 182 0032 9A87      		std Y+10,r25
- 183 0034 8987      		std Y+9,r24
- 184 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
- 185 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
- 186 003a 9C87      		std Y+12,r25
- 187 003c 8B87      		std Y+11,r24
-  40:main.c        ****     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging 
-  41:main.c        ****     stdin = stdout = &usart0_str;
- 189               	.LM4:
- 190 003e F093 0000 		sts __iob+2+1,r31
- 191 0042 E093 0000 		sts __iob+2,r30
- 192 0046 F093 0000 		sts __iob+1,r31
- 193 004a E093 0000 		sts __iob,r30
-  42:main.c        ****     /*gyro*/
-  43:main.c        ****             init_gyro();
- 195               	.LM5:
- 196 004e 0E94 0000 		call init_gyro
-  44:main.c        **** 
-  45:main.c        ****     /*acc*/
-  46:main.c        **** //    init_acc();
-  47:main.c        ****     
-  48:main.c        ****     /*mag*/
-  49:main.c        **** //    init_mag();
-  50:main.c        **** 
-  51:main.c        **** 
-  52:main.c        ****     /*pressure*/
-  53:main.c        **** //        init_bar();
-  54:main.c        **** 
-  55:main.c        ****     while (1) {
-  56:main.c        ****         
-  57:main.c        ****         _delay_ms(500);
-  58:main.c        ****         /*gyro*/
-  59:main.c        **** 
-  60:main.c        ****                 read_gyro_values(&gyro_raw);
-  61:main.c        **** //                printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
-  62:main.c        ****                 read_gyro_values_rate_dps(&gyro_raw,&gyro_dps);
-  63:main.c        ****                 printf("[X: %f Y: %f Z: %f]\n",gyro_dps.x,gyro_dps.y,gyro_dps.z);
- 198               	.LM6:
- 199 0052 00E0      		ldi r16,lo8(.LC0)
- 200 0054 10E0      		ldi r17,hi8(.LC0)
- 201               	.L2:
- 202               	.LBB4:
- 203               	.LBB5:
- 205               	.Ltext1:
+  25:main.c        **** int main(void) {
+ 143               	.LM0:
+ 144               	.LFBB1:
+ 145 0000 CF93      		push r28
+ 146 0002 DF93      		push r29
+ 147 0004 CDB7      		in r28,__SP_L__
+ 148 0006 DEB7      		in r29,__SP_H__
+ 149 0008 2E97      		sbiw r28,14
+ 150 000a 0FB6      		in __tmp_reg__,__SREG__
+ 151 000c F894      		cli
+ 152 000e DEBF      		out __SP_H__,r29
+ 153 0010 0FBE      		out __SREG__,__tmp_reg__
+ 154 0012 CDBF      		out __SP_L__,r28
+ 155               	/* prologue: function */
+ 156               	/* frame size = 14 */
+ 157               	/* stack size = 16 */
+ 158               	.L__stack_usage = 16
+  26:main.c        ****     USART0Init();
+ 160               	.LM1:
+ 161 0014 0E94 0000 		call USART0Init
+  27:main.c        ****     TWIInit();
+ 163               	.LM2:
+ 164 0018 0E94 0000 		call TWIInit
+  28:main.c        ****     Gyro_raw gyro_raw;
+  29:main.c        ****     Gyro_dps gyro_dps;
+  30:main.c        ****     Gyro_angle gyro_angle;
+  31:main.c        ****     
+  32:main.c        ****     Acc_raw acc_raw;
+  33:main.c        ****     Acc_angle acc_angel;
+  34:main.c        ****     
+  35:main.c        ****     Mag_raw mag_raw;
+  36:main.c        **** 
+  37:main.c        ****     //Set stream pointer
+  38:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
+ 166               	.LM3:
+ 167 001c FE01      		movw r30,r28
+ 168 001e 3196      		adiw r30,1
+ 169 0020 8EE0      		ldi r24,lo8(14)
+ 170 0022 DF01      		movw r26,r30
+ 171               		0:
+ 172 0024 1D92      		st X+,__zero_reg__
+ 173 0026 8A95      		dec r24
+ 174 0028 01F4      		brne 0b
+ 175 002a 83E0      		ldi r24,lo8(3)
+ 176 002c 8C83      		std Y+4,r24
+ 177 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
+ 178 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
+ 179 0032 9A87      		std Y+10,r25
+ 180 0034 8987      		std Y+9,r24
+ 181 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
+ 182 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
+ 183 003a 9C87      		std Y+12,r25
+ 184 003c 8B87      		std Y+11,r24
+  39:main.c        ****     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging 
+  40:main.c        ****     stdin = stdout = &usart0_str;
+ 186               	.LM4:
+ 187 003e F093 0000 		sts __iob+2+1,r31
+ 188 0042 E093 0000 		sts __iob+2,r30
+ 189 0046 F093 0000 		sts __iob+1,r31
+ 190 004a E093 0000 		sts __iob,r30
+  41:main.c        ****     /*gyro*/
+  42:main.c        ****             init_gyro();
+ 192               	.LM5:
+ 193 004e 0E94 0000 		call init_gyro
+ 194               	.L2:
+ 195               	.LBB4:
+ 196               	.LBB5:
+ 198               	.Ltext1:
    1:/usr/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -295,98 +264,31 @@
  161:/usr/avr/include/util/delay.h **** 	#endif
  162:/usr/avr/include/util/delay.h **** 
  163:/usr/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
- 207               	.LM7:
- 208 0056 BFEF      		ldi r27,lo8(1599999)
- 209 0058 29E6      		ldi r18,hi8(1599999)
- 210 005a 88E1      		ldi r24,hlo8(1599999)
- 211 005c B150      		1: subi r27,1
- 212 005e 2040      		sbci r18,0
- 213 0060 8040      		sbci r24,0
- 214 0062 01F4      		brne 1b
- 215 0064 00C0      		rjmp .
- 216 0066 0000      		nop
- 217               	.LBE5:
- 218               	.LBE4:
- 220               	.Ltext2:
-  60:main.c        **** //                printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
- 222               	.LM8:
- 223 0068 CE01      		movw r24,r28
- 224 006a 4B96      		adiw r24,27
- 225 006c 0E94 0000 		call read_gyro_values
-  62:main.c        ****                 printf("[X: %f Y: %f Z: %f]\n",gyro_dps.x,gyro_dps.y,gyro_dps.z);
- 227               	.LM9:
- 228 0070 BE01      		movw r22,r28
- 229 0072 615F      		subi r22,-15
- 230 0074 7F4F      		sbci r23,-1
- 231 0076 CE01      		movw r24,r28
- 232 0078 4B96      		adiw r24,27
- 233 007a 0E94 0000 		call read_gyro_values_rate_dps
- 235               	.LM10:
- 236 007e 8A8D      		ldd r24,Y+26
- 237 0080 8F93      		push r24
- 238 0082 898D      		ldd r24,Y+25
- 239 0084 8F93      		push r24
- 240 0086 888D      		ldd r24,Y+24
- 241 0088 8F93      		push r24
- 242 008a 8F89      		ldd r24,Y+23
- 243 008c 8F93      		push r24
- 244 008e 8E89      		ldd r24,Y+22
- 245 0090 8F93      		push r24
- 246 0092 8D89      		ldd r24,Y+21
- 247 0094 8F93      		push r24
- 248 0096 8C89      		ldd r24,Y+20
- 249 0098 8F93      		push r24
- 250 009a 8B89      		ldd r24,Y+19
- 251 009c 8F93      		push r24
- 252 009e 8A89      		ldd r24,Y+18
- 253 00a0 8F93      		push r24
- 254 00a2 8989      		ldd r24,Y+17
- 255 00a4 8F93      		push r24
- 256 00a6 8889      		ldd r24,Y+16
- 257 00a8 8F93      		push r24
- 258 00aa 8F85      		ldd r24,Y+15
- 259 00ac 8F93      		push r24
- 260 00ae 1F93      		push r17
- 261 00b0 0F93      		push r16
- 262 00b2 0E94 0000 		call printf
-  64:main.c        **** //                read_gyro_values_angle(&gyro_dps,&gyro_angle);
-  65:main.c        **** //                printf("[X: %f Y: %f Z: %f]\n",gyro_angle.x,gyro_angle.y,gyro_angle.z);
-  66:main.c        **** 
-  67:main.c        ****         /*pressure*/
-  68:main.c        **** //                printf("%f ", read_temp_celsius());
-  69:main.c        **** //                printf("%f hpa", read_pressure_hpa());
-  70:main.c        ****         
-  71:main.c        ****         /*acc*/
-  72:main.c        **** //        read_acc_raw(&acc_raw);
-  73:main.c        **** //        read_acc_angel(&acc_raw,&acc_angel);
-  74:main.c        **** //        printf("[X: %d Y: %d]\n", acc_angel.x, acc_angel.y);
-  75:main.c        ****         
-  76:main.c        ****         /*mag*/
-  77:main.c        **** //        read_mag_raw(&mag_raw);
-  78:main.c        **** //        printf("[X: %d Y: %d Z: %d]\n",mag_raw.x,mag_raw.y,mag_raw.z);
-  79:main.c        **** 
-  80:main.c        **** 
-  81:main.c        ****     }
- 264               	.LM11:
- 265 00b6 0FB6      		in __tmp_reg__,__SREG__
- 266 00b8 F894      		cli
- 267 00ba DEBF      		out __SP_H__,r29
- 268 00bc 0FBE      		out __SREG__,__tmp_reg__
- 269 00be CDBF      		out __SP_L__,r28
- 270 00c0 00C0      		rjmp .L2
- 277               	.Lscope1:
- 278               		.text
- 280               	.Letext0:
- 281               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
- 282               	.global __do_copy_data
+ 200               	.LM6:
+ 201 0052 BFEF      		ldi r27,lo8(1599999)
+ 202 0054 29E6      		ldi r18,hi8(1599999)
+ 203 0056 88E1      		ldi r24,hlo8(1599999)
+ 204 0058 B150      		1: subi r27,1
+ 205 005a 2040      		sbci r18,0
+ 206 005c 8040      		sbci r24,0
+ 207 005e 01F4      		brne 1b
+ 208 0060 00C0      		rjmp .
+ 209 0062 0000      		nop
+ 210 0064 00C0      		rjmp .L2
+ 211               	.LBE5:
+ 212               	.LBE4:
+ 217               	.Lscope1:
+ 218               		.text
+ 220               	.Letext0:
+ 221               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/ccBPeYu8.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccBPeYu8.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccBPeYu8.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccBPeYu8.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccBPeYu8.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccBPeYu8.s:144    .text.startup:0000000000000000 main
+     /tmp/cceAvOzY.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cceAvOzY.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cceAvOzY.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cceAvOzY.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cceAvOzY.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cceAvOzY.s:141    .text.startup:0000000000000000 main
 
 UNDEFINED SYMBOLS
 USART0Init
@@ -395,7 +297,3 @@ USART0SendByte
 USART0ReceiveByte
 __iob
 init_gyro
-read_gyro_values
-read_gyro_values_rate_dps
-printf
-__do_copy_data

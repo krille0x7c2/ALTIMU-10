@@ -344,15 +344,15 @@
  422               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 L3GD20H_GYRO.c
-     /tmp/ccGBiEta.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccGBiEta.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccGBiEta.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccGBiEta.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccGBiEta.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccGBiEta.s:112    .text:0000000000000000 init_gyro
-     /tmp/ccGBiEta.s:144    .text:000000000000001e read_gyro_values
-     /tmp/ccGBiEta.s:262    .text:00000000000000ac read_gyro_values_rate_dps
-     /tmp/ccGBiEta.s:348    .text:0000000000000134 read_gyro_values_angle
+     /tmp/ccoGkIIv.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccoGkIIv.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccoGkIIv.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccoGkIIv.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccoGkIIv.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccoGkIIv.s:112    .text:0000000000000000 init_gyro
+     /tmp/ccoGkIIv.s:144    .text:000000000000001e read_gyro_values
+     /tmp/ccoGkIIv.s:262    .text:00000000000000ac read_gyro_values_rate_dps
+     /tmp/ccoGkIIv.s:348    .text:0000000000000134 read_gyro_values_angle
 
 UNDEFINED SYMBOLS
 write_to_reg

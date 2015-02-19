@@ -13,7 +13,6 @@
 #include "ALTIMU_10.h"
 #include "usart.h"
 #include "LSM303D_ACC_MAG.h"
-#include "timer.h"
 #include <util/delay.h>
 
 /*

@@ -8,6 +8,7 @@
 #ifndef ALTIMU_10_H
 #define	ALTIMU_10_H
 #include <avr/io.h>//TODO fix this!
+#include "LPS25H_BAR.h"
 //7-bit slave addresses for the three sensors
 #define GYRO_SLAVE_ADDRESS  0x6B
 #define ACC_MAG_SLAVE_ADDRESS   0x1D
