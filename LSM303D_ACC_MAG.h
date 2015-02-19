@@ -79,7 +79,8 @@
 
 #define ACC_MAG_Act_THS 0x3E//R/W
 #define ACC_MAG_Act_DUR 0x3F//R/W
-
+#define M_PI 3.14159265358979323846
+#define RAD_TO_DEG 57.29578
 
 
 typedef struct acc_val_raw {
@@ -88,6 +89,13 @@ typedef struct acc_val_raw {
     int16_t z;
 
 } Acc_raw;
+
+typedef struct acc_val_angle{
+    int16_t x;
+    int16_t y;
+    int16_t z;
+
+} Acc_angle;
 
 typedef struct mag_val_raw {
     int16_t x;
@@ -99,6 +107,7 @@ typedef struct mag_val_raw {
 void init_acc(void);
 void init_mag(void);
 void read_acc_raw(struct acc_val_raw *_acc_raw_);
+void read_acc_angel(struct acc_val_raw *_acc_raw_,struct acc_val_angle *_acc_angle);
 void read_mag_raw(struct mag_val_raw *_mag_raw_);
 
 #endif	/* LSM303D_ACC_MAGNETO_H */

@@ -351,15 +351,15 @@
  433               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 L3GD20H_GYRO.c
-     /tmp/cceNu1w6.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cceNu1w6.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cceNu1w6.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cceNu1w6.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cceNu1w6.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cceNu1w6.s:112    .text:0000000000000000 init_gyro
-     /tmp/cceNu1w6.s:144    .text:000000000000001e read_gyro_values
-     /tmp/cceNu1w6.s:251    .text:000000000000009a read_gyro_values_dps
-     /tmp/cceNu1w6.s:338    .text:0000000000000122 read_gyro_values_angle
+     /tmp/ccnKvApo.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccnKvApo.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccnKvApo.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccnKvApo.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccnKvApo.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccnKvApo.s:112    .text:0000000000000000 init_gyro
+     /tmp/ccnKvApo.s:144    .text:000000000000001e read_gyro_values
+     /tmp/ccnKvApo.s:251    .text:000000000000009a read_gyro_values_dps
+     /tmp/ccnKvApo.s:338    .text:0000000000000122 read_gyro_values_angle
 
 UNDEFINED SYMBOLS
 write_to_reg

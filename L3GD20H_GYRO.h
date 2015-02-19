@@ -44,19 +44,19 @@ typedef struct gyro_data {
     int16_t x;
     int16_t y;
     int16_t z;
-} Val;
+} Gyro_raw;
 
 typedef struct gyro_data_dps {
     float x;
     float y;
     float z;
-} Val_dps;
+} Gyro_dps;
 
 typedef struct gyro_data_angle {
     float x;
     float y;
     float z;
-} Val_angle;
+} Gyro_angle;
 
 
 void init_gyro(void);

@@ -9,6 +9,7 @@
 #include "ALTIMU_10.h"
 #include "LSM303D_ACC_MAG.h"
 #include "twi_master.h"
+#include <math.h>
 
 /*************************************************************************
  * Initialize acc
@@ -63,6 +64,25 @@ void read_acc_raw(struct acc_val_raw *_acc_raw_) {
     }
 
 }/*read_acc_raw*/
+
+/*************************************************************************
+ * read_acc_angles values
+ * 
+ 
+ *************************************************************************/
+void read_acc_angel(struct acc_val_raw *_acc_raw_, struct acc_val_angle *_acc_angle) {
+    _acc_angle->x = (float) (atan2(_acc_raw_->y, _acc_raw_->z) + M_PI) * RAD_TO_DEG;
+    _acc_angle->y = (float) (atan2(_acc_raw_->z, _acc_raw_->x) + M_PI) * RAD_TO_DEG;
+    
+    _acc_angle->x -= (float) 180.0;
+    if (_acc_angle->y > 90) {
+        _acc_angle->y -= (float) 270;
+    } else {
+        _acc_angle->y += (float) 90;
+    }
+
+
+}/*read_acc_angle*/
 
 /*************************************************************************
  * read_mag_raw values
