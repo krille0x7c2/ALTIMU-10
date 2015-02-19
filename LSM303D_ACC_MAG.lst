@@ -196,7 +196,13 @@
  269               	.global	read_mag_raw
  271               	read_mag_raw:
   66:LSM303D_ACC_MAG.c **** 
-  67:LSM303D_ACC_MAG.c **** void read_mag_raw(struct mag_val_raw *_mag_raw_) {
+  67:LSM303D_ACC_MAG.c **** /*************************************************************************
+  68:LSM303D_ACC_MAG.c ****  * read_mag_raw values
+  69:LSM303D_ACC_MAG.c ****  * 
+  70:LSM303D_ACC_MAG.c ****  
+  71:LSM303D_ACC_MAG.c ****  *************************************************************************/
+  72:LSM303D_ACC_MAG.c **** 
+  73:LSM303D_ACC_MAG.c **** void read_mag_raw(struct mag_val_raw *_mag_raw_) {
  273               	.LM21:
  274               	.LFBB4:
  275 00ae DF92      		push r13
@@ -211,51 +217,51 @@
  284               	/* stack size = 7 */
  285               	.L__stack_usage = 7
  286 00bc 8C01      		movw r16,r24
-  68:LSM303D_ACC_MAG.c ****     if (i2c_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
+  74:LSM303D_ACC_MAG.c ****     if (i2c_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
  288               	.LM22:
  289 00be 8AE3      		ldi r24,lo8(58)
  290 00c0 0E94 0000 		call i2c_start
  291 00c4 8111      		cpse r24,__zero_reg__
  292 00c6 00C0      		rjmp .L8
-  69:LSM303D_ACC_MAG.c ****         i2c_write(ACC_MAG_OUT_X_L_M | (1 << 7)); //Auto increment registers by writing the MSB high
+  75:LSM303D_ACC_MAG.c ****         i2c_write(ACC_MAG_OUT_X_L_M | (1 << 7)); //Auto increment registers by writing the MSB high
  294               	.LM23:
  295 00c8 88E8      		ldi r24,lo8(-120)
  296 00ca 0E94 0000 		call i2c_write
-  70:LSM303D_ACC_MAG.c **** 
-  71:LSM303D_ACC_MAG.c ****         if (i2c_rep_start(((uint8_t) ACC_MAG_SLAVE_ADDRESS << 1) | 1) == 0) {
+  76:LSM303D_ACC_MAG.c **** 
+  77:LSM303D_ACC_MAG.c ****         if (i2c_rep_start(((uint8_t) ACC_MAG_SLAVE_ADDRESS << 1) | 1) == 0) {
  298               	.LM24:
  299 00ce 8BE3      		ldi r24,lo8(59)
  300 00d0 0E94 0000 		call i2c_rep_start
  301 00d4 8111      		cpse r24,__zero_reg__
  302 00d6 00C0      		rjmp .L8
  303               	.LBB3:
-  72:LSM303D_ACC_MAG.c ****             uint8_t xlm = i2c_read(ACK);
+  78:LSM303D_ACC_MAG.c ****             uint8_t xlm = i2c_read(ACK);
  305               	.LM25:
  306 00d8 0E94 0000 		call i2c_readAck
  307 00dc F82E      		mov r15,r24
-  73:LSM303D_ACC_MAG.c ****             uint8_t xhm = i2c_read(ACK);
+  79:LSM303D_ACC_MAG.c ****             uint8_t xhm = i2c_read(ACK);
  309               	.LM26:
  310 00de 0E94 0000 		call i2c_readAck
  311 00e2 D82E      		mov r13,r24
-  74:LSM303D_ACC_MAG.c **** 
-  75:LSM303D_ACC_MAG.c ****             uint8_t ylm = i2c_read(ACK);
+  80:LSM303D_ACC_MAG.c **** 
+  81:LSM303D_ACC_MAG.c ****             uint8_t ylm = i2c_read(ACK);
  313               	.LM27:
  314 00e4 0E94 0000 		call i2c_readAck
  315 00e8 D82F      		mov r29,r24
-  76:LSM303D_ACC_MAG.c ****             uint8_t yhm = i2c_read(ACK);
+  82:LSM303D_ACC_MAG.c ****             uint8_t yhm = i2c_read(ACK);
  317               	.LM28:
  318 00ea 0E94 0000 		call i2c_readAck
  319 00ee E82E      		mov r14,r24
-  77:LSM303D_ACC_MAG.c **** 
-  78:LSM303D_ACC_MAG.c ****             uint8_t zlm = i2c_read(ACK);
+  83:LSM303D_ACC_MAG.c **** 
+  84:LSM303D_ACC_MAG.c ****             uint8_t zlm = i2c_read(ACK);
  321               	.LM29:
  322 00f0 0E94 0000 		call i2c_readAck
  323 00f4 C82F      		mov r28,r24
-  79:LSM303D_ACC_MAG.c ****             uint8_t zhm = i2c_read(NAK);
+  85:LSM303D_ACC_MAG.c ****             uint8_t zhm = i2c_read(NAK);
  325               	.LM30:
  326 00f6 0E94 0000 		call i2c_readNak
-  80:LSM303D_ACC_MAG.c **** 
-  81:LSM303D_ACC_MAG.c ****             _mag_raw_->x = (int16_t) (xhm << 8 | xlm);
+  86:LSM303D_ACC_MAG.c **** 
+  87:LSM303D_ACC_MAG.c ****             _mag_raw_->x = (int16_t) (xhm << 8 | xlm);
  328               	.LM31:
  329 00fa 2F2D      		mov r18,r15
  330 00fc 30E0      		ldi r19,0
@@ -263,14 +269,14 @@
  332 0100 F801      		movw r30,r16
  333 0102 3183      		std Z+1,r19
  334 0104 2083      		st Z,r18
-  82:LSM303D_ACC_MAG.c ****             _mag_raw_->y = (int16_t) (yhm << 8 | ylm);
+  88:LSM303D_ACC_MAG.c ****             _mag_raw_->y = (int16_t) (yhm << 8 | ylm);
  336               	.LM32:
  337 0106 2D2F      		mov r18,r29
  338 0108 30E0      		ldi r19,0
  339 010a 3E29      		or r19,r14
  340 010c 3383      		std Z+3,r19
  341 010e 2283      		std Z+2,r18
-  83:LSM303D_ACC_MAG.c ****             _mag_raw_->z = (int16_t) (zhm << 8 | zlm);
+  89:LSM303D_ACC_MAG.c ****             _mag_raw_->z = (int16_t) (zhm << 8 | zlm);
  343               	.LM33:
  344 0110 2C2F      		mov r18,r28
  345 0112 30E0      		ldi r19,0
@@ -280,11 +286,11 @@
  349               	.L8:
  350               	/* epilogue start */
  351               	.LBE3:
-  84:LSM303D_ACC_MAG.c **** 
-  85:LSM303D_ACC_MAG.c ****         }
-  86:LSM303D_ACC_MAG.c ****     }
-  87:LSM303D_ACC_MAG.c **** 
-  88:LSM303D_ACC_MAG.c **** }/*read_mag_raw*/...
+  90:LSM303D_ACC_MAG.c **** 
+  91:LSM303D_ACC_MAG.c ****         }
+  92:LSM303D_ACC_MAG.c ****     }
+  93:LSM303D_ACC_MAG.c **** 
+  94:LSM303D_ACC_MAG.c **** }/*read_mag_raw*/...
  353               	.LM34:
  354 011a DF91      		pop r29
  355 011c CF91      		pop r28
@@ -299,15 +305,15 @@
  373               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 LSM303D_ACC_MAG.c
-     /tmp/cczgBcld.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cczgBcld.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cczgBcld.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cczgBcld.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cczgBcld.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cczgBcld.s:110    .text:0000000000000000 init_acc
-     /tmp/cczgBcld.s:135    .text:0000000000000014 init_mag
-     /tmp/cczgBcld.s:167    .text:0000000000000032 read_acc_raw
-     /tmp/cczgBcld.s:271    .text:00000000000000ae read_mag_raw
+     /tmp/cckU0ejh.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cckU0ejh.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cckU0ejh.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cckU0ejh.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cckU0ejh.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cckU0ejh.s:110    .text:0000000000000000 init_acc
+     /tmp/cckU0ejh.s:135    .text:0000000000000014 init_mag
+     /tmp/cckU0ejh.s:167    .text:0000000000000032 read_acc_raw
+     /tmp/cckU0ejh.s:271    .text:00000000000000ae read_mag_raw
 
 UNDEFINED SYMBOLS
 write_to_reg

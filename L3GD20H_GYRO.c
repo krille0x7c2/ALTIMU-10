@@ -57,8 +57,15 @@ void read_gyro_values(struct gyro_data *_gyro_data_) {
 }/*read_gyro_values*/
 
 void read_gyro_values_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps) {
-    gyro_data_dps->x=(float)_gyro_data_->x *.00875;
-    gyro_data_dps->y=(float)_gyro_data_->y *.00875;
-    gyro_data_dps->z=(float)_gyro_data_->z *.00875;
+    gyro_data_dps->x = (float) _gyro_data_->x * .00875;
+    gyro_data_dps->y = (float) _gyro_data_->y * .00875;
+    gyro_data_dps->z = (float) _gyro_data_->z * .00875;
 
 }/*read_gyro_values_dps*/
+
+void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *gyro_data_angle) {
+    gyro_data_angle->x += _gyro_data_dps->x * .02;
+    gyro_data_angle->y += _gyro_data_dps->y * .02;
+    gyro_data_angle->z += _gyro_data_dps->z * .02;
+
+}/*read_gyro_values_angle*/

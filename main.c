@@ -27,6 +27,7 @@ int main(void) {
     TWIInit();
     Val val;
     Val_dps val_dps;
+    Val_angle val_angle;
     Acc_raw acc_raw;
     Mag_raw mag_raw;
 
@@ -35,7 +36,7 @@ int main(void) {
     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-)
     stdin = stdout = &usart0_str;
     /*gyro*/
-    //        init_gyro();
+//            init_gyro();
 
     /*acc*/
 //    init_acc();
@@ -48,12 +49,14 @@ int main(void) {
     //    init_bar();
 
     while (1) {
-        _delay_ms(300);
-
+        
+        _delay_ms(100);
         /*gyro*/
-        //        read_gyro_values(&val);
-        //        read_gyro_values_dps(&val,&val_dps);
-        //        printf("[X: %f Y: %f Z: %f]\n",val_dps.x,val_dps.y,val_dps.z);
+//                _delay_ms(20);
+//                read_gyro_values(&val);
+//                read_gyro_values_dps(&val,&val_dps);
+//                read_gyro_values_angle(&val_dps,&val_angle);
+//                printf("[X: %f Y: %f Z: %f]\n",val_angle.x,val_angle.y,val_angle.z);
 
         /*pressure*/
         //        printf("%f ", read_temp_celsius());
