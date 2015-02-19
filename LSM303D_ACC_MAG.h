@@ -81,5 +81,25 @@
 #define ACC_MAG_Act_DUR 0x3F//R/W
 
 
+
+typedef struct acc_val_raw {
+    int16_t x;
+    int16_t y;
+    int16_t z;
+
+} Acc_raw;
+
+typedef struct mag_val_raw {
+    int16_t x;
+    int16_t y;
+    int16_t z;
+
+} Mag_raw;
+
+void init_acc(void);
+void init_mag(void);
+void read_acc_raw(struct acc_val_raw *_acc_raw_);
+void read_mag_raw(struct mag_val_raw *_mag_raw_);
+
 #endif	/* LSM303D_ACC_MAGNETO_H */
 

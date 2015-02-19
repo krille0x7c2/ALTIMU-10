@@ -46,9 +46,16 @@ typedef struct gyro_data {
     int16_t z;
 }Val;
 
+typedef struct gyro_data_dps {
+    float x;
+    float y;
+    float z;
+}Val_dps;
+
 
 void init_gyro(void);
 void read_gyro_values(struct gyro_data *_gyro_data_);
+void read_gyro_values_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps);
 
 
 #endif	/* L3GD20H_GYRO_H */

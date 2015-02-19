@@ -6,14 +6,313 @@
    6               	__zero_reg__ = 1
    8               		.text
    9               	.Ltext0:
- 102               	.Letext0:
- 103               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+ 108               	.global	init_acc
+ 110               	init_acc:
+   1:LSM303D_ACC_MAG.c **** /* 
+   2:LSM303D_ACC_MAG.c ****  * File:   LSM303D_ACC_MAGNETO.c
+   3:LSM303D_ACC_MAG.c ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
+   4:LSM303D_ACC_MAG.c ****  *
+   5:LSM303D_ACC_MAG.c ****  * Created on February 17, 2015, 8:46 AM
+   6:LSM303D_ACC_MAG.c ****  */
+   7:LSM303D_ACC_MAG.c **** //TODO Write documentation and implement
+   8:LSM303D_ACC_MAG.c **** #include <avr/io.h>
+   9:LSM303D_ACC_MAG.c **** #include "ALTIMU_10.h"
+  10:LSM303D_ACC_MAG.c **** #include "LSM303D_ACC_MAG.h"
+  11:LSM303D_ACC_MAG.c **** #include "twi_master.h"
+  12:LSM303D_ACC_MAG.c **** 
+  13:LSM303D_ACC_MAG.c **** /*************************************************************************
+  14:LSM303D_ACC_MAG.c ****  * Initialize acc
+  15:LSM303D_ACC_MAG.c ****  * (+/- 2 g full scale)
+  16:LSM303D_ACC_MAG.c ****  * (50 Hz ODR); AZEN = AYEN = AXEN = 1 (all axes enabled)
+  17:LSM303D_ACC_MAG.c ****  
+  18:LSM303D_ACC_MAG.c ****  *************************************************************************/
+  19:LSM303D_ACC_MAG.c **** void init_acc(void) {
+ 112               	.LM0:
+ 113               	.LFBB1:
+ 114               	/* prologue: function */
+ 115               	/* frame size = 0 */
+ 116               	/* stack size = 0 */
+ 117               	.L__stack_usage = 0
+  20:LSM303D_ACC_MAG.c ****     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL2, 0x00);
+ 119               	.LM1:
+ 120 0000 40E0      		ldi r20,0
+ 121 0002 61E2      		ldi r22,lo8(33)
+ 122 0004 8DE1      		ldi r24,lo8(29)
+ 123 0006 0E94 0000 		call write_to_reg
+  21:LSM303D_ACC_MAG.c ****     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL1, 0x57);
+ 125               	.LM2:
+ 126 000a 47E5      		ldi r20,lo8(87)
+ 127 000c 60E2      		ldi r22,lo8(32)
+ 128 000e 8DE1      		ldi r24,lo8(29)
+ 129 0010 0C94 0000 		jmp write_to_reg
+ 131               	.Lscope1:
+ 133               	.global	init_mag
+ 135               	init_mag:
+  22:LSM303D_ACC_MAG.c **** 
+  23:LSM303D_ACC_MAG.c **** }/*init_acc*/
+  24:LSM303D_ACC_MAG.c **** 
+  25:LSM303D_ACC_MAG.c **** /*************************************************************************
+  26:LSM303D_ACC_MAG.c ****  * Initialize mag
+  27:LSM303D_ACC_MAG.c ****  * (high resolution mode); M_ODR = 001 (6.25 Hz ODR)
+  28:LSM303D_ACC_MAG.c ****  * (+/- 4 gauss full scale)
+  29:LSM303D_ACC_MAG.c ****  * (low power mode off); MD = 00 (continuous-conversion mode)
+  30:LSM303D_ACC_MAG.c ****  
+  31:LSM303D_ACC_MAG.c ****  *************************************************************************/
+  32:LSM303D_ACC_MAG.c **** 
+  33:LSM303D_ACC_MAG.c **** void init_mag(void) {
+ 137               	.LM3:
+ 138               	.LFBB2:
+ 139               	/* prologue: function */
+ 140               	/* frame size = 0 */
+ 141               	/* stack size = 0 */
+ 142               	.L__stack_usage = 0
+  34:LSM303D_ACC_MAG.c ****     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL5, 0x64);
+ 144               	.LM4:
+ 145 0014 44E6      		ldi r20,lo8(100)
+ 146 0016 64E2      		ldi r22,lo8(36)
+ 147 0018 8DE1      		ldi r24,lo8(29)
+ 148 001a 0E94 0000 		call write_to_reg
+  35:LSM303D_ACC_MAG.c ****     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL6, 0x20);
+ 150               	.LM5:
+ 151 001e 40E2      		ldi r20,lo8(32)
+ 152 0020 65E2      		ldi r22,lo8(37)
+ 153 0022 8DE1      		ldi r24,lo8(29)
+ 154 0024 0E94 0000 		call write_to_reg
+  36:LSM303D_ACC_MAG.c ****     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL7, 0x00);
+ 156               	.LM6:
+ 157 0028 40E0      		ldi r20,0
+ 158 002a 66E2      		ldi r22,lo8(38)
+ 159 002c 8DE1      		ldi r24,lo8(29)
+ 160 002e 0C94 0000 		jmp write_to_reg
+ 162               	.Lscope2:
+ 165               	.global	read_acc_raw
+ 167               	read_acc_raw:
+  37:LSM303D_ACC_MAG.c **** }/*init_mag*/
+  38:LSM303D_ACC_MAG.c **** 
+  39:LSM303D_ACC_MAG.c **** /*************************************************************************
+  40:LSM303D_ACC_MAG.c ****  * read_acc_raw values
+  41:LSM303D_ACC_MAG.c ****  
+  42:LSM303D_ACC_MAG.c ****  *************************************************************************/
+  43:LSM303D_ACC_MAG.c **** 
+  44:LSM303D_ACC_MAG.c **** void read_acc_raw(struct acc_val_raw *_acc_raw_) {
+ 169               	.LM7:
+ 170               	.LFBB3:
+ 171 0032 DF92      		push r13
+ 172 0034 EF92      		push r14
+ 173 0036 FF92      		push r15
+ 174 0038 0F93      		push r16
+ 175 003a 1F93      		push r17
+ 176 003c CF93      		push r28
+ 177 003e DF93      		push r29
+ 178               	/* prologue: function */
+ 179               	/* frame size = 0 */
+ 180               	/* stack size = 7 */
+ 181               	.L__stack_usage = 7
+ 182 0040 8C01      		movw r16,r24
+  45:LSM303D_ACC_MAG.c ****     if (i2c_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
+ 184               	.LM8:
+ 185 0042 8AE3      		ldi r24,lo8(58)
+ 186 0044 0E94 0000 		call i2c_start
+ 187 0048 8111      		cpse r24,__zero_reg__
+ 188 004a 00C0      		rjmp .L3
+  46:LSM303D_ACC_MAG.c ****         i2c_write(ACC_MAG_OUT_X_L_A | (1 << 7)); //Auto increment registers by writing the MSB high
+ 190               	.LM9:
+ 191 004c 88EA      		ldi r24,lo8(-88)
+ 192 004e 0E94 0000 		call i2c_write
+  47:LSM303D_ACC_MAG.c **** 
+  48:LSM303D_ACC_MAG.c ****         if (i2c_rep_start(((uint8_t) ACC_MAG_SLAVE_ADDRESS << 1) | 1) == 0) {
+ 194               	.LM10:
+ 195 0052 8BE3      		ldi r24,lo8(59)
+ 196 0054 0E94 0000 		call i2c_rep_start
+ 197 0058 8111      		cpse r24,__zero_reg__
+ 198 005a 00C0      		rjmp .L3
+ 199               	.LBB2:
+  49:LSM303D_ACC_MAG.c ****             uint8_t xlg = i2c_read(ACK);
+ 201               	.LM11:
+ 202 005c 0E94 0000 		call i2c_readAck
+ 203 0060 F82E      		mov r15,r24
+  50:LSM303D_ACC_MAG.c ****             uint8_t xhg = i2c_read(ACK);
+ 205               	.LM12:
+ 206 0062 0E94 0000 		call i2c_readAck
+ 207 0066 D82E      		mov r13,r24
+  51:LSM303D_ACC_MAG.c **** 
+  52:LSM303D_ACC_MAG.c ****             uint8_t ylg = i2c_read(ACK);
+ 209               	.LM13:
+ 210 0068 0E94 0000 		call i2c_readAck
+ 211 006c D82F      		mov r29,r24
+  53:LSM303D_ACC_MAG.c ****             uint8_t yhg = i2c_read(ACK);
+ 213               	.LM14:
+ 214 006e 0E94 0000 		call i2c_readAck
+ 215 0072 E82E      		mov r14,r24
+  54:LSM303D_ACC_MAG.c **** 
+  55:LSM303D_ACC_MAG.c ****             uint8_t zlg = i2c_read(ACK);
+ 217               	.LM15:
+ 218 0074 0E94 0000 		call i2c_readAck
+ 219 0078 C82F      		mov r28,r24
+  56:LSM303D_ACC_MAG.c ****             uint8_t zhg = i2c_read(NAK);
+ 221               	.LM16:
+ 222 007a 0E94 0000 		call i2c_readNak
+  57:LSM303D_ACC_MAG.c **** 
+  58:LSM303D_ACC_MAG.c ****             _acc_raw_->x = (int16_t) (xhg << 8 | xlg);
+ 224               	.LM17:
+ 225 007e 2F2D      		mov r18,r15
+ 226 0080 30E0      		ldi r19,0
+ 227 0082 3D29      		or r19,r13
+ 228 0084 F801      		movw r30,r16
+ 229 0086 3183      		std Z+1,r19
+ 230 0088 2083      		st Z,r18
+  59:LSM303D_ACC_MAG.c ****             _acc_raw_->y = (int16_t) (yhg << 8 | ylg);
+ 232               	.LM18:
+ 233 008a 2D2F      		mov r18,r29
+ 234 008c 30E0      		ldi r19,0
+ 235 008e 3E29      		or r19,r14
+ 236 0090 3383      		std Z+3,r19
+ 237 0092 2283      		std Z+2,r18
+  60:LSM303D_ACC_MAG.c ****             _acc_raw_->z = (int16_t) (zhg << 8 | zlg);
+ 239               	.LM19:
+ 240 0094 2C2F      		mov r18,r28
+ 241 0096 30E0      		ldi r19,0
+ 242 0098 382B      		or r19,r24
+ 243 009a 3583      		std Z+5,r19
+ 244 009c 2483      		std Z+4,r18
+ 245               	.L3:
+ 246               	/* epilogue start */
+ 247               	.LBE2:
+  61:LSM303D_ACC_MAG.c **** 
+  62:LSM303D_ACC_MAG.c ****         }
+  63:LSM303D_ACC_MAG.c ****     }
+  64:LSM303D_ACC_MAG.c **** 
+  65:LSM303D_ACC_MAG.c **** }/*read_acc_raw*/
+ 249               	.LM20:
+ 250 009e DF91      		pop r29
+ 251 00a0 CF91      		pop r28
+ 252 00a2 1F91      		pop r17
+ 253 00a4 0F91      		pop r16
+ 254 00a6 FF90      		pop r15
+ 255 00a8 EF90      		pop r14
+ 256 00aa DF90      		pop r13
+ 257 00ac 0895      		ret
+ 266               	.Lscope3:
+ 269               	.global	read_mag_raw
+ 271               	read_mag_raw:
+  66:LSM303D_ACC_MAG.c **** 
+  67:LSM303D_ACC_MAG.c **** void read_mag_raw(struct mag_val_raw *_mag_raw_) {
+ 273               	.LM21:
+ 274               	.LFBB4:
+ 275 00ae DF92      		push r13
+ 276 00b0 EF92      		push r14
+ 277 00b2 FF92      		push r15
+ 278 00b4 0F93      		push r16
+ 279 00b6 1F93      		push r17
+ 280 00b8 CF93      		push r28
+ 281 00ba DF93      		push r29
+ 282               	/* prologue: function */
+ 283               	/* frame size = 0 */
+ 284               	/* stack size = 7 */
+ 285               	.L__stack_usage = 7
+ 286 00bc 8C01      		movw r16,r24
+  68:LSM303D_ACC_MAG.c ****     if (i2c_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
+ 288               	.LM22:
+ 289 00be 8AE3      		ldi r24,lo8(58)
+ 290 00c0 0E94 0000 		call i2c_start
+ 291 00c4 8111      		cpse r24,__zero_reg__
+ 292 00c6 00C0      		rjmp .L8
+  69:LSM303D_ACC_MAG.c ****         i2c_write(ACC_MAG_OUT_X_L_M | (1 << 7)); //Auto increment registers by writing the MSB high
+ 294               	.LM23:
+ 295 00c8 88E8      		ldi r24,lo8(-120)
+ 296 00ca 0E94 0000 		call i2c_write
+  70:LSM303D_ACC_MAG.c **** 
+  71:LSM303D_ACC_MAG.c ****         if (i2c_rep_start(((uint8_t) ACC_MAG_SLAVE_ADDRESS << 1) | 1) == 0) {
+ 298               	.LM24:
+ 299 00ce 8BE3      		ldi r24,lo8(59)
+ 300 00d0 0E94 0000 		call i2c_rep_start
+ 301 00d4 8111      		cpse r24,__zero_reg__
+ 302 00d6 00C0      		rjmp .L8
+ 303               	.LBB3:
+  72:LSM303D_ACC_MAG.c ****             uint8_t xlm = i2c_read(ACK);
+ 305               	.LM25:
+ 306 00d8 0E94 0000 		call i2c_readAck
+ 307 00dc F82E      		mov r15,r24
+  73:LSM303D_ACC_MAG.c ****             uint8_t xhm = i2c_read(ACK);
+ 309               	.LM26:
+ 310 00de 0E94 0000 		call i2c_readAck
+ 311 00e2 D82E      		mov r13,r24
+  74:LSM303D_ACC_MAG.c **** 
+  75:LSM303D_ACC_MAG.c ****             uint8_t ylm = i2c_read(ACK);
+ 313               	.LM27:
+ 314 00e4 0E94 0000 		call i2c_readAck
+ 315 00e8 D82F      		mov r29,r24
+  76:LSM303D_ACC_MAG.c ****             uint8_t yhm = i2c_read(ACK);
+ 317               	.LM28:
+ 318 00ea 0E94 0000 		call i2c_readAck
+ 319 00ee E82E      		mov r14,r24
+  77:LSM303D_ACC_MAG.c **** 
+  78:LSM303D_ACC_MAG.c ****             uint8_t zlm = i2c_read(ACK);
+ 321               	.LM29:
+ 322 00f0 0E94 0000 		call i2c_readAck
+ 323 00f4 C82F      		mov r28,r24
+  79:LSM303D_ACC_MAG.c ****             uint8_t zhm = i2c_read(NAK);
+ 325               	.LM30:
+ 326 00f6 0E94 0000 		call i2c_readNak
+  80:LSM303D_ACC_MAG.c **** 
+  81:LSM303D_ACC_MAG.c ****             _mag_raw_->x = (int16_t) (xhm << 8 | xlm);
+ 328               	.LM31:
+ 329 00fa 2F2D      		mov r18,r15
+ 330 00fc 30E0      		ldi r19,0
+ 331 00fe 3D29      		or r19,r13
+ 332 0100 F801      		movw r30,r16
+ 333 0102 3183      		std Z+1,r19
+ 334 0104 2083      		st Z,r18
+  82:LSM303D_ACC_MAG.c ****             _mag_raw_->y = (int16_t) (yhm << 8 | ylm);
+ 336               	.LM32:
+ 337 0106 2D2F      		mov r18,r29
+ 338 0108 30E0      		ldi r19,0
+ 339 010a 3E29      		or r19,r14
+ 340 010c 3383      		std Z+3,r19
+ 341 010e 2283      		std Z+2,r18
+  83:LSM303D_ACC_MAG.c ****             _mag_raw_->z = (int16_t) (zhm << 8 | zlm);
+ 343               	.LM33:
+ 344 0110 2C2F      		mov r18,r28
+ 345 0112 30E0      		ldi r19,0
+ 346 0114 382B      		or r19,r24
+ 347 0116 3583      		std Z+5,r19
+ 348 0118 2483      		std Z+4,r18
+ 349               	.L8:
+ 350               	/* epilogue start */
+ 351               	.LBE3:
+  84:LSM303D_ACC_MAG.c **** 
+  85:LSM303D_ACC_MAG.c ****         }
+  86:LSM303D_ACC_MAG.c ****     }
+  87:LSM303D_ACC_MAG.c **** 
+  88:LSM303D_ACC_MAG.c **** }/*read_mag_raw*/...
+ 353               	.LM34:
+ 354 011a DF91      		pop r29
+ 355 011c CF91      		pop r28
+ 356 011e 1F91      		pop r17
+ 357 0120 0F91      		pop r16
+ 358 0122 FF90      		pop r15
+ 359 0124 EF90      		pop r14
+ 360 0126 DF90      		pop r13
+ 361 0128 0895      		ret
+ 370               	.Lscope4:
+ 372               	.Letext0:
+ 373               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 LSM303D_ACC_MAG.c
-     /tmp/ccens99r.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccens99r.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccens99r.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccens99r.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccens99r.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cczgBcld.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cczgBcld.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cczgBcld.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cczgBcld.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cczgBcld.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cczgBcld.s:110    .text:0000000000000000 init_acc
+     /tmp/cczgBcld.s:135    .text:0000000000000014 init_mag
+     /tmp/cczgBcld.s:167    .text:0000000000000032 read_acc_raw
+     /tmp/cczgBcld.s:271    .text:00000000000000ae read_mag_raw
 
-NO UNDEFINED SYMBOLS
+UNDEFINED SYMBOLS
+write_to_reg
+i2c_start
+i2c_write
+i2c_rep_start
+i2c_readAck
+i2c_readNak

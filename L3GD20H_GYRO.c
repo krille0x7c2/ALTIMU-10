@@ -11,7 +11,10 @@
 #include "ALTIMU_10.h"
 
 /*************************************************************************
- Initiate the gyro more details later.... 
+ Initiate the gyro
+ * GYRO_LOW_ODR: LOW ODR DISABLED
+ * GYRO_CTRL4:   +/-250 dps
+ * GYRO_CTRL1:   [[DR 01 200Hz ODR],[BW 10 50Hz bandwidth],[PD 1 normal mode],[Zen=Yen=Xen=1 all axes enabled]]  
  
  *************************************************************************/
 
@@ -52,3 +55,10 @@ void read_gyro_values(struct gyro_data *_gyro_data_) {
         }
     }
 }/*read_gyro_values*/
+
+void read_gyro_values_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps) {
+    gyro_data_dps->x=(float)_gyro_data_->x *.00875;
+    gyro_data_dps->y=(float)_gyro_data_->y *.00875;
+    gyro_data_dps->z=(float)_gyro_data_->z *.00875;
+
+}/*read_gyro_values_dps*/

@@ -6,9 +6,9 @@
    6               	__zero_reg__ = 1
    8               		.text
    9               	.Ltext0:
- 125               		.section	.text.startup,"ax",@progbits
- 127               	.global	main
- 129               	main:
+ 133               		.section	.text.startup,"ax",@progbits
+ 135               	.global	main
+ 137               	main:
    1:main.c        **** /* 
    2:main.c        ****  * File:   main.c
    3:main.c        ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
@@ -23,72 +23,76 @@
   12:main.c        **** #include "L3GD20H_GYRO.h"
   13:main.c        **** #include "ALTIMU_10.h"
   14:main.c        **** #include "usart.h"
-  15:main.c        **** #include <util/delay.h>
-  16:main.c        **** 
-  17:main.c        **** /*
-  18:main.c        ****  *Main
-  19:main.c        ****  * 
-  20:main.c        ****  *  
-  21:main.c        ****  */
-  22:main.c        **** 
+  15:main.c        **** #include "LSM303D_ACC_MAG.h"
+  16:main.c        **** #include <util/delay.h>
+  17:main.c        **** 
+  18:main.c        **** /*
+  19:main.c        ****  *Main
+  20:main.c        ****  * 
+  21:main.c        ****  *  
+  22:main.c        ****  */
   23:main.c        **** 
-  24:main.c        **** int main(void) {
- 131               	.LM0:
- 132               	.LFBB1:
- 133 0000 CF93      		push r28
- 134 0002 DF93      		push r29
- 135 0004 CDB7      		in r28,__SP_L__
- 136 0006 DEB7      		in r29,__SP_H__
- 137 0008 2E97      		sbiw r28,14
- 138 000a 0FB6      		in __tmp_reg__,__SREG__
- 139 000c F894      		cli
- 140 000e DEBF      		out __SP_H__,r29
- 141 0010 0FBE      		out __SREG__,__tmp_reg__
- 142 0012 CDBF      		out __SP_L__,r28
- 143               	/* prologue: function */
- 144               	/* frame size = 14 */
- 145               	/* stack size = 16 */
- 146               	.L__stack_usage = 16
-  25:main.c        ****     USART0Init();
- 148               	.LM1:
- 149 0014 0E94 0000 		call USART0Init
-  26:main.c        ****     TWIInit();
- 151               	.LM2:
- 152 0018 0E94 0000 		call TWIInit
-  27:main.c        ****     Val val;
-  28:main.c        **** 
-  29:main.c        ****     //Set stream pointer
-  30:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
- 154               	.LM3:
- 155 001c FE01      		movw r30,r28
- 156 001e 3196      		adiw r30,1
- 157 0020 8EE0      		ldi r24,lo8(14)
- 158 0022 DF01      		movw r26,r30
- 159               		0:
- 160 0024 1D92      		st X+,__zero_reg__
- 161 0026 8A95      		dec r24
- 162 0028 01F4      		brne 0b
- 163 002a 83E0      		ldi r24,lo8(3)
- 164 002c 8C83      		std Y+4,r24
- 165 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
- 166 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
- 167 0032 9A87      		std Y+10,r25
- 168 0034 8987      		std Y+9,r24
- 169 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
- 170 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
- 171 003a 9C87      		std Y+12,r25
- 172 003c 8B87      		std Y+11,r24
-  31:main.c        ****     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging 
-  32:main.c        ****     stdin = stdout = &usart0_str;
- 174               	.LM4:
- 175 003e F093 0000 		sts __iob+2+1,r31
- 176 0042 E093 0000 		sts __iob+2,r30
- 177 0046 F093 0000 		sts __iob+1,r31
- 178 004a E093 0000 		sts __iob,r30
- 179               	.L2:
- 180               	.LBB4:
- 181               	.LBB5:
- 183               	.Ltext1:
+  24:main.c        **** 
+  25:main.c        **** int main(void) {
+ 139               	.LM0:
+ 140               	.LFBB1:
+ 141 0000 CF93      		push r28
+ 142 0002 DF93      		push r29
+ 143 0004 CDB7      		in r28,__SP_L__
+ 144 0006 DEB7      		in r29,__SP_H__
+ 145 0008 2E97      		sbiw r28,14
+ 146 000a 0FB6      		in __tmp_reg__,__SREG__
+ 147 000c F894      		cli
+ 148 000e DEBF      		out __SP_H__,r29
+ 149 0010 0FBE      		out __SREG__,__tmp_reg__
+ 150 0012 CDBF      		out __SP_L__,r28
+ 151               	/* prologue: function */
+ 152               	/* frame size = 14 */
+ 153               	/* stack size = 16 */
+ 154               	.L__stack_usage = 16
+  26:main.c        ****     USART0Init();
+ 156               	.LM1:
+ 157 0014 0E94 0000 		call USART0Init
+  27:main.c        ****     TWIInit();
+ 159               	.LM2:
+ 160 0018 0E94 0000 		call TWIInit
+  28:main.c        ****     Val val;
+  29:main.c        ****     Val_dps val_dps;
+  30:main.c        ****     Acc_raw acc_raw;
+  31:main.c        ****     Mag_raw mag_raw;
+  32:main.c        **** 
+  33:main.c        ****     //Set stream pointer
+  34:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
+ 162               	.LM3:
+ 163 001c FE01      		movw r30,r28
+ 164 001e 3196      		adiw r30,1
+ 165 0020 8EE0      		ldi r24,lo8(14)
+ 166 0022 DF01      		movw r26,r30
+ 167               		0:
+ 168 0024 1D92      		st X+,__zero_reg__
+ 169 0026 8A95      		dec r24
+ 170 0028 01F4      		brne 0b
+ 171 002a 83E0      		ldi r24,lo8(3)
+ 172 002c 8C83      		std Y+4,r24
+ 173 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
+ 174 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
+ 175 0032 9A87      		std Y+10,r25
+ 176 0034 8987      		std Y+9,r24
+ 177 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
+ 178 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
+ 179 003a 9C87      		std Y+12,r25
+ 180 003c 8B87      		std Y+11,r24
+  35:main.c        ****     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging 
+  36:main.c        ****     stdin = stdout = &usart0_str;
+ 182               	.LM4:
+ 183 003e F093 0000 		sts __iob+2+1,r31
+ 184 0042 E093 0000 		sts __iob+2,r30
+ 185 0046 F093 0000 		sts __iob+1,r31
+ 186 004a E093 0000 		sts __iob,r30
+ 187               	.L2:
+ 188               	.LBB4:
+ 189               	.LBB5:
+ 191               	.Ltext1:
    1:/usr/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -252,31 +256,31 @@
  161:/usr/avr/include/util/delay.h **** 	#endif
  162:/usr/avr/include/util/delay.h **** 
  163:/usr/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
- 185               	.LM5:
- 186 004e BFEF      		ldi r27,lo8(959999)
- 187 0050 25EA      		ldi r18,hi8(959999)
- 188 0052 8EE0      		ldi r24,hlo8(959999)
- 189 0054 B150      		1: subi r27,1
- 190 0056 2040      		sbci r18,0
- 191 0058 8040      		sbci r24,0
- 192 005a 01F4      		brne 1b
- 193 005c 00C0      		rjmp .
- 194 005e 0000      		nop
- 195 0060 00C0      		rjmp .L2
- 196               	.LBE5:
- 197               	.LBE4:
- 202               	.Lscope1:
- 203               		.text
- 205               	.Letext0:
- 206               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+ 193               	.LM5:
+ 194 004e BFEF      		ldi r27,lo8(959999)
+ 195 0050 25EA      		ldi r18,hi8(959999)
+ 196 0052 8EE0      		ldi r24,hlo8(959999)
+ 197 0054 B150      		1: subi r27,1
+ 198 0056 2040      		sbci r18,0
+ 199 0058 8040      		sbci r24,0
+ 200 005a 01F4      		brne 1b
+ 201 005c 00C0      		rjmp .
+ 202 005e 0000      		nop
+ 203 0060 00C0      		rjmp .L2
+ 204               	.LBE5:
+ 205               	.LBE4:
+ 210               	.Lscope1:
+ 211               		.text
+ 213               	.Letext0:
+ 214               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/cc28002Z.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cc28002Z.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cc28002Z.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cc28002Z.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cc28002Z.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cc28002Z.s:129    .text.startup:0000000000000000 main
+     /tmp/ccG3YWTG.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccG3YWTG.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccG3YWTG.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccG3YWTG.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccG3YWTG.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccG3YWTG.s:137    .text.startup:0000000000000000 main
 
 UNDEFINED SYMBOLS
 USART0Init

@@ -137,7 +137,7 @@
   48:ALTIMU_10.c   ****         }
   49:ALTIMU_10.c   ****     }
   50:ALTIMU_10.c   ****     return 1;
-  51:ALTIMU_10.c   **** }
+  51:ALTIMU_10.c   **** }/*read_from_reg*/
  204               	.LM12:
  205 0072 0F90      		pop __tmp_reg__
  206 0074 DF91      		pop r29
@@ -160,13 +160,13 @@
  226               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ALTIMU_10.c
-     /tmp/ccfgQqAs.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccfgQqAs.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccfgQqAs.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccfgQqAs.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccfgQqAs.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccfgQqAs.s:107    .text:0000000000000000 write_to_reg
-     /tmp/ccfgQqAs.s:167    .text:0000000000000042 read_from_reg
+     /tmp/ccOIXCIi.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccOIXCIi.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccOIXCIi.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccOIXCIi.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccOIXCIi.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccOIXCIi.s:107    .text:0000000000000000 write_to_reg
+     /tmp/ccOIXCIi.s:167    .text:0000000000000042 read_from_reg
 
 UNDEFINED SYMBOLS
 i2c_start

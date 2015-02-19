@@ -48,4 +48,4 @@ uint8_t read_from_reg(unsigned char address_slave,unsigned reg_slave){
         }
     }
     return 1;
-}
+}/*read_from_reg*/
