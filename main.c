@@ -13,6 +13,7 @@
 #include "ALTIMU_10.h"
 #include "usart.h"
 #include "LSM303D_ACC_MAG.h"
+#include "timer.h"
 #include <util/delay.h>
 
 /*
@@ -39,7 +40,7 @@ int main(void) {
     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
     stdin = stdout = &usart0_str;
     /*gyro*/
-//            init_gyro();
+            init_gyro();
 
     /*acc*/
 //    init_acc();
@@ -53,12 +54,12 @@ int main(void) {
 
     while (1) {
         
-        _delay_ms(1000);
+        _delay_ms(500);
         /*gyro*/
-//                _delay_ms(20);
+
 //                read_gyro_values(&gyro_raw);
 //                printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
-//                read_gyro_values_dps(&gyro_raw,&gyro_dps);
+//                read_gyro_values_rate_dps(&gyro_raw,&gyro_dps);
 //                printf("[X: %f Y: %f Z: %f]\n",gyro_dps.x,gyro_dps.y,gyro_dps.z);
 //                read_gyro_values_angle(&gyro_dps,&gyro_angle);
 //                printf("[X: %f Y: %f Z: %f]\n",gyro_angle.x,gyro_angle.y,gyro_angle.z);

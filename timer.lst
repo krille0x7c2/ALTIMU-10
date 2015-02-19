@@ -1,0 +1,51 @@
+   1               		.file	"timer.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+ 102               	.global	timer1_init
+ 104               	timer1_init:
+   1:timer.c       **** #include <avr/io.h>
+   2:timer.c       **** #include <avr/interrupt.h>
+   3:timer.c       **** 
+   4:timer.c       ****   
+   5:timer.c       **** // initialize timer, interrupt and variable
+   6:timer.c       **** void timer1_init()
+   7:timer.c       **** {
+ 106               	.LM0:
+ 107               	.LFBB1:
+ 108               	/* prologue: function */
+ 109               	/* frame size = 0 */
+ 110               	/* stack size = 0 */
+ 111               	.L__stack_usage = 0
+   8:timer.c       ****     // set up timer with prescaler = 8
+   9:timer.c       ****     TCCR1B |= (1 << CS11);
+ 113               	.LM1:
+ 114 0000 E1E8      		ldi r30,lo8(-127)
+ 115 0002 F0E0      		ldi r31,0
+ 116 0004 8081      		ld r24,Z
+ 117 0006 8260      		ori r24,lo8(2)
+ 118 0008 8083      		st Z,r24
+  10:timer.c       ****   
+  11:timer.c       ****     // initialize counter
+  12:timer.c       ****     TCNT1 = 0;
+ 120               	.LM2:
+ 121 000a 1092 8500 		sts 132+1,__zero_reg__
+ 122 000e 1092 8400 		sts 132,__zero_reg__
+ 123 0012 0895      		ret
+ 125               	.Lscope1:
+ 127               	.Letext0:
+ 128               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 timer.c
+     /tmp/ccjQr5UB.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccjQr5UB.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccjQr5UB.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccjQr5UB.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccjQr5UB.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccjQr5UB.s:104    .text:0000000000000000 timer1_init
+
+NO UNDEFINED SYMBOLS

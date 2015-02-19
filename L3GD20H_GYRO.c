@@ -6,9 +6,12 @@
  */
 //TODO Write documentation
 #include <avr/io.h>
+#include <util/delay_basic.h>
+#include <util/delay.h>
 #include "twi_master.h"
 #include "L3GD20H_GYRO.h"
 #include "ALTIMU_10.h"
+#include "timer.h"
 
 /*************************************************************************
  Initiate the gyro
@@ -35,37 +38,40 @@ void init_gyro(void) {
  *************************************************************************/
 void read_gyro_values(struct gyro_data *_gyro_data_) {
 
-    if (i2c_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
-        i2c_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the MSB high
+    timer1_init();
+    while(TCNT1<DELAY_20M);
+        if (i2c_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
+            i2c_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the MSB high
 
-        if (i2c_rep_start(((uint8_t) GYRO_SLAVE_ADDRESS << 1) | 1) == 0) {
-            uint8_t xlg = i2c_read(ACK);
-            uint8_t xhg = i2c_read(ACK);
+            if (i2c_rep_start(((uint8_t) GYRO_SLAVE_ADDRESS << 1) | 1) == 0) {
+                uint8_t xlg = i2c_read(ACK);
+                uint8_t xhg = i2c_read(ACK);
 
-            uint8_t ylg = i2c_read(ACK);
-            uint8_t yhg = i2c_read(ACK);
+                uint8_t ylg = i2c_read(ACK);
+                uint8_t yhg = i2c_read(ACK);
 
-            uint8_t zlg = i2c_read(ACK);
-            uint8_t zhg = i2c_read(NAK);
+                uint8_t zlg = i2c_read(ACK);
+                uint8_t zhg = i2c_read(NAK);
 
-            _gyro_data_->x = (int16_t) (xhg << 8 | xlg);
-            _gyro_data_->y = (int16_t) (yhg << 8 | ylg);
-            _gyro_data_->z = (int16_t) (zhg << 8 | zlg);
+                _gyro_data_->x = (int16_t) (xhg << 8 | xlg);
+                _gyro_data_->y = (int16_t) (yhg << 8 | ylg);
+                _gyro_data_->z = (int16_t) (zhg << 8 | zlg);
 
+            }
         }
-    }
+    
 }/*read_gyro_values*/
 
-void read_gyro_values_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps) {
-    gyro_data_dps->x = (float) _gyro_data_->x * .00875;
-    gyro_data_dps->y = (float) _gyro_data_->y * .00875;
-    gyro_data_dps->z = (float) _gyro_data_->z * .00875;
+void read_gyro_values_rate_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps) {
+    gyro_data_dps->x = (float) _gyro_data_->x * G_GAIN;
+    gyro_data_dps->y = (float) _gyro_data_->y * G_GAIN;
+    gyro_data_dps->z = (float) _gyro_data_->z * G_GAIN;
 
 }/*read_gyro_values_dps*/
 
 void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *gyro_data_angle) {
-    gyro_data_angle->x += _gyro_data_dps->x * .02;
-    gyro_data_angle->y += _gyro_data_dps->y * .02;
-    gyro_data_angle->z += _gyro_data_dps->z * .02;
+    gyro_data_angle->x = _gyro_data_dps->x * LOOP_PERIOD;
+    gyro_data_angle->y = _gyro_data_dps->y * LOOP_PERIOD;
+    gyro_data_angle->z = _gyro_data_dps->z * LOOP_PERIOD;
 
 }/*read_gyro_values_angle*/
