@@ -15,16 +15,18 @@
 #include "LSM303D_ACC_MAG.h"
 #include <util/delay.h>
 
+    
+
 /*
  *Main
  * 
  *  
  */
 
-
 int main(void) {
     USART0Init();
     TWIInit();
+    
     Gyro_raw gyro_raw;
     Gyro_dps gyro_dps;
     Gyro_angle gyro_angle;
@@ -33,13 +35,17 @@ int main(void) {
     Acc_angle acc_angel;
     
     Mag_raw mag_raw;
+ 
+    
+    
+    
 
     //Set stream pointer
     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
     stdin = stdout = &usart0_str;
     /*gyro*/
-            init_gyro();
+//            init_gyro();
 
     /*acc*/
 //    init_acc();
@@ -56,12 +62,13 @@ int main(void) {
         _delay_ms(500);
         /*gyro*/
 
-//                read_gyro_values(&gyro_raw);
-//                printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
-//                read_gyro_values_rate_dps(&gyro_raw,&gyro_dps);
-//                printf("[X: %f Y: %f Z: %f]\n",gyro_dps.x,gyro_dps.y,gyro_dps.z);
-//                read_gyro_values_angle(&gyro_dps,&gyro_angle);
-//                printf("[X: %f Y: %f Z: %f]\n",gyro_angle.x,gyro_angle.y,gyro_angle.z);
+//        read_all_values_gyro(&gyro_raw);
+//        printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
+//        read_all_values_gyro(&gyro_raw,&gyro_dps);
+//        printf("[X: %f Y: %f Z: %f]\n",gyro_dps.x,gyro_dps.y,gyro_dps.z);
+//        read_all_values_gyro(&gyro_raw,&gyro_dps,&gyro_angle);
+//        printf("[X: %f Y: %f Z: %f]\n",gyro_angle.x,gyro_angle.y,gyro_angle.z);
+                            
 
         /*pressure*/
 //                printf("%f ", read_temp_celsius());

@@ -12,6 +12,48 @@
 #include "L3GD20H_GYRO.h"
 #include "ALTIMU_10.h"
 #include "timer.h"
+#include "LSM303D_ACC_MAG.h"
+
+/*************************************************************************
+ * f_base "overloading" function 
+ * Input: struct poniters specific to gyro
+ * Macro is defined in header for simpler usage [read_all_values_gyro(...)]
+ 
+ *************************************************************************/
+
+void f_base(struct gyro_data *_gyro_data_, struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *_gyro_data_angle) {
+
+    if (_gyro_data_) {
+        read_gyro_values(_gyro_data_);
+
+        if (_gyro_data_ && _gyro_data_angle && _gyro_data_dps) {
+
+            read_gyro_values_angle(_gyro_data_dps, _gyro_data_angle);
+        }
+        if (_gyro_data_ && _gyro_data_dps) {
+
+            read_gyro_values_rate_dps(_gyro_data_, _gyro_data_dps);
+
+        }
+
+    }
+
+}/*f_base*/
+
+/*************************************************************************
+ * Wrapper for f_base, used for passing addresses to f_base. Addresses are 
+ * specified in f_args struct in header
+ * Input: struct f_args
+ 
+ *************************************************************************/
+
+void var_f(f_args in) {
+    in._gyro_data_ = in._gyro_data_ ? in._gyro_data_ : in._gyro_data_;
+    in._gyro_data_dps = in._gyro_data_dps ? in._gyro_data_dps : in._gyro_data_dps;
+    in._gyro_data_angle = in._gyro_data_angle ? in._gyro_data_angle : in._gyro_data_angle;
+
+    f_base(in._gyro_data_, in._gyro_data_dps, in._gyro_data_angle);
+}/*var_f*/
 
 /*************************************************************************
  Initiate the gyro
@@ -39,27 +81,27 @@ void init_gyro(void) {
 void read_gyro_values(struct gyro_data *_gyro_data_) {
 
     timer1_init();
-    while(TCNT1<DELAY_20M);
-        if (i2c_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
-            i2c_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the MSB high
+    while (TCNT1 < DELAY_20M);
+    if (i2c_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
+        i2c_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the MSB high
 
-            if (i2c_rep_start(((uint8_t) GYRO_SLAVE_ADDRESS << 1) | 1) == 0) {
-                uint8_t xlg = i2c_read(ACK);
-                uint8_t xhg = i2c_read(ACK);
+        if (i2c_rep_start(((uint8_t) GYRO_SLAVE_ADDRESS << 1) | 1) == 0) {
+            uint8_t xlg = i2c_read(ACK);
+            uint8_t xhg = i2c_read(ACK);
 
-                uint8_t ylg = i2c_read(ACK);
-                uint8_t yhg = i2c_read(ACK);
+            uint8_t ylg = i2c_read(ACK);
+            uint8_t yhg = i2c_read(ACK);
 
-                uint8_t zlg = i2c_read(ACK);
-                uint8_t zhg = i2c_read(NAK);
+            uint8_t zlg = i2c_read(ACK);
+            uint8_t zhg = i2c_read(NAK);
 
-                _gyro_data_->x = (int16_t) (xhg << 8 | xlg);
-                _gyro_data_->y = (int16_t) (yhg << 8 | ylg);
-                _gyro_data_->z = (int16_t) (zhg << 8 | zlg);
+            _gyro_data_->x = (int16_t) (xhg << 8 | xlg);
+            _gyro_data_->y = (int16_t) (yhg << 8 | ylg);
+            _gyro_data_->z = (int16_t) (zhg << 8 | zlg);
 
-            }
         }
-    
+    }
+
 }/*read_gyro_values*/
 
 void read_gyro_values_rate_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps) {

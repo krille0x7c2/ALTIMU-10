@@ -6,9 +6,9 @@
    6               	__zero_reg__ = 1
    8               		.text
    9               	.Ltext0:
- 137               		.section	.text.startup,"ax",@progbits
- 139               	.global	main
- 141               	main:
+ 138               		.section	.text.startup,"ax",@progbits
+ 140               	.global	main
+ 142               	main:
    1:main.c        **** /* 
    2:main.c        ****  * File:   main.c
    3:main.c        ****  * Author: Christian Bodelsson<bodelsson@gmail.com>
@@ -26,81 +26,87 @@
   15:main.c        **** #include "LSM303D_ACC_MAG.h"
   16:main.c        **** #include <util/delay.h>
   17:main.c        **** 
-  18:main.c        **** /*
-  19:main.c        ****  *Main
-  20:main.c        ****  * 
-  21:main.c        ****  *  
-  22:main.c        ****  */
-  23:main.c        **** 
-  24:main.c        **** 
-  25:main.c        **** int main(void) {
- 143               	.LM0:
- 144               	.LFBB1:
- 145 0000 CF93      		push r28
- 146 0002 DF93      		push r29
- 147 0004 CDB7      		in r28,__SP_L__
- 148 0006 DEB7      		in r29,__SP_H__
- 149 0008 2E97      		sbiw r28,14
- 150 000a 0FB6      		in __tmp_reg__,__SREG__
- 151 000c F894      		cli
- 152 000e DEBF      		out __SP_H__,r29
- 153 0010 0FBE      		out __SREG__,__tmp_reg__
- 154 0012 CDBF      		out __SP_L__,r28
- 155               	/* prologue: function */
- 156               	/* frame size = 14 */
- 157               	/* stack size = 16 */
- 158               	.L__stack_usage = 16
-  26:main.c        ****     USART0Init();
- 160               	.LM1:
- 161 0014 0E94 0000 		call USART0Init
-  27:main.c        ****     TWIInit();
- 163               	.LM2:
- 164 0018 0E94 0000 		call TWIInit
-  28:main.c        ****     Gyro_raw gyro_raw;
-  29:main.c        ****     Gyro_dps gyro_dps;
-  30:main.c        ****     Gyro_angle gyro_angle;
-  31:main.c        ****     
-  32:main.c        ****     Acc_raw acc_raw;
-  33:main.c        ****     Acc_angle acc_angel;
-  34:main.c        ****     
-  35:main.c        ****     Mag_raw mag_raw;
-  36:main.c        **** 
-  37:main.c        ****     //Set stream pointer
-  38:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
- 166               	.LM3:
- 167 001c FE01      		movw r30,r28
- 168 001e 3196      		adiw r30,1
- 169 0020 8EE0      		ldi r24,lo8(14)
- 170 0022 DF01      		movw r26,r30
- 171               		0:
- 172 0024 1D92      		st X+,__zero_reg__
- 173 0026 8A95      		dec r24
- 174 0028 01F4      		brne 0b
- 175 002a 83E0      		ldi r24,lo8(3)
- 176 002c 8C83      		std Y+4,r24
- 177 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
- 178 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
- 179 0032 9A87      		std Y+10,r25
- 180 0034 8987      		std Y+9,r24
- 181 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
- 182 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
- 183 003a 9C87      		std Y+12,r25
- 184 003c 8B87      		std Y+11,r24
-  39:main.c        ****     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging 
-  40:main.c        ****     stdin = stdout = &usart0_str;
- 186               	.LM4:
- 187 003e F093 0000 		sts __iob+2+1,r31
- 188 0042 E093 0000 		sts __iob+2,r30
- 189 0046 F093 0000 		sts __iob+1,r31
- 190 004a E093 0000 		sts __iob,r30
-  41:main.c        ****     /*gyro*/
-  42:main.c        ****             init_gyro();
- 192               	.LM5:
- 193 004e 0E94 0000 		call init_gyro
- 194               	.L2:
- 195               	.LBB4:
- 196               	.LBB5:
- 198               	.Ltext1:
+  18:main.c        ****     
+  19:main.c        **** 
+  20:main.c        **** /*
+  21:main.c        ****  *Main
+  22:main.c        ****  * 
+  23:main.c        ****  *  
+  24:main.c        ****  */
+  25:main.c        **** 
+  26:main.c        **** int main(void) {
+ 144               	.LM0:
+ 145               	.LFBB1:
+ 146 0000 CF93      		push r28
+ 147 0002 DF93      		push r29
+ 148 0004 CDB7      		in r28,__SP_L__
+ 149 0006 DEB7      		in r29,__SP_H__
+ 150 0008 2E97      		sbiw r28,14
+ 151 000a 0FB6      		in __tmp_reg__,__SREG__
+ 152 000c F894      		cli
+ 153 000e DEBF      		out __SP_H__,r29
+ 154 0010 0FBE      		out __SREG__,__tmp_reg__
+ 155 0012 CDBF      		out __SP_L__,r28
+ 156               	/* prologue: function */
+ 157               	/* frame size = 14 */
+ 158               	/* stack size = 16 */
+ 159               	.L__stack_usage = 16
+  27:main.c        ****     USART0Init();
+ 161               	.LM1:
+ 162 0014 0E94 0000 		call USART0Init
+  28:main.c        ****     TWIInit();
+ 164               	.LM2:
+ 165 0018 0E94 0000 		call TWIInit
+  29:main.c        ****     
+  30:main.c        ****     Gyro_raw gyro_raw;
+  31:main.c        ****     Gyro_dps gyro_dps;
+  32:main.c        ****     Gyro_angle gyro_angle;
+  33:main.c        ****     
+  34:main.c        ****     Acc_raw acc_raw;
+  35:main.c        ****     Acc_angle acc_angel;
+  36:main.c        ****     
+  37:main.c        ****     Mag_raw mag_raw;
+  38:main.c        ****  
+  39:main.c        ****     
+  40:main.c        ****     
+  41:main.c        ****     
+  42:main.c        **** 
+  43:main.c        ****     //Set stream pointer
+  44:main.c        ****     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
+ 167               	.LM3:
+ 168 001c FE01      		movw r30,r28
+ 169 001e 3196      		adiw r30,1
+ 170 0020 8EE0      		ldi r24,lo8(14)
+ 171 0022 DF01      		movw r26,r30
+ 172               		0:
+ 173 0024 1D92      		st X+,__zero_reg__
+ 174 0026 8A95      		dec r24
+ 175 0028 01F4      		brne 0b
+ 176 002a 83E0      		ldi r24,lo8(3)
+ 177 002c 8C83      		std Y+4,r24
+ 178 002e 80E0      		ldi r24,lo8(gs(USART0SendByte))
+ 179 0030 90E0      		ldi r25,hi8(gs(USART0SendByte))
+ 180 0032 9A87      		std Y+10,r25
+ 181 0034 8987      		std Y+9,r24
+ 182 0036 80E0      		ldi r24,lo8(gs(USART0ReceiveByte))
+ 183 0038 90E0      		ldi r25,hi8(gs(USART0ReceiveByte))
+ 184 003a 9C87      		std Y+12,r25
+ 185 003c 8B87      		std Y+11,r24
+  45:main.c        ****     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging 
+  46:main.c        ****     stdin = stdout = &usart0_str;
+ 187               	.LM4:
+ 188 003e F093 0000 		sts __iob+2+1,r31
+ 189 0042 E093 0000 		sts __iob+2,r30
+ 190 0046 F093 0000 		sts __iob+1,r31
+ 191 004a E093 0000 		sts __iob,r30
+  47:main.c        ****     /*gyro*/
+  48:main.c        ****             init_gyro();
+ 193               	.LM5:
+ 194 004e 0E94 0000 		call init_gyro
+ 195               	.L2:
+ 196               	.LBB4:
+ 197               	.LBB5:
+ 199               	.Ltext1:
    1:/usr/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -264,31 +270,31 @@
  161:/usr/avr/include/util/delay.h **** 	#endif
  162:/usr/avr/include/util/delay.h **** 
  163:/usr/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
- 200               	.LM6:
- 201 0052 BFEF      		ldi r27,lo8(1599999)
- 202 0054 29E6      		ldi r18,hi8(1599999)
- 203 0056 88E1      		ldi r24,hlo8(1599999)
- 204 0058 B150      		1: subi r27,1
- 205 005a 2040      		sbci r18,0
- 206 005c 8040      		sbci r24,0
- 207 005e 01F4      		brne 1b
- 208 0060 00C0      		rjmp .
- 209 0062 0000      		nop
- 210 0064 00C0      		rjmp .L2
- 211               	.LBE5:
- 212               	.LBE4:
- 217               	.Lscope1:
- 218               		.text
- 220               	.Letext0:
- 221               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+ 201               	.LM6:
+ 202 0052 BFEF      		ldi r27,lo8(1599999)
+ 203 0054 29E6      		ldi r18,hi8(1599999)
+ 204 0056 88E1      		ldi r24,hlo8(1599999)
+ 205 0058 B150      		1: subi r27,1
+ 206 005a 2040      		sbci r18,0
+ 207 005c 8040      		sbci r24,0
+ 208 005e 01F4      		brne 1b
+ 209 0060 00C0      		rjmp .
+ 210 0062 0000      		nop
+ 211 0064 00C0      		rjmp .L2
+ 212               	.LBE5:
+ 213               	.LBE4:
+ 218               	.Lscope1:
+ 219               		.text
+ 221               	.Letext0:
+ 222               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/cceAvOzY.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cceAvOzY.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cceAvOzY.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cceAvOzY.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cceAvOzY.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cceAvOzY.s:141    .text.startup:0000000000000000 main
+     /tmp/ccMLhqf6.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccMLhqf6.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccMLhqf6.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccMLhqf6.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccMLhqf6.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccMLhqf6.s:142    .text.startup:0000000000000000 main
 
 UNDEFINED SYMBOLS
 USART0Init
