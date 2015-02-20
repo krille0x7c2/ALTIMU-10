@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include "ALTIMU_10.h"
 #include "twi_master.h"
-
+;
 
 /*************************************************************************
  Write to slave register
@@ -18,10 +18,10 @@
  Return: 0 if success
          1 if fail
  
-*************************************************************************/
+ *************************************************************************/
 
-uint8_t write_to_reg(unsigned char address_slave,unsigned char reg_slave, uint8_t data){
-     if (i2c_start(address_slave << 1) == 0) {
+uint8_t write_to_reg(unsigned char address_slave, unsigned char reg_slave, uint8_t data) {
+    if (i2c_start(address_slave << 1) == 0) {
         i2c_write(reg_slave);
         i2c_write(data);
         i2c_stop();
@@ -39,9 +39,9 @@ uint8_t write_to_reg(unsigned char address_slave,unsigned char reg_slave, uint8_
  Return: Byte if success
          1 if fail
  
-*************************************************************************/
-uint8_t read_from_reg(unsigned char address_slave,unsigned reg_slave){
-      if (i2c_start(address_slave << 1) == 0) {
+ *************************************************************************/
+uint8_t read_from_reg(unsigned char address_slave, unsigned reg_slave) {
+    if (i2c_start(address_slave << 1) == 0) {
         i2c_write(reg_slave);
         if (i2c_rep_start(((uint8_t) address_slave << 1) | 1) == 0) {
             return i2c_read(NAK);

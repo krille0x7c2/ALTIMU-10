@@ -41,7 +41,6 @@
 #define GYRO_LOW_ODR  0x39
 #define G_GAIN    .00875
 #define LOOP_PERIOD .02
-#define read_all_values_gyro(...) var_f((f_args){__VA_ARGS__});
 
 typedef struct gyro_data {
     int16_t x;
@@ -61,17 +60,11 @@ typedef struct gyro_data_angle {
     float z;
 } Gyro_angle;
 
-typedef struct {
-    struct gyro_data *_gyro_data_;
-    struct gyro_data_dps *_gyro_data_dps;
-    struct gyro_data_angle *_gyro_data_angle;
-} f_args;
-
 void init_gyro(void);
 void read_gyro_values(struct gyro_data *_gyro_data_);
 void read_gyro_values_rate_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps);
 void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *gyro_data_angle);
-void f_base(struct gyro_data *_gyro_data_, struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *_gyro_data_angle);
+
 
 
 #endif	/* L3GD20H_GYRO_H */

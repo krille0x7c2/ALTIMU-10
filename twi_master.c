@@ -4,7 +4,6 @@
  * source: http://www.atmel.com/images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Complete.pdf page 216
  * Created on February 16, 2015, 6:23 PM
  */
-#include "ALTIMU_10.h"
 #include <avr/io.h>
 #include "twi_master.h"
 #include <inttypes.h>

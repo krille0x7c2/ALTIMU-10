@@ -42,7 +42,7 @@ void init_mag(void) {
  
  *************************************************************************/
 
-void read_acc_raw(struct acc_val_raw *_acc_raw_) {
+void read_acc_values_raw(struct acc_val_raw *_acc_raw_) {
     if (i2c_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
         i2c_write(ACC_MAG_OUT_X_L_A | (1 << 7)); //Auto increment registers by writing the MSB high
 
@@ -70,7 +70,7 @@ void read_acc_raw(struct acc_val_raw *_acc_raw_) {
  * 
  
  *************************************************************************/
-void read_acc_angel(struct acc_val_raw *_acc_raw_, struct acc_val_angle *_acc_angle) {
+void read_acc_values_angle(struct acc_val_raw *_acc_raw_, struct acc_val_angle *_acc_angle) {
     _acc_angle->x = (float) (atan2(_acc_raw_->y, _acc_raw_->z) + M_PI) * RAD_TO_DEG;
     _acc_angle->y = (float) (atan2(_acc_raw_->z, _acc_raw_->x) + M_PI) * RAD_TO_DEG;
     
@@ -90,7 +90,7 @@ void read_acc_angel(struct acc_val_raw *_acc_raw_, struct acc_val_angle *_acc_an
  
  *************************************************************************/
 
-void read_mag_raw(struct mag_val_raw *_mag_raw_) {
+void read_mag_values_raw(struct mag_val_raw *_mag_raw_) {
     if (i2c_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
         i2c_write(ACC_MAG_OUT_X_L_M | (1 << 7)); //Auto increment registers by writing the MSB high
 

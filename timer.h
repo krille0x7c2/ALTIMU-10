@@ -9,7 +9,7 @@
 #define	TIMER_H
 #define DELAY_20M   39999
 
-void timer1_init();
+void timer1_init(void);
 
 #endif	/* TIMER_H */
 

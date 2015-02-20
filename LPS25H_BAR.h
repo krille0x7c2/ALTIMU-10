@@ -38,10 +38,13 @@
 //Reserved 0x32-0x38 (No modify!!)
 #define BAR_RPDS_L  0x39//R/W
 #define BAR_RPDS_H  0x3A//R/W
+#define NULL ((void *)0)
 
 float read_temp_celsius(void);
 float read_pressure_hpa(void);
 void init_bar(void);
+
+
 
 
 #endif	/* LPS25H_BAR_H */

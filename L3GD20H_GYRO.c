@@ -8,52 +8,13 @@
 #include <avr/io.h>
 #include <util/delay_basic.h>
 #include <util/delay.h>
+#include "ALTIMU_10.h"
 #include "twi_master.h"
 #include "L3GD20H_GYRO.h"
-#include "ALTIMU_10.h"
 #include "timer.h"
 #include "LSM303D_ACC_MAG.h"
 
-/*************************************************************************
- * f_base "overloading" function 
- * Input: struct poniters specific to gyro
- * Macro is defined in header for simpler usage [read_all_values_gyro(...)]
- 
- *************************************************************************/
 
-void f_base(struct gyro_data *_gyro_data_, struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *_gyro_data_angle) {
-
-    if (_gyro_data_) {
-        read_gyro_values(_gyro_data_);
-
-        if (_gyro_data_ && _gyro_data_angle && _gyro_data_dps) {
-
-            read_gyro_values_angle(_gyro_data_dps, _gyro_data_angle);
-        }
-        if (_gyro_data_ && _gyro_data_dps) {
-
-            read_gyro_values_rate_dps(_gyro_data_, _gyro_data_dps);
-
-        }
-
-    }
-
-}/*f_base*/
-
-/*************************************************************************
- * Wrapper for f_base, used for passing addresses to f_base. Addresses are 
- * specified in f_args struct in header
- * Input: struct f_args
- 
- *************************************************************************/
-
-void var_f(f_args in) {
-    in._gyro_data_ = in._gyro_data_ ? in._gyro_data_ : in._gyro_data_;
-    in._gyro_data_dps = in._gyro_data_dps ? in._gyro_data_dps : in._gyro_data_dps;
-    in._gyro_data_angle = in._gyro_data_angle ? in._gyro_data_angle : in._gyro_data_angle;
-
-    f_base(in._gyro_data_, in._gyro_data_dps, in._gyro_data_angle);
-}/*var_f*/
 
 /*************************************************************************
  Initiate the gyro

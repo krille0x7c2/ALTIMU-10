@@ -106,9 +106,9 @@ typedef struct mag_val_raw {
 
 void init_acc(void);
 void init_mag(void);
-void read_acc_raw(struct acc_val_raw *_acc_raw_);
-void read_acc_angel(struct acc_val_raw *_acc_raw_,struct acc_val_angle *_acc_angle);
-void read_mag_raw(struct mag_val_raw *_mag_raw_);
+void read_acc_values_raw(struct acc_val_raw *_acc_raw_);
+void read_acc_values_angle(struct acc_val_raw *_acc_raw_,struct acc_val_angle *_acc_angle);
+void read_mag_values_raw(struct mag_val_raw *_mag_raw_);
 
 #endif	/* LSM303D_ACC_MAGNETO_H */
 
