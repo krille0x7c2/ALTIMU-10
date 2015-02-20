@@ -33,6 +33,7 @@ int main(void) {
 
     Mag_raw mag_raw;
 
+    
     //Set stream pointer
     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
@@ -54,6 +55,7 @@ int main(void) {
 
         _delay_ms(500);
         /*gyro*/
+
 
 
         //        printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);

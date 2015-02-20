@@ -8,6 +8,9 @@
 #ifndef LPS25H_BAR_H
 #define	LPS25H_BAR_H
 
+#include "LSM303D_ACC_MAG.h"
+
+
 #define BAR_REF_P_XL    0x08//R/W
 #define BAR_REF_P_L     0x09//R/W
 #define BAR_REF_P_H     0x0A//R/W
@@ -43,6 +46,8 @@
 float read_temp_celsius(void);
 float read_pressure_hpa(void);
 void init_bar(void);
+
+
 
 
 
