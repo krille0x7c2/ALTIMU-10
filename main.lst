@@ -99,14 +99,10 @@
  189 0042 E093 0000 		sts __iob+2,r30
  190 0046 F093 0000 		sts __iob+1,r31
  191 004a E093 0000 		sts __iob,r30
-  47:main.c        ****     /*gyro*/
-  48:main.c        ****             init_gyro();
- 193               	.LM5:
- 194 004e 0E94 0000 		call init_gyro
- 195               	.L2:
- 196               	.LBB4:
- 197               	.LBB5:
- 199               	.Ltext1:
+ 192               	.L2:
+ 193               	.LBB4:
+ 194               	.LBB5:
+ 196               	.Ltext1:
    1:/usr/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -270,31 +266,31 @@
  161:/usr/avr/include/util/delay.h **** 	#endif
  162:/usr/avr/include/util/delay.h **** 
  163:/usr/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
- 201               	.LM6:
- 202 0052 BFEF      		ldi r27,lo8(1599999)
- 203 0054 29E6      		ldi r18,hi8(1599999)
- 204 0056 88E1      		ldi r24,hlo8(1599999)
- 205 0058 B150      		1: subi r27,1
- 206 005a 2040      		sbci r18,0
- 207 005c 8040      		sbci r24,0
- 208 005e 01F4      		brne 1b
- 209 0060 00C0      		rjmp .
- 210 0062 0000      		nop
- 211 0064 00C0      		rjmp .L2
- 212               	.LBE5:
- 213               	.LBE4:
- 218               	.Lscope1:
- 219               		.text
- 221               	.Letext0:
- 222               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
+ 198               	.LM5:
+ 199 004e BFEF      		ldi r27,lo8(1599999)
+ 200 0050 29E6      		ldi r18,hi8(1599999)
+ 201 0052 88E1      		ldi r24,hlo8(1599999)
+ 202 0054 B150      		1: subi r27,1
+ 203 0056 2040      		sbci r18,0
+ 204 0058 8040      		sbci r24,0
+ 205 005a 01F4      		brne 1b
+ 206 005c 00C0      		rjmp .
+ 207 005e 0000      		nop
+ 208 0060 00C0      		rjmp .L2
+ 209               	.LBE5:
+ 210               	.LBE4:
+ 215               	.Lscope1:
+ 216               		.text
+ 218               	.Letext0:
+ 219               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/ccMLhqf6.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccMLhqf6.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccMLhqf6.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccMLhqf6.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccMLhqf6.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccMLhqf6.s:142    .text.startup:0000000000000000 main
+     /tmp/ccqmh5tx.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccqmh5tx.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccqmh5tx.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccqmh5tx.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccqmh5tx.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccqmh5tx.s:142    .text.startup:0000000000000000 main
 
 UNDEFINED SYMBOLS
 USART0Init
@@ -302,4 +298,3 @@ TWIInit
 USART0SendByte
 USART0ReceiveByte
 __iob
-init_gyro

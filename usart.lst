@@ -131,13 +131,13 @@
  232               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 usart.c
-     /tmp/ccsZDJWn.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccsZDJWn.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccsZDJWn.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccsZDJWn.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccsZDJWn.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccsZDJWn.s:116    .text:0000000000000000 USART0Init
-     /tmp/ccsZDJWn.s:153    .text:0000000000000020 USART0SendByte
-     /tmp/ccsZDJWn.s:195    .text:0000000000000046 USART0ReceiveByte
+     /tmp/ccLBBJK2.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccLBBJK2.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccLBBJK2.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccLBBJK2.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccLBBJK2.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccLBBJK2.s:116    .text:0000000000000000 USART0Init
+     /tmp/ccLBBJK2.s:153    .text:0000000000000020 USART0SendByte
+     /tmp/ccLBBJK2.s:195    .text:0000000000000046 USART0ReceiveByte
 
 NO UNDEFINED SYMBOLS

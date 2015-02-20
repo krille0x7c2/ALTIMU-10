@@ -160,13 +160,13 @@
  226               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ALTIMU_10.c
-     /tmp/ccHwh5wB.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccHwh5wB.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccHwh5wB.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccHwh5wB.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccHwh5wB.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccHwh5wB.s:107    .text:0000000000000000 write_to_reg
-     /tmp/ccHwh5wB.s:167    .text:0000000000000042 read_from_reg
+     /tmp/cctJDB94.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cctJDB94.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cctJDB94.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cctJDB94.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cctJDB94.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cctJDB94.s:107    .text:0000000000000000 write_to_reg
+     /tmp/cctJDB94.s:167    .text:0000000000000042 read_from_reg
 
 UNDEFINED SYMBOLS
 i2c_start

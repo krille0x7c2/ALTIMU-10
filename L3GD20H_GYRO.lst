@@ -507,17 +507,17 @@
  562               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 L3GD20H_GYRO.c
-     /tmp/cc8CoJrs.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cc8CoJrs.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cc8CoJrs.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cc8CoJrs.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cc8CoJrs.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cc8CoJrs.s:121    .text:0000000000000000 init_gyro
-     /tmp/cc8CoJrs.s:153    .text:000000000000001e read_gyro_values
-     /tmp/cc8CoJrs.s:273    .text:00000000000000ac read_gyro_values_rate_dps
-     /tmp/cc8CoJrs.s:359    .text:0000000000000134 read_gyro_values_angle
-     /tmp/cc8CoJrs.s:437    .text:00000000000001a4 f_base
-     /tmp/cc8CoJrs.s:515    .text:00000000000001f8 var_f
+     /tmp/ccBUTx1Y.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccBUTx1Y.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccBUTx1Y.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccBUTx1Y.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccBUTx1Y.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccBUTx1Y.s:121    .text:0000000000000000 init_gyro
+     /tmp/ccBUTx1Y.s:153    .text:000000000000001e read_gyro_values
+     /tmp/ccBUTx1Y.s:273    .text:00000000000000ac read_gyro_values_rate_dps
+     /tmp/ccBUTx1Y.s:359    .text:0000000000000134 read_gyro_values_angle
+     /tmp/ccBUTx1Y.s:437    .text:00000000000001a4 f_base
+     /tmp/ccBUTx1Y.s:515    .text:00000000000001f8 var_f
 
 UNDEFINED SYMBOLS
 write_to_reg

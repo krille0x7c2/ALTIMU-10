@@ -480,16 +480,16 @@
  543               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 LSM303D_ACC_MAG.c
-     /tmp/ccQpLlez.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccQpLlez.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccQpLlez.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccQpLlez.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccQpLlez.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccQpLlez.s:112    .text:0000000000000000 init_acc
-     /tmp/ccQpLlez.s:137    .text:0000000000000014 init_mag
-     /tmp/ccQpLlez.s:169    .text:0000000000000032 read_acc_raw
-     /tmp/ccQpLlez.s:279    .text:00000000000000ae read_acc_angel
-     /tmp/ccQpLlez.s:441    .text:00000000000001d6 read_mag_raw
+     /tmp/cchV5HU2.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cchV5HU2.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cchV5HU2.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cchV5HU2.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cchV5HU2.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cchV5HU2.s:112    .text:0000000000000000 init_acc
+     /tmp/cchV5HU2.s:137    .text:0000000000000014 init_mag
+     /tmp/cchV5HU2.s:169    .text:0000000000000032 read_acc_raw
+     /tmp/cchV5HU2.s:279    .text:00000000000000ae read_acc_angel
+     /tmp/cchV5HU2.s:441    .text:00000000000001d6 read_mag_raw
 
 UNDEFINED SYMBOLS
 write_to_reg

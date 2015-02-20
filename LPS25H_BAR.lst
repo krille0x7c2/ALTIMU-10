@@ -254,14 +254,14 @@
  307               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 LPS25H_BAR.c
-     /tmp/ccsD3tqw.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccsD3tqw.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccsD3tqw.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccsD3tqw.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccsD3tqw.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccsD3tqw.s:107    .text:0000000000000000 read_temp_celsius
-     /tmp/ccsD3tqw.s:187    .text:000000000000005e read_pressure_hpa
-     /tmp/ccsD3tqw.s:289    .text:00000000000000e2 init_bar
+     /tmp/cc5IGmN8.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc5IGmN8.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc5IGmN8.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc5IGmN8.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc5IGmN8.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc5IGmN8.s:107    .text:0000000000000000 read_temp_celsius
+     /tmp/cc5IGmN8.s:187    .text:000000000000005e read_pressure_hpa
+     /tmp/cc5IGmN8.s:289    .text:00000000000000e2 init_bar
 
 UNDEFINED SYMBOLS
 __floatsisf

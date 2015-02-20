@@ -41,11 +41,11 @@
  128               		.ident	"GCC: (GNU) 4.9.2 20141224 (prerelease)"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 timer.c
-     /tmp/ccjQr5UB.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccjQr5UB.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccjQr5UB.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccjQr5UB.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccjQr5UB.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccjQr5UB.s:104    .text:0000000000000000 timer1_init
+     /tmp/ccAvRWH3.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccAvRWH3.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccAvRWH3.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccAvRWH3.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccAvRWH3.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccAvRWH3.s:104    .text:0000000000000000 timer1_init
 
 NO UNDEFINED SYMBOLS
