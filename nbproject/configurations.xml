@@ -11,6 +11,7 @@
       <in>LSM303D_ACC_MAG.c</in>
       <in>LSM303D_ACC_MAG.h</in>
       <in>main.c</in>
+      <in>main.h</in>
       <in>timer.c</in>
       <in>timer.h</in>
       <in>twi_master.c</in>
@@ -66,6 +67,8 @@
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="3">
       </item>
+      <item path="main.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="timer.c" ex="false" tool="0" flavor2="2">
       </item>
       <item path="twi_master.c" ex="false" tool="0" flavor2="2">
@@ -116,6 +119,8 @@
       <item path="LSM303D_ACC_MAG.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="main.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="timer.c" ex="false" tool="0" flavor2="0">
       </item>

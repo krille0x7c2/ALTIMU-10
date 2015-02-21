@@ -14,9 +14,10 @@
 #define GYRO_SLAVE_ADDRESS  0x6B
 #define ACC_MAG_SLAVE_ADDRESS   0x1D
 #define BAR_SLAVE_ADDRESS   0x5D
+typedef unsigned char byte;
 
-uint8_t read_from_reg(unsigned char address_slave, unsigned reg_slave);
-uint8_t write_to_reg(unsigned char address_slave, unsigned char reg_slave, uint8_t data);
+uint8_t read_from_reg(byte address_slave, byte reg_slave);
+uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data);
 
 
 

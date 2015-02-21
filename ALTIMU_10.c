@@ -22,7 +22,7 @@
  
  *************************************************************************/
 
-uint8_t write_to_reg(unsigned char address_slave, unsigned char reg_slave, uint8_t data) {
+uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data) {
     if (i2c_start(address_slave << 1) == 0) {
         i2c_write(reg_slave);
         i2c_write(data);
@@ -42,7 +42,7 @@ uint8_t write_to_reg(unsigned char address_slave, unsigned char reg_slave, uint8
          1 if fail
  
  *************************************************************************/
-uint8_t read_from_reg(unsigned char address_slave, unsigned reg_slave) {
+uint8_t read_from_reg(byte address_slave, byte reg_slave) {
     if (i2c_start(address_slave << 1) == 0) {
         i2c_write(reg_slave);
         if (i2c_rep_start(((uint8_t) address_slave << 1) | 1) == 0) {
@@ -53,7 +53,4 @@ uint8_t read_from_reg(unsigned char address_slave, unsigned reg_slave) {
 }/*read_from_reg*/
 
 
-/*************************************************************************
- Constructor for Altimu
- 
- *************************************************************************/
+
