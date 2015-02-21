@@ -56,37 +56,21 @@
           </cTool>
         </makeTool>
       </makefileType>
-      <item path=".gitignore" ex="false" tool="3" flavor2="0">
+      <item path="ALTIMU_10.c" ex="false" tool="0" flavor2="2">
       </item>
-      <item path="ALTIMU_10.c" ex="false" tool="0" flavor2="0">
+      <item path="L3GD20H_GYRO.c" ex="false" tool="0" flavor2="2">
       </item>
-      <item path="ALTIMU_10.h" ex="false" tool="3" flavor2="0">
+      <item path="LPS25H_BAR.c" ex="false" tool="0" flavor2="2">
       </item>
-      <item path="L3GD20H_GYRO.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="L3GD20H_GYRO.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="LPS25H_BAR.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="LPS25H_BAR.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="LSM303D_ACC_MAG.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="LSM303D_ACC_MAG.h" ex="false" tool="3" flavor2="0">
+      <item path="LSM303D_ACC_MAG.c" ex="false" tool="0" flavor2="2">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="3">
       </item>
-      <item path="timer.c" ex="false" tool="0" flavor2="0">
+      <item path="timer.c" ex="false" tool="0" flavor2="2">
       </item>
-      <item path="timer.h" ex="false" tool="3" flavor2="0">
+      <item path="twi_master.c" ex="false" tool="0" flavor2="2">
       </item>
-      <item path="twi_master.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="twi_master.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="usart.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="usart.h" ex="false" tool="3" flavor2="0">
+      <item path="usart.c" ex="false" tool="0" flavor2="2">
       </item>
     </conf>
     <conf name="program" type="0">

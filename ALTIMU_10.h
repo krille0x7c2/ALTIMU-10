@@ -15,12 +15,13 @@
 #define ACC_MAG_SLAVE_ADDRESS   0x1D
 #define BAR_SLAVE_ADDRESS   0x5D
 
+uint8_t read_from_reg(unsigned char address_slave, unsigned reg_slave);
+uint8_t write_to_reg(unsigned char address_slave, unsigned char reg_slave, uint8_t data);
 
-uint8_t write_to_reg(unsigned char address_slave,unsigned char reg_slave, uint8_t data);
-uint8_t read_from_reg(unsigned char address_slave,unsigned reg_slave);
 
 
-   
+
+
 
 
 #endif	/* ALTIMU_10_H */

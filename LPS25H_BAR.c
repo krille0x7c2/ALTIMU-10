@@ -10,17 +10,12 @@
 #include "LPS25H_BAR.h"
 #include "ALTIMU_10.h"
 
-
-
-
-
-
 /*************************************************************************
  Read the tempature
  
  Return: float value in Celsius
  
-*************************************************************************/
+ *************************************************************************/
 
 float read_temp_celsius(void) {
     if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
@@ -38,13 +33,12 @@ float read_temp_celsius(void) {
     return 1;
 }/*read_temp_celsius*/
 
-
 /*************************************************************************
  Read the pressure
  
  Return: float value in hpa
  
-************************************************************************/
+ ************************************************************************/
 float read_pressure_hpa(void) {
     if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
         i2c_write(BAR_PRESS_POUT_XL | (1 << 7));
@@ -63,12 +57,13 @@ float read_pressure_hpa(void) {
 }/*read_pressure_hpa*/
 
 //TODO
+
 /*************************************************************************
  Initialize the bar,, more info on the way
  
-************************************************************************/
+ ************************************************************************/
 
 void init_bar(void) {
-    write_to_reg(BAR_SLAVE_ADDRESS,BAR_CTRL_REG1, 0xB0);
-}/*init_bar*/
 
+    write_to_reg(BAR_SLAVE_ADDRESS, BAR_CTRL_REG1, 0xB0);
+}/*init_bar*/

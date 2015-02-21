@@ -18,6 +18,7 @@
  
  *************************************************************************/
 void init_acc(void) {
+    
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL2, 0x00);
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL1, 0x57);
 
@@ -32,6 +33,7 @@ void init_acc(void) {
  *************************************************************************/
 
 void init_mag(void) {
+
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL5, 0x64);
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL6, 0x20);
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL7, 0x00);

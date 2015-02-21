@@ -78,3 +78,4 @@ void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_da
     gyro_data_angle->z = _gyro_data_dps->z * LOOP_PERIOD;
 
 }/*read_gyro_values_angle*/
+

@@ -15,11 +15,13 @@
 #include "L3GD20H_GYRO.h"
 #include "LPS25H_BAR.h"
 
+
 /*
  *Main
  * 
  *  
  */
+
 
 int main(void) {
     USART0Init();
@@ -27,19 +29,16 @@ int main(void) {
     Gyro_raw gyro_raw;
     Gyro_dps gyro_dps;
     Gyro_angle gyro_angle;
-
     Acc_raw acc_raw;
     Acc_angle acc_angel;
-
     Mag_raw mag_raw;
-
     
     //Set stream pointer
     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
     stdin = stdout = &usart0_str;
     /*gyro*/
-    //            init_gyro();
+//                init_gyro();
 
     /*acc*/
 //        init_acc();
@@ -49,16 +48,20 @@ int main(void) {
 
 
     /*pressure*/
-    //        init_bar();
+//    init_bar();
+            
+           
 
     while (1) {
+       
+      
+        
+        
 
         _delay_ms(500);
         /*gyro*/
 
-
-
-        //        printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
+//                printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
 
         //        printf("[X: %f Y: %f Z: %f]\n",gyro_dps.x,gyro_dps.y,gyro_dps.z);
 
@@ -68,7 +71,7 @@ int main(void) {
         /*pressure*/
         //                printf("%f ", read_temp_celsius());
 
-        //            printf("%f hpa", read());
+//                    printf("%f hpa",  read_pressure_hpa());
 
         /*acc*/
 //        read_acc_values_raw(&acc_raw);

@@ -6,9 +6,11 @@
  */
 //TODO Write documentation
 #include <avr/io.h>
-#include "ALTIMU_10.h"
+#include <stdlib.h>
 #include "twi_master.h"
-;
+#include "ALTIMU_10.h"
+
+
 
 /*************************************************************************
  Write to slave register
@@ -50,3 +52,8 @@ uint8_t read_from_reg(unsigned char address_slave, unsigned reg_slave) {
     return 1;
 }/*read_from_reg*/
 
+
+/*************************************************************************
+ Constructor for Altimu
+ 
+ *************************************************************************/
