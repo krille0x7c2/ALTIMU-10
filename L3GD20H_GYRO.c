@@ -4,7 +4,7 @@
  *
  * Created on February 17, 2015, 8:46 AM
  */
-//TODO Write documentation
+
 #include <avr/io.h>
 #include <util/delay_basic.h>
 #include <util/delay.h>
@@ -17,9 +17,9 @@
 
 
 /*************************************************************************
- Initiate the gyro
- * GYRO_LOW_ODR: LOW ODR DISABLED
- * GYRO_CTRL4:   +/-250 dps
+ Initiate the gyro 5.0mA
+ * GYRO_LOW_ODR: LOW ODR DISABLED default setting
+ * GYRO_CTRL4:   +/-250 dps       default setting
  * GYRO_CTRL1:   [[DR 01 200Hz ODR],[BW 10 50Hz bandwidth],[PD 1 normal mode],[Zen=Yen=Xen=1 all axes enabled]]  
  
  *************************************************************************/
@@ -31,7 +31,37 @@ void init_gyro(void) {
     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x6F);
 }/*init_gyro*/
 
-//TODO
+/*************************************************************************
+ Put the gyro to sleep 2.5mA
+ 
+ (For Sleep Mode set {PD:Zen:Yen:Xen} to {1000})
+ 
+ *************************************************************************/
+void sleep_gyro(void){
+    write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x08);
+}/*sleep_gyro*/
+
+
+/*************************************************************************
+ Power down the gyro 1uA
+ 
+ PD=0 = power down
+ 
+ *************************************************************************/
+void power_down_gyro(void){
+    write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x00);
+}/*power_down_gyro*/
+
+/*************************************************************************
+ Wake gyro 5mA
+ 
+ GYRO_CTRL1:   [[DR 01 200Hz ODR],[BW 10 50Hz bandwidth],[PD 1 normal mode],[Zen=Yen=Xen=1 all axes enabled]]
+ 
+ *************************************************************************/
+void wake_gyro(void){
+    write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x6F);
+}/*wake_gyro*/
+
 
 /*************************************************************************
  Read the raw values from all three axis. 16-bit resolution
@@ -44,7 +74,7 @@ void read_gyro_values(struct gyro_data *_gyro_data_) {
     timer1_init();
     while (TCNT1 < DELAY_20M);
     if (i2c_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
-        i2c_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the MSB high
+        i2c_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the asserting MSB 
 
         if (i2c_rep_start(((uint8_t) GYRO_SLAVE_ADDRESS << 1) | 1) == 0) {
             uint8_t xlg = i2c_read(ACK);

@@ -4,7 +4,7 @@
  *
  * Created on February 17, 2015, 8:46 AM
  */
-//TODO Write documentation
+//TODO enable power saving functions
 #include <avr/io.h>
 #include "twi_master.h"
 #include "LPS25H_BAR.h"

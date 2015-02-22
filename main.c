@@ -23,11 +23,6 @@
     Acc_angle acc_angel;
     Mag_raw mag_raw;
 
-/*
- *Main
- * 
- *  
- */
 void init_sensor(uint8_t sensor) {
     switch (sensor) {
         case GYRO:
@@ -80,13 +75,6 @@ int main(void) {
     TWIInit();
     init_sensor(BAR);
     
-
-    //Set stream pointer
-    FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
-    //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
-    stdin = stdout = &usart0_str;
-    
-
     while (1) {
 
         _delay_ms(500);

@@ -9,6 +9,10 @@ void USART0Init(void) {
     UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00);
     //enable transmission and reception
     UCSR0B |= (1 << RXEN0) | (1 << TXEN0);
+    //Set stream pointer
+    FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
+    //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
+    stdin = stdout = &usart0_str;
 }
 
 int USART0SendByte(char u8Data, FILE *stream) {

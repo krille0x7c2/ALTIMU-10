@@ -4,7 +4,7 @@
  *
  * Created on February 17, 2015, 8:46 AM
  */
-//TODO Write documentation and implement
+//TODO enable power saving functions
 #include <avr/io.h>
 #include "ALTIMU_10.h"
 #include "LSM303D_ACC_MAG.h"
