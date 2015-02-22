@@ -22,6 +22,8 @@
     Acc_raw acc_raw;
     Acc_angle acc_angel;
     Mag_raw mag_raw;
+    
+ 
 
 void init_sensor(uint8_t sensor) {
     switch (sensor) {
@@ -73,12 +75,17 @@ int main(void) {
    
     USART0Init();
     TWIInit();
-    init_sensor(BAR);
+//    init_sensor(ACC);
+    
+           //Set stream pointer
+    FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
+    //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
+    stdin = stdout = &usart0_str;
     
     while (1) {
 
         _delay_ms(500);
-        print_sensor(0);
+//        print_sensor(ACC);
 
 
     }

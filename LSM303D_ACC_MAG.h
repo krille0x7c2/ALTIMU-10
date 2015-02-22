@@ -106,6 +106,8 @@ typedef struct mag_val_raw {
 
 void init_acc(void);
 void init_mag(void);
+void power_down_mag(void);
+void power_down_acc(void);
 void read_acc_values_raw(struct acc_val_raw *_acc_raw_);
 void read_acc_values_angle(struct acc_val_raw *_acc_raw_,struct acc_val_angle *_acc_angle);
 void read_mag_values_raw(struct mag_val_raw *_mag_raw_);

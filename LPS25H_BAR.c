@@ -10,6 +10,7 @@
 #include "LPS25H_BAR.h"
 #include "ALTIMU_10.h"
 
+
 /*************************************************************************
  Read the tempature
  
@@ -59,7 +60,8 @@ float read_pressure_hpa(void) {
 //TODO
 
 /*************************************************************************
- Initialize the bar,, more info on the way
+ Initialize the bar 25uA on 1Hz
+ PD = 1 (active mode);  ODR = 011 (12.5 Hz pressure & temperature output data rate)
  
  ************************************************************************/
 
@@ -67,3 +69,13 @@ void init_bar(void) {
 
     write_to_reg(BAR_SLAVE_ADDRESS, BAR_CTRL_REG1, 0xB0);
 }/*init_bar*/
+
+/*************************************************************************
+ Power down the bar 0.5uA no sleep mode on this sensor :-(
+ 
+ PD=0 = power down
+ 
+ *************************************************************************/
+void power_down_bar(void){
+    write_to_reg(GYRO_SLAVE_ADDRESS, BAR_CTRL_REG1, 0x00);
+}/*power_down_bar*/

@@ -6,7 +6,6 @@
  */
 //TODO Write documentation
 #include <avr/io.h>
-#include <stdlib.h>
 #include "twi_master.h"
 #include "ALTIMU_10.h"
 

@@ -12,7 +12,28 @@
 #include <math.h>
 
 /*************************************************************************
- * Initialize acc
+ Power down the acc 1uA
+ AODR3 AODR2 AODR1 AODR0 = 0000 = power down
+ 
+ PD=0 = power down
+ 
+ *************************************************************************/
+void power_down_acc(void){
+    write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL1, 0x00);
+}/*power_down_acc*/
+
+/*************************************************************************
+ Power down the mag 1uA
+ 
+ MD1 MD0 10 or 11 = power down
+ 
+ *************************************************************************/
+void power_down_mag(void){
+    write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL7, 0x02);
+}/*power_down_mag*/
+
+/*************************************************************************
+ * Initialize acc 300uA
  * (+/- 2 g full scale)
  * (50 Hz ODR); AZEN = AYEN = AXEN = 1 (all axes enabled)
  
@@ -67,6 +88,21 @@ void read_acc_values_raw(struct acc_val_raw *_acc_raw_) {
 
 }/*read_acc_raw*/
 
+
+/*************************************************************************
+ * So the values will be 0 for y and x in correct state of sensor
+ * 
+ 
+ *************************************************************************/
+static void normalize_angle(struct acc_val_angle *_acc_angle){
+    _acc_angle->x -= (float) 180.0;
+    if (_acc_angle->y > 90) {
+        _acc_angle->y -= (float) 270;
+    } else {
+        _acc_angle->y += (float) 90;
+    }
+}/*normalize_angle*/
+
 /*************************************************************************
  * read_acc_angles values
  * 
@@ -75,16 +111,12 @@ void read_acc_values_raw(struct acc_val_raw *_acc_raw_) {
 void read_acc_values_angle(struct acc_val_raw *_acc_raw_, struct acc_val_angle *_acc_angle) {
     _acc_angle->x = (float) (atan2(_acc_raw_->y, _acc_raw_->z) + M_PI) * RAD_TO_DEG;
     _acc_angle->y = (float) (atan2(_acc_raw_->z, _acc_raw_->x) + M_PI) * RAD_TO_DEG;
-    
-    _acc_angle->x -= (float) 180.0;
-    if (_acc_angle->y > 90) {
-        _acc_angle->y -= (float) 270;
-    } else {
-        _acc_angle->y += (float) 90;
-    }
+    normalize_angle(_acc_angle);
+   
 
 
 }/*read_acc_angle*/
+
 
 /*************************************************************************
  * read_mag_raw values
