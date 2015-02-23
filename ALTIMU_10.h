@@ -9,6 +9,11 @@
 #define	ALTIMU_10_H
 //#include <avr/io.h>//TODO fix this!
 
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
+
 
 //7-bit slave addresses for the three sensors
 #define GYRO_SLAVE_ADDRESS  0x6B
@@ -22,7 +27,9 @@ uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data);
 
 
 
-
+#ifdef	__cplusplus
+}
+#endif
 
 
 #endif	/* ALTIMU_10_H */

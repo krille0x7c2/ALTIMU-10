@@ -60,7 +60,7 @@ float read_pressure_hpa(void) {
 //TODO
 
 /*************************************************************************
- Initialize the bar 25uA on 1Hz
+ Initialize the bar , power = 25uA on 1Hz
  PD = 1 (active mode);  ODR = 011 (12.5 Hz pressure & temperature output data rate)
  
  ************************************************************************/

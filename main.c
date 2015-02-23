@@ -82,7 +82,7 @@ int main(void) {
     //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
     stdin = stdout = &usart0_str;
     
-    while (1) {
+    for(;;) {
 
         _delay_ms(500);
 //        print_sensor(ACC);

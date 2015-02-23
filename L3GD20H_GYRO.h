@@ -7,6 +7,9 @@
 
 #ifndef L3GD20H_GYRO_H
 #define	L3GD20H_GYRO_H
+#ifdef	__cplusplus
+extern "C" {
+#endif
 
 #define GYRO_WHO_AM_I   0x0F//R 11010111
 //Reserved - 10-1F -
@@ -69,7 +72,9 @@ void read_gyro_values(struct gyro_data *_gyro_data_);
 void read_gyro_values_rate_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps);
 void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *gyro_data_angle);
 
-
+#ifdef	__cplusplus
+}
+#endif
 
 #endif	/* L3GD20H_GYRO_H */
 

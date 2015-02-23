@@ -8,6 +8,10 @@
 #ifndef LPS25H_BAR_H
 #define	LPS25H_BAR_H
 
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 #include "LSM303D_ACC_MAG.h"
 
 
@@ -51,7 +55,9 @@ void power_down_bar(void);
 
 
 
-
+#ifdef	__cplusplus
+}
+#endif
 
 
 #endif	/* LPS25H_BAR_H */

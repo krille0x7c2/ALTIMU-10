@@ -7,6 +7,11 @@
 
 #ifndef LSM303D_ACC_MAGNETO_H
 #define	LSM303D_ACC_MAGNETO_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 /*Output*/
 #define	ACC_MAG_TEMP_OUT_L  0x05//R
 #define	ACC_MAG_TEMP_OUT_H  0x06//R
@@ -111,6 +116,10 @@ void power_down_acc(void);
 void read_acc_values_raw(struct acc_val_raw *_acc_raw_);
 void read_acc_values_angle(struct acc_val_raw *_acc_raw_,struct acc_val_angle *_acc_angle);
 void read_mag_values_raw(struct mag_val_raw *_mag_raw_);
+
+#ifdef	__cplusplus
+}
+#endif
 
 #endif	/* LSM303D_ACC_MAGNETO_H */
 

@@ -17,7 +17,7 @@
 
 
 /*************************************************************************
- Initiate the gyro 5.0mA
+ Initiate the gyro power 5.0mA
  * GYRO_LOW_ODR: LOW ODR DISABLED default setting
  * GYRO_CTRL4:   +/-250 dps       default setting
  * GYRO_CTRL1:   [[DR 01 200Hz ODR],[BW 10 50Hz bandwidth],[PD 1 normal mode],[Zen=Yen=Xen=1 all axes enabled]]  
@@ -53,7 +53,7 @@ void power_down_gyro(void){
 }/*power_down_gyro*/
 
 /*************************************************************************
- Wake gyro 5mA
+ Wake gyro 5.0mA
  
  GYRO_CTRL1:   [[DR 01 200Hz ODR],[BW 10 50Hz bandwidth],[PD 1 normal mode],[Zen=Yen=Xen=1 all axes enabled]]
  
