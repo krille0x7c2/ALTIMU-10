@@ -95,10 +95,10 @@ void read_gyro_values(struct gyro_data *_gyro_data_) {
 
 }/*read_gyro_values*/
 
-void read_gyro_values_rate_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps) {
-    gyro_data_dps->x = (float) _gyro_data_->x * G_GAIN;
-    gyro_data_dps->y = (float) _gyro_data_->y * G_GAIN;
-    gyro_data_dps->z = (float) _gyro_data_->z * G_GAIN;
+void read_gyro_values_rate_dps(struct gyro_data *_gyro_data, struct gyro_data_dps *gyro_data_dps) {
+    gyro_data_dps->x = (float) _gyro_data->x * G_GAIN;
+    gyro_data_dps->y = (float) _gyro_data->y * G_GAIN;
+    gyro_data_dps->z = (float) _gyro_data->z * G_GAIN;
 
 }/*read_gyro_values_dps*/
 

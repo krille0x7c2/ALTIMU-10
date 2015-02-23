@@ -26,6 +26,7 @@ float read_temp_celsius(void) {
             uint8_t tl = i2c_read(ACK);
             uint8_t th = i2c_read(NAK);
             int16_t temp = (int16_t) (th << 8 | tl);
+            
             return (45.5 + ((float) temp) / 480); //To Celsius
 
         }

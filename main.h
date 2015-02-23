@@ -12,6 +12,7 @@
 #define ACC     2
 #define MAG     3
 void init_sensor(uint8_t sensor);
+void stop_sensor(uint8_t sensor);
 void print_sensor(uint8_t sensor);
 
 #endif	/* MAIN_H */

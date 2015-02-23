@@ -23,6 +23,7 @@ typedef unsigned char byte;
 
 uint8_t read_from_reg(byte address_slave, byte reg_slave);
 uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data);
+uint16_t* get_16bit(uint8_t number);
 
 
 

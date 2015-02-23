@@ -15,15 +15,39 @@
 #include "L3GD20H_GYRO.h"
 #include "LPS25H_BAR.h"
 #include "main.h"
+#define DEBUG 1
 
-    Gyro_raw gyro_raw;
-    Gyro_dps gyro_dps;
-    Gyro_angle gyro_angle;
-    Acc_raw acc_raw;
-    Acc_angle acc_angel;
-    Mag_raw mag_raw;
+Gyro_raw gyro_raw;
+Gyro_dps gyro_dps;
+Gyro_angle gyro_angle;
+Acc_raw acc_raw;
+Acc_angle acc_angel;
+Mag_raw mag_raw;
+
+
+void stop_sensor(uint8_t sensor) {
+    switch (sensor) {
+        case GYRO:
+            power_down_gyro();
+            /*this sensor also has a sleep mode :-)*/
+//            sleep_gyro();
+            break;
+        case BAR:
+            power_down_bar();
+            
+            break;
+        case ACC:
+            power_down_acc();
+            break;
+        case MAG:
+            power_down_mag();
+            break;
+        default:
+            break;
+    }
+}
     
- 
+
 
 void init_sensor(uint8_t sensor) {
     switch (sensor) {
@@ -75,17 +99,22 @@ int main(void) {
    
     USART0Init();
     TWIInit();
-//    init_sensor(ACC);
+    init_sensor(BAR);
+   
+
     
-           //Set stream pointer
+#if DEBUG          //Set stream pointer
     FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
-    //assign our stream to standart I/O streams, cause why re-invent the wheel? Great for debuging :-) Don't forget to exclude later on.!!!!!!!!!!!!!!!
+    //assign our stream to standard I/O streams, cause why re-invent the wheel? Great for debuging :-)
     stdin = stdout = &usart0_str;
+#endif    
+   
+    
     
     for(;;) {
 
         _delay_ms(500);
-//        print_sensor(ACC);
+        print_sensor(BAR);
 
 
     }
