@@ -1,6 +1,20 @@
 /* 
  * File:   main.c
  * Author: Christian Bodelsson<bodelsson@gmail.com>
+ * Public Key: https://pgp.mit.edu/pks/lookup?op=get&search=0x3DD59D8AB91E4765
+ *  
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Created on February 16, 2015, 6:03 PM
  */
@@ -24,8 +38,12 @@ Acc_raw acc_raw;
 Acc_angle acc_angel;
 Mag_raw mag_raw;
 
+static void init_sensor(uint8_t sensor);
+static void stop_sensor(uint8_t sensor);
+static void print_sensor(uint8_t sensor);
 
-void stop_sensor(uint8_t sensor) {
+
+static void stop_sensor(uint8_t sensor) {
     switch (sensor) {
         case GYRO:
             power_down_gyro();
@@ -49,7 +67,7 @@ void stop_sensor(uint8_t sensor) {
     
 
 
-void init_sensor(uint8_t sensor) {
+static void init_sensor(uint8_t sensor) {
     switch (sensor) {
         case GYRO:
             init_gyro();
@@ -67,7 +85,7 @@ void init_sensor(uint8_t sensor) {
             break;
     }
 }
-void print_sensor(uint8_t sensor){
+static void print_sensor(uint8_t sensor){
     switch(sensor){
         case BAR:
             printf("%f hpa",  read_pressure_hpa());
@@ -99,7 +117,7 @@ int main(void) {
    
     USART0Init();
     TWIInit();
-    init_sensor(BAR);
+//    init_sensor(BAR);
    
 
     
@@ -114,7 +132,11 @@ int main(void) {
     for(;;) {
 
         _delay_ms(500);
-        print_sensor(BAR);
+//        print_sensor(BAR);
+//        _delay_ms(50);
+//        stop_sensor(BAR);
+//        _delay_ms(1000);
+//        init_sensor(BAR);
 
 
     }

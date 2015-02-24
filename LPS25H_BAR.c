@@ -1,6 +1,20 @@
 /* 
  * File:   LPS25H_BAR.c
  * Author: Christian Bodelsson<bodelsson@gmail.com>
+ * Public Key: https://pgp.mit.edu/pks/lookup?op=get&search=0x3DD59D8AB91E4765
+ *   
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Created on February 17, 2015, 8:46 AM
  */
@@ -11,11 +25,14 @@
 #include "ALTIMU_10.h"
 
 
-/*************************************************************************
- Read the tempature
- 
- Return: float value in Celsius
- 
+/*********************************************************************//**
+ *Description: Read the tempature
+ *
+ *Input:
+ *
+ *Return: float value in Celsius
+ *
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 
 float read_temp_celsius(void) {
@@ -35,11 +52,14 @@ float read_temp_celsius(void) {
     return 1;
 }/*read_temp_celsius*/
 
-/*************************************************************************
- Read the pressure
- 
- Return: float value in hpa
- 
+/*********************************************************************//**
+ *Description: Read the pressure 24-bit resolution 
+ *
+ *Input:
+ *
+ *Return: float value in hpa
+ *
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  ************************************************************************/
 float read_pressure_hpa(void) {
     if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
@@ -60,10 +80,15 @@ float read_pressure_hpa(void) {
 
 //TODO
 
-/*************************************************************************
- Initialize the bar , power = 25uA on 1Hz
- PD = 1 (active mode);  ODR = 011 (12.5 Hz pressure & temperature output data rate)
- 
+/*********************************************************************//**
+ *Description: Initialize the bar , power = 25uA on 1Hz
+ *PD = 1 (active mode);  ODR = 011 (12.5 Hz pressure & temperature output data rate)
+ *                                                        
+ *Input:
+ *
+ *Return:
+ *
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  ************************************************************************/
 
 void init_bar(void) {
@@ -71,11 +96,15 @@ void init_bar(void) {
     write_to_reg(BAR_SLAVE_ADDRESS, BAR_CTRL_REG1, 0xB0);
 }/*init_bar*/
 
-/*************************************************************************
- Power down the bar 0.5uA no sleep mode on this sensor :-(
- 
- PD=0 = power down
- 
+/*********************************************************************//**
+ *Description: Power down the bar 0.5uA no sleep mode on this sensor :-(
+ *PD=0 = power down
+ *
+ *Input:
+ * 
+ *Return:
+ *
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 void power_down_bar(void){
     write_to_reg(GYRO_SLAVE_ADDRESS, BAR_CTRL_REG1, 0x00);

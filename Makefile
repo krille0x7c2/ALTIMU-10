@@ -80,7 +80,7 @@ OBJDIR = .
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c usart.c twi_master.c LPS25H_BAR.c L3GD20H_GYRO.c LSM303D_ACC_MAG.c ALTIMU_10.c timer.c
+SRC = $(TARGET).c usart.c twi_master.c LPS25H_BAR.c L3GD20H_GYRO.c LSM303D_ACC_MAG.c ALTIMU_10.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

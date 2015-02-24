@@ -12,8 +12,6 @@
       <in>LSM303D_ACC_MAG.h</in>
       <in>main.c</in>
       <in>main.h</in>
-      <in>timer.c</in>
-      <in>timer.h</in>
       <in>twi_master.c</in>
       <in>twi_master.h</in>
       <in>usart.c</in>

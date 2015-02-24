@@ -1,6 +1,20 @@
 /* 
  * File:   ALTIMU_10.c
  * Author: Christian Bodelsson<bodelsson@gmail.com>
+ * Public Key: https://pgp.mit.edu/pks/lookup?op=get&search=0x3DD59D8AB91E4765
+ *  
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Created on February 17, 2015, 8:46 AM
  */
@@ -9,16 +23,17 @@
 #include <stdlib.h>
 #include "twi_master.h"
 #include "ALTIMU_10.h"
+typedef unsigned char byte;
 
 
-/*************************************************************************
- Write to slave register
- 
- Input: [7-bit address to the slave] [Register value on slave] [Byte to send]
- 
- Return: 0 if success
-         1 if fail
- 
+/*********************************************************************//**
+ *Write to slave register
+ *
+ *Input: [7-bit address to the slave] [Register value on slave] [Byte to send]
+ *
+ *Return: 0 if success
+ *        1 if fail
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 
 uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data) {
@@ -32,14 +47,14 @@ uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data) {
     }
 }/*write_to_reg*/
 
-/*************************************************************************
- Read from slave register
- 
- Input: [7-bit address to the slave] [Register value on slave]
- 
- Return: Byte if success
-         1 if fail
- 
+/*********************************************************************//**
+ *Read from slave register
+ *
+ *Input: [7-bit address to the slave] [Register value on slave]
+ *
+ *Return: Byte if success
+ *        1 if fail
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 uint8_t read_from_reg(byte address_slave, byte reg_slave) {
     if (i2c_start(address_slave << 1) == 0) {
@@ -50,6 +65,3 @@ uint8_t read_from_reg(byte address_slave, byte reg_slave) {
     }
     return 1;
 }/*read_from_reg*/
-
-
-

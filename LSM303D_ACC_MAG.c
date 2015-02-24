@@ -1,6 +1,20 @@
 /* 
  * File:   LSM303D_ACC_MAGNETO.c
  * Author: Christian Bodelsson<bodelsson@gmail.com>
+ * Public Key: https://pgp.mit.edu/pks/lookup?op=get&search=0x3DD59D8AB91E4765
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Created on February 17, 2015, 8:46 AM
  */
@@ -11,32 +25,46 @@
 #include "twi_master.h"
 #include <math.h>
 
-/*************************************************************************
- Power down the acc 1uA
- AODR3 AODR2 AODR1 AODR0 = 0000 = power down
- 
- PD=0 = power down
- 
+
+/*********************************************************************//**
+ *Description: Power down the acc 1uA
+ *AODR3 AODR2 AODR1 AODR0 = 0000 = power down
+ *PD=0 = power down
+ * 
+ *Input:
+ * 
+ *Return:
+ * 
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 void power_down_acc(void){
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL1, 0x00);
 }/*power_down_acc*/
 
-/*************************************************************************
- Power down the mag 1uA
- 
- MD1 MD0 10 or 11 = power down
- 
+/*********************************************************************//**
+ *Description: Power down the mag 1uA
+ *MD1 MD0 10 or 11 = power down
+ * 
+ *Input:
+ * 
+ *Return:
+ * 
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 void power_down_mag(void){
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL7, 0x02);
 }/*power_down_mag*/
 
-/*************************************************************************
- * Initialize acc 300uA
+/*********************************************************************//**
+ *Description: Initialize acc 300uA
  * (+/- 2 g full scale)
  * (50 Hz ODR); AZEN = AYEN = AXEN = 1 (all axes enabled)
- 
+ * 
+ *Input:
+ * 
+ *Return:
+ * 
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 void init_acc(void) {
     
@@ -45,12 +73,17 @@ void init_acc(void) {
 
 }/*init_acc*/
 
-/*************************************************************************
- * Initialize mag
+/*********************************************************************//**
+ *Description: Initialize mag
  * (high resolution mode); M_ODR = 001 (6.25 Hz ODR)
  * (+/- 4 gauss full scale)
  * (low power mode off); MD = 00 (continuous-conversion mode)
- 
+ * 
+ *Input:
+ * 
+ *Return:
+ * 
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 
 void init_mag(void) {
@@ -60,9 +93,14 @@ void init_mag(void) {
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL7, 0x00);
 }/*init_mag*/
 
-/*************************************************************************
- * read_acc_raw values
- 
+/*********************************************************************//**
+ *Description: read_acc_raw values 16-bit resolution
+ * 
+ *Input:
+ * 
+ *Return:
+ * 
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 
 void read_acc_values_raw(struct acc_val_raw *_acc_raw_) {
@@ -89,10 +127,14 @@ void read_acc_values_raw(struct acc_val_raw *_acc_raw_) {
 }/*read_acc_raw*/
 
 
-/*************************************************************************
- * So the values will be 0 for y and x in correct state of sensor
+/*********************************************************************//**
+ *Description: Private function so the values will be 0 for y and x in correct state of sensor
  * 
- 
+ *Input:
+ * 
+ *Return:
+ * 
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 static void normalize_angle(struct acc_val_angle *_acc_angle){
     _acc_angle->x -= (float) 180.0;
@@ -103,10 +145,14 @@ static void normalize_angle(struct acc_val_angle *_acc_angle){
     }
 }/*normalize_angle*/
 
-/*************************************************************************
- * read_acc_angles values
+/*********************************************************************//**
+ *Description: read_acc_angles values
  * 
- 
+ *Input:
+ * 
+ *Return:
+ * 
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 void read_acc_values_angle(struct acc_val_raw *_acc_raw_, struct acc_val_angle *_acc_angle) {
     _acc_angle->x = (float) (atan2(_acc_raw_->y, _acc_raw_->z) + M_PI) * RAD_TO_DEG;
@@ -118,10 +164,14 @@ void read_acc_values_angle(struct acc_val_raw *_acc_raw_, struct acc_val_angle *
 }/*read_acc_angle*/
 
 
-/*************************************************************************
- * read_mag_raw values
+/*********************************************************************//**
+ *Description: read_mag_raw values 16-bit resolution
  * 
- 
+ *Input:
+ * 
+ *Return:
+ * 
+ *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 
 void read_mag_values_raw(struct mag_val_raw *_mag_raw_) {

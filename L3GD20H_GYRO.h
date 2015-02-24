@@ -1,6 +1,20 @@
 /* 
  * File:   L3GD20H_GYRO.h
  * Author: Christian Bodelsson<bodelsson@gmail.com>
+ * Public Key: https://pgp.mit.edu/pks/lookup?op=get&search=0x3DD59D8AB91E4765
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Created on February 17, 2015, 9:21 AM
  */
@@ -63,14 +77,14 @@ typedef struct gyro_data_angle {
     float z;
 } Gyro_angle;
 
-void init_gyro(void);
-void sleep_gyro(void);
-void power_down_gyro(void);
-void wake_gyro(void);
+extern void init_gyro(void);
+extern void sleep_gyro(void);
+extern void power_down_gyro(void);
+extern void wake_gyro(void);
 
-void read_gyro_values(struct gyro_data *_gyro_data_);
-void read_gyro_values_rate_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps);
-void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *gyro_data_angle);
+extern void read_gyro_values(struct gyro_data *_gyro_data_);
+extern void read_gyro_values_rate_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps);
+extern void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *gyro_data_angle);
 
 #ifdef	__cplusplus
 }

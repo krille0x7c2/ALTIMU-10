@@ -1,6 +1,20 @@
 /* 
  * File:   LPS25H_BAR.h
  * Author: Christian Bodelsson<bodelsson@gmail.com>
+ * Public Key: https://pgp.mit.edu/pks/lookup?op=get&search=0x3DD59D8AB91E4765
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Created on February 17, 2015, 9:20 AM
  */
@@ -46,10 +60,10 @@ extern "C" {
 #define BAR_RPDS_L  0x39//R/W
 #define BAR_RPDS_H  0x3A//R/W
 
-float read_temp_celsius(void);
-float read_pressure_hpa(void);
-void init_bar(void);
-void power_down_bar(void);
+extern float read_temp_celsius(void);
+extern float read_pressure_hpa(void);
+extern void init_bar(void);
+extern void power_down_bar(void);
 
 
 

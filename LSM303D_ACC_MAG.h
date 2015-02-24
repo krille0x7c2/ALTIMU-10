@@ -1,6 +1,20 @@
 /* 
  * File:   LSM303D_ACC_MAGNETO.h
  * Author: Christian Bodelsson<bodelsson@gmail.com>
+ * Public Key: https://pgp.mit.edu/pks/lookup?op=get&search=0x3DD59D8AB91E4765
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Created on February 17, 2015, 9:22 AM
  */
@@ -109,13 +123,13 @@ typedef struct mag_val_raw {
 
 } Mag_raw;
 
-void init_acc(void);
-void init_mag(void);
-void power_down_mag(void);
-void power_down_acc(void);
-void read_acc_values_raw(struct acc_val_raw *_acc_raw_);
-void read_acc_values_angle(struct acc_val_raw *_acc_raw_,struct acc_val_angle *_acc_angle);
-void read_mag_values_raw(struct mag_val_raw *_mag_raw_);
+extern void init_acc(void);
+extern void init_mag(void);
+extern void power_down_mag(void);
+extern void power_down_acc(void);
+extern void read_acc_values_raw(struct acc_val_raw *_acc_raw_);
+extern void read_acc_values_angle(struct acc_val_raw *_acc_raw_,struct acc_val_angle *_acc_angle);
+extern void read_mag_values_raw(struct mag_val_raw *_mag_raw_);
 
 #ifdef	__cplusplus
 }
