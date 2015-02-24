@@ -19,17 +19,17 @@
  * Created on February 16, 2015, 5:58 PM
  */
 
-#ifndef USART_H
-#define	USART_H
+#ifndef UART_H
+#define	UART_H
 #include <stdio.h>
 
-#define USART_BAUDRATE 9600
-#define UBRR_VALUE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
+#define UART_BAUDRATE 9600
+#define UBRR_VALUE (((F_CPU / (UART_BAUDRATE * 16UL))) - 1)
 
-extern void USART0Init(void);
-extern int USART0SendByte(char u8Data, FILE *stream);
-extern int USART0ReceiveByte(FILE *stream);
+extern void uart_init(void);
+extern int uart_send_byte(char u8Data, FILE *stream);
+extern int uart_receive_byte(FILE *stream);
 
 
-#endif	/* USART_H */
+#endif	/* UART_H */
 

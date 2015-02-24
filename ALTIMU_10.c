@@ -38,10 +38,10 @@ typedef unsigned char byte;
  *************************************************************************/
 
 uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data) {
-    if (i2c_start(address_slave << 1) == 0) {
-        i2c_write(reg_slave);
-        i2c_write(data);
-        i2c_stop();
+    if (twi_start(address_slave << 1) == 0) {
+        twi_write(reg_slave);
+        twi_write(data);
+        twi_stop();
         return 0;
     } else {
         return 1;
@@ -59,10 +59,10 @@ uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data) {
  *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
 uint8_t read_from_reg(byte address_slave, byte reg_slave) {
-    if (i2c_start(address_slave << 1) == 0) {
-        i2c_write(reg_slave);
-        if (i2c_rep_start(((uint8_t) address_slave << 1) | 1) == 0) {
-            return i2c_read(NAK);
+    if (twi_start(address_slave << 1) == 0) {
+        twi_write(reg_slave);
+        if (twi_rep_start(((uint8_t) address_slave << 1) | 1) == 0) {//TODO add i2c_stop();
+            return twi_read(NAK);
         }
     }
     return 1;

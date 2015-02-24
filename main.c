@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "twi_master.h"
-#include "usart.h"
+#include "uart.h"
 #include <util/delay.h>
 #include "ALTIMU_10.h"
 #include "LSM303D_ACC_MAG.h"
@@ -40,9 +40,6 @@ Acc_raw acc_raw;
 Acc_angle acc_angel;
 Mag_raw mag_raw;
 
-static void init_sensor(uint8_t sensor);
-static void stop_sensor(uint8_t sensor);
-static void print_sensor(uint8_t sensor);
 
 
 static void stop_sensor(uint8_t sensor) {
@@ -117,24 +114,25 @@ static void print_sensor(uint8_t sensor){
 
 int main(void) {
    
-    USART0Init();
-    TWIInit();
-//    init_sensor(ACC);
+    uart_init();
+    twi_init();
+    init_sensor(NONE);
    
 
     
-#if DEBUG          //Set stream pointer
-    FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
+#if DEBUG          
+    FILE uart_stream = FDEV_SETUP_STREAM(uart_send_byte, uart_receive_byte, _FDEV_SETUP_RW);//Set stream pointer
     //assign our stream to standard I/O streams, cause why re-invent the wheel? Great for debuging :-)
-    stdin = stdout = &usart0_str;
+    stdin = stdout = &uart_stream;
 #endif    
    
+    
     
     
     for(;;) {
 
         _delay_ms(500);
-//        print_sensor(ACC);
+        print_sensor(NONE);
 //        _delay_ms(50);
 //        stop_sensor(BAR);
 //        _delay_ms(1000);

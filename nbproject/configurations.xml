@@ -14,8 +14,8 @@
       <in>main.h</in>
       <in>twi_master.c</in>
       <in>twi_master.h</in>
-      <in>usart.c</in>
-      <in>usart.h</in>
+      <in>uart.c</in>
+      <in>uart.h</in>
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -69,7 +69,7 @@
       </item>
       <item path="twi_master.c" ex="false" tool="0" flavor2="2">
       </item>
-      <item path="usart.c" ex="false" tool="0" flavor2="2">
+      <item path="uart.c" ex="false" tool="0" flavor2="2">
       </item>
     </conf>
     <conf name="program" type="0">
@@ -122,9 +122,9 @@
       </item>
       <item path="twi_master.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="usart.c" ex="false" tool="0" flavor2="0">
+      <item path="uart.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="usart.h" ex="false" tool="3" flavor2="0">
+      <item path="uart.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

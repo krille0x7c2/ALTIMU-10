@@ -104,18 +104,19 @@ void init_mag(void) {
  *************************************************************************/
 
 void read_acc_values_raw(struct acc_val_raw *_acc_raw_) {
-    if (i2c_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
-        i2c_write(ACC_MAG_OUT_X_L_A | (1 << 7)); //Auto increment registers by writing the MSB high
+    if (twi_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
+        twi_write(ACC_MAG_OUT_X_L_A | (1 << 7)); //Auto increment registers by writing the MSB high
 
-        if (i2c_rep_start(((uint8_t) ACC_MAG_SLAVE_ADDRESS << 1) | 1) == 0) {
-            uint8_t xlg = i2c_read(ACK);
-            uint8_t xhg = i2c_read(ACK);
+        if (twi_rep_start(((uint8_t) ACC_MAG_SLAVE_ADDRESS << 1) | 1) == 0) {
+            uint8_t xlg = twi_read(ACK);
+            uint8_t xhg = twi_read(ACK);
 
-            uint8_t ylg = i2c_read(ACK);
-            uint8_t yhg = i2c_read(ACK);
+            uint8_t ylg = twi_read(ACK);
+            uint8_t yhg = twi_read(ACK);
 
-            uint8_t zlg = i2c_read(ACK);
-            uint8_t zhg = i2c_read(NAK);
+            uint8_t zlg = twi_read(ACK);
+            uint8_t zhg = twi_read(NAK);
+            twi_stop();
 
             _acc_raw_->x = (int16_t) (xhg << 8 | xlg);
             _acc_raw_->y = (int16_t) (yhg << 8 | ylg);
@@ -175,18 +176,19 @@ void read_acc_values_angle(struct acc_val_raw *_acc_raw_, struct acc_val_angle *
  *************************************************************************/
 
 void read_mag_values_raw(struct mag_val_raw *_mag_raw_) {
-    if (i2c_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
-        i2c_write(ACC_MAG_OUT_X_L_M | (1 << 7)); //Auto increment registers by writing the MSB high
+    if (twi_start(ACC_MAG_SLAVE_ADDRESS << 1) == 0) {
+        twi_write(ACC_MAG_OUT_X_L_M | (1 << 7)); //Auto increment registers by writing the MSB high
 
-        if (i2c_rep_start(((uint8_t) ACC_MAG_SLAVE_ADDRESS << 1) | 1) == 0) {
-            uint8_t xlm = i2c_read(ACK);
-            uint8_t xhm = i2c_read(ACK);
+        if (twi_rep_start(((uint8_t) ACC_MAG_SLAVE_ADDRESS << 1) | 1) == 0) {
+            uint8_t xlm = twi_read(ACK);
+            uint8_t xhm = twi_read(ACK);
 
-            uint8_t ylm = i2c_read(ACK);
-            uint8_t yhm = i2c_read(ACK);
+            uint8_t ylm = twi_read(ACK);
+            uint8_t yhm = twi_read(ACK);
 
-            uint8_t zlm = i2c_read(ACK);
-            uint8_t zhm = i2c_read(NAK);
+            uint8_t zlm = twi_read(ACK);
+            uint8_t zhm = twi_read(NAK);
+            twi_stop();
 
             _mag_raw_->x = (int16_t) (xhm << 8 | xlm);
             _mag_raw_->y = (int16_t) (yhm << 8 | ylm);

@@ -23,14 +23,14 @@
 #define	TWI_MASTER_H
 #define ACK 1
 #define NAK 0
-#define i2c_read(ack)  (ack) ? i2c_readAck() : i2c_readNak(); 
-void TWIInit(void);
-extern uint8_t i2c_readNak(void);
-extern uint8_t i2c_readAck(void);
-extern uint8_t i2c_write( unsigned char data );
-extern void i2c_stop(void);
-extern uint8_t i2c_rep_start(unsigned char address);
-extern void i2c_start_wait(unsigned char address);
-extern uint8_t i2c_start(unsigned char address);
+#define twi_read(ack)  (ack) ? twi_readAck() : twi_readNak(); 
+void twi_init(void);
+extern uint8_t twi_readNak(void);
+extern uint8_t twi_readAck(void);
+extern uint8_t twi_write( unsigned char data );
+extern void twi_stop(void);
+extern uint8_t twi_rep_start(unsigned char address);
+extern void twi_start_wait(unsigned char address);
+extern uint8_t twi_start(unsigned char address);
 #endif	/* TWI_MASTER_H */
 

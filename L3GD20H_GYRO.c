@@ -108,18 +108,19 @@ void read_gyro_values(struct gyro_data *_gyro_data_) {
 //    timer1_init();
 //    while (TCNT1 < DELAY_20M);
     _delay_ms(20);
-    if (i2c_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
-        i2c_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the asserting MSB 
+    if (twi_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
+        twi_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the asserting MSB 
 
-        if (i2c_rep_start(((uint8_t) GYRO_SLAVE_ADDRESS << 1) | 1) == 0) {
-            uint8_t xlg = i2c_read(ACK);
-            uint8_t xhg = i2c_read(ACK);
+        if (twi_rep_start(((uint8_t) GYRO_SLAVE_ADDRESS << 1) | 1) == 0) {
+            uint8_t xlg = twi_read(ACK);
+            uint8_t xhg = twi_read(ACK);
 
-            uint8_t ylg = i2c_read(ACK);
-            uint8_t yhg = i2c_read(ACK);
+            uint8_t ylg = twi_read(ACK);
+            uint8_t yhg = twi_read(ACK);
 
-            uint8_t zlg = i2c_read(ACK);
-            uint8_t zhg = i2c_read(NAK);
+            uint8_t zlg = twi_read(ACK);
+            uint8_t zhg = twi_read(NAK);
+            twi_stop();
 
             _gyro_data_->x = (int16_t) (xhg << 8 | xlg);
             _gyro_data_->y = (int16_t) (yhg << 8 | ylg);

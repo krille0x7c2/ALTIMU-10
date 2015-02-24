@@ -27,6 +27,7 @@
 #define BAR     1
 #define ACC     2
 #define MAG     3
+#define NONE    4
 
 #endif	/* MAIN_H */
 

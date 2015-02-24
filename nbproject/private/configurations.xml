@@ -14,8 +14,8 @@
       <in>main.h</in>
       <in>twi_master.c</in>
       <in>twi_master.h</in>
-      <in>usart.c</in>
-      <in>usart.h</in>
+      <in>uart.c</in>
+      <in>uart.h</in>
     </df>
     <itemPath>.gitignore</itemPath>
   </logicalFolder>

@@ -18,10 +18,10 @@
  *
  * Created on February 16, 2015, 5:30 PM
  */
-#include "usart.h"
+#include "uart.h"
 #include <avr/io.h>
 
-void USART0Init(void) {
+void uart_init(void) {
     // Set baud rate
     UBRR0H = (uint8_t) (UBRR_VALUE >> 8);
     UBRR0L = (uint8_t) UBRR_VALUE;
@@ -31,25 +31,27 @@ void USART0Init(void) {
     UCSR0B |= (1 << RXEN0) | (1 << TXEN0);
 }
 
-int USART0SendByte(char u8Data, FILE *stream) {
-    if (u8Data == '\n') {
-        USART0SendByte('\r', 0);
+int uart_send_byte(char data, FILE *stream) {
+    if (data == '\n') {
+        uart_send_byte('\r', 0);
     }
     //wait while previous byte is completed
-    while (!(UCSR0A & (1 << UDRE0))) {
-    };
+    while (!(UCSR0A & (1 << UDRE0)));
     // Transmit data
-    UDR0 = u8Data;
+    UDR0 = data;
     return 0;
 }
-int USART0ReceiveByte(FILE *stream) {
-    uint8_t u8Data;
+
+/*Not needed cause the receive part will be interrupt driven
+ *but included for debug purpose.
+ */
+int uart_receive_byte(FILE *stream) {
+    uint8_t data;
     // Wait for byte to be received
-    while (!(UCSR0A & (1 << RXC0))) {
-    };
-    u8Data = UDR0;
+    while (!(UCSR0A & (1 << RXC0)));
+    data = UDR0;
     //echo input data
-    USART0SendByte(u8Data, stream);
+//    uart_send_byte(data, stream);
     // Return received data
-    return u8Data;
+    return (int)data;
 }

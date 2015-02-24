@@ -36,12 +36,13 @@
  *************************************************************************/
 
 float read_temp_celsius(void) {
-    if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
-        i2c_write(BAR_TEMP_OUT_L | (1 << 7));
+    if (twi_start(BAR_SLAVE_ADDRESS << 1) == 0) {
+        twi_write(BAR_TEMP_OUT_L | (1 << 7));
 
-        if (i2c_rep_start(((uint8_t) BAR_SLAVE_ADDRESS << 1) | 1) == 0) {
-            uint8_t tl = i2c_read(ACK);
-            uint8_t th = i2c_read(NAK);
+        if (twi_rep_start(((uint8_t) BAR_SLAVE_ADDRESS << 1) | 1) == 0) {
+            uint8_t tl = twi_read(ACK);
+            uint8_t th = twi_read(NAK);
+            twi_stop();
             int16_t temp = (int16_t) (th << 8 | tl);
             
             return (45.5 + ((float) temp) / 480); //To Celsius
@@ -62,13 +63,14 @@ float read_temp_celsius(void) {
  *Author: Christian Bodelsson<bodelsson@gmail.com>
  ************************************************************************/
 float read_pressure_hpa(void) {
-    if (i2c_start(BAR_SLAVE_ADDRESS << 1) == 0) {
-        i2c_write(BAR_PRESS_POUT_XL | (1 << 7));
+    if (twi_start(BAR_SLAVE_ADDRESS << 1) == 0) {
+        twi_write(BAR_PRESS_POUT_XL | (1 << 7));
 
-        if (i2c_rep_start(((uint8_t) BAR_SLAVE_ADDRESS << 1) | 1) == 0) {
-            uint8_t pxl = i2c_read(ACK);
-            uint8_t pl = i2c_read(ACK);
-            uint8_t ph = i2c_read(NAK);
+        if (twi_rep_start(((uint8_t) BAR_SLAVE_ADDRESS << 1) | 1) == 0) {
+            uint8_t pxl = twi_read(ACK);
+            uint8_t pl = twi_read(ACK);
+            uint8_t ph = twi_read(NAK);
+            twi_stop();
 
             int32_t temp = (int32_t) (int8_t) ph << 16 | (uint16_t) pl << 8 | pxl;
             return ((float) temp / 4096);
