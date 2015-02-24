@@ -110,9 +110,9 @@ typedef struct acc_val_raw {
 } Acc_raw;
 
 typedef struct acc_val_angle{
-    int16_t x;
-    int16_t y;
-    int16_t z;
+    float x;
+    float y;
+    float z;
 
 } Acc_angle;
 

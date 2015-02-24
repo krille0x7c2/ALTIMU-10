@@ -26,7 +26,7 @@
 #include <math.h>
 
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Power down the acc 1uA
  *AODR3 AODR2 AODR1 AODR0 = 0000 = power down
  *PD=0 = power down
@@ -41,7 +41,7 @@ void power_down_acc(void){
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL1, 0x00);
 }/*power_down_acc*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Power down the mag 1uA
  *MD1 MD0 10 or 11 = power down
  * 
@@ -55,7 +55,7 @@ void power_down_mag(void){
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL7, 0x02);
 }/*power_down_mag*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Initialize acc 300uA
  * (+/- 2 g full scale)
  * (50 Hz ODR); AZEN = AYEN = AXEN = 1 (all axes enabled)
@@ -73,7 +73,7 @@ void init_acc(void) {
 
 }/*init_acc*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Initialize mag
  * (high resolution mode); M_ODR = 001 (6.25 Hz ODR)
  * (+/- 4 gauss full scale)
@@ -93,7 +93,7 @@ void init_mag(void) {
     write_to_reg(ACC_MAG_SLAVE_ADDRESS, ACC_MAG_CTRL7, 0x00);
 }/*init_mag*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: read_acc_raw values 16-bit resolution
  * 
  *Input:
@@ -127,7 +127,7 @@ void read_acc_values_raw(struct acc_val_raw *_acc_raw_) {
 }/*read_acc_raw*/
 
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Private function so the values will be 0 for y and x in correct state of sensor
  * 
  *Input:
@@ -145,7 +145,7 @@ static void normalize_angle(struct acc_val_angle *_acc_angle){
     }
 }/*normalize_angle*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: read_acc_angles values
  * 
  *Input:
@@ -164,7 +164,7 @@ void read_acc_values_angle(struct acc_val_raw *_acc_raw_, struct acc_val_angle *
 }/*read_acc_angle*/
 
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: read_mag_raw values 16-bit resolution
  * 
  *Input:

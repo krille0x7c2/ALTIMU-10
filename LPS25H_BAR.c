@@ -25,7 +25,7 @@
 #include "ALTIMU_10.h"
 
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Read the tempature
  *
  *Input:
@@ -52,7 +52,7 @@ float read_temp_celsius(void) {
     return 1;
 }/*read_temp_celsius*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Read the pressure 24-bit resolution 
  *
  *Input:
@@ -80,7 +80,7 @@ float read_pressure_hpa(void) {
 
 //TODO
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Initialize the bar , power = 25uA on 1Hz
  *PD = 1 (active mode);  ODR = 011 (12.5 Hz pressure & temperature output data rate)
  *                                                        
@@ -96,7 +96,7 @@ void init_bar(void) {
     write_to_reg(BAR_SLAVE_ADDRESS, BAR_CTRL_REG1, 0xB0);
 }/*init_bar*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Power down the bar 0.5uA no sleep mode on this sensor :-(
  *PD=0 = power down
  *

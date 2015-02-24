@@ -26,7 +26,7 @@
 typedef unsigned char byte;
 
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Write to slave register 
  *[M:START][address_slave][0][S:ACK][reg_slave][S:ACK][data][S:ACK][M:STOP]
  *
@@ -48,7 +48,7 @@ uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data) {
     }
 }/*write_to_reg*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Read from slave register 
  *[M:START][address_slave][0][S:ACK][reg_slave][S:ACK][M:REPSTART][address_slave][1][S:ACK][data][S_ACK][M:NAK]
  *

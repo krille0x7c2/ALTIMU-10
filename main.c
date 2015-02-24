@@ -18,6 +18,8 @@
  *
  * Created on February 16, 2015, 6:03 PM
  */
+
+
 #include <avr/io.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -93,7 +95,7 @@ static void print_sensor(uint8_t sensor){
             break;
         case GYRO:
             read_gyro_values(&gyro_raw);
-            printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
+//            printf("[X: %d Y: %d Z: %d]\n",gyro_raw.x,gyro_raw.y,gyro_raw.z);
 //            read_gyro_values_rate_dps(&gyro_data,&gyro_data_dps);
 //            printf("[X: %f Y: %f Z: %f]\n",gyro_dps.x,gyro_dps.y,gyro_dps.z);
 //            read_gyro_values_angle(&gyro_data_dps,&gyro_data_angle);
@@ -102,7 +104,7 @@ static void print_sensor(uint8_t sensor){
         case ACC:
             read_acc_values_raw(&acc_raw);
             read_acc_values_angle(&acc_raw, &acc_angel);
-            printf("[X: %d Y: %d]\n", acc_angel.x, acc_angel.y);
+            printf("[X: %f Y: %f]\n", acc_angel.x, acc_angel.y);
             break;
         case MAG:
             read_mag_values_raw(&mag_raw);
@@ -117,7 +119,7 @@ int main(void) {
    
     USART0Init();
     TWIInit();
-//    init_sensor(BAR);
+//    init_sensor(ACC);
    
 
     
@@ -132,7 +134,7 @@ int main(void) {
     for(;;) {
 
         _delay_ms(500);
-//        print_sensor(BAR);
+//        print_sensor(ACC);
 //        _delay_ms(50);
 //        stop_sensor(BAR);
 //        _delay_ms(1000);

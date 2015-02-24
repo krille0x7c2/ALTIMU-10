@@ -30,7 +30,7 @@
 
 
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Initiate the gyro power 5.0mA
  * GYRO_LOW_ODR: LOW ODR DISABLED default setting
  * GYRO_CTRL4:   +/-250 dps       default setting
@@ -50,7 +50,7 @@ void init_gyro(void) {
     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x6F);
 }/*init_gyro*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Put the gyro to sleep 2.5mA
  *(For Sleep Mode set {PD:Zen:Yen:Xen} to {1000})
  * 
@@ -65,7 +65,7 @@ void sleep_gyro(void){
 }/*sleep_gyro*/
 
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Power down the gyro 1uA
  *PD=0 = power down
  * 
@@ -79,7 +79,7 @@ void power_down_gyro(void){
     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x00);
 }/*power_down_gyro*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Wake gyro 5.0mA
  *GYRO_CTRL1:   [[DR 01 200Hz ODR],[BW 10 50Hz bandwidth],[PD 1 normal mode],[Zen=Yen=Xen=1 all axes enabled]]
  * 
@@ -94,7 +94,7 @@ void wake_gyro(void){
 }/*wake_gyro*/
 
 
-/*********************************************************************//**
+/***********************************************************************
  *Description: Read the raw values from all three axis. 16-bit resolution
  *
  *Input: Pointer to data structure, passed by reference.
@@ -129,7 +129,7 @@ void read_gyro_values(struct gyro_data *_gyro_data_) {
     }
 
 }/*read_gyro_values*/
-/*********************************************************************//**
+/***********************************************************************
  *Description:
  *
  *Input: 
@@ -145,7 +145,7 @@ void read_gyro_values_rate_dps(struct gyro_data *_gyro_data, struct gyro_data_dp
 
 }/*read_gyro_values_dps*/
 
-/*********************************************************************//**
+/***********************************************************************
  *Description:
  *
  *Input: 
