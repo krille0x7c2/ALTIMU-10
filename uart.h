@@ -23,8 +23,8 @@
 #define	UART_H
 #include <stdio.h>
 
-#define UART_BAUDRATE 9600
-#define UBRR_VALUE (((F_CPU / (UART_BAUDRATE * 16UL))) - 1)
+#define F_CPU 16000000UL
+#define BAUD 9600
 
 extern void uart_init(void);
 extern int uart_send_byte(char u8Data, FILE *stream);

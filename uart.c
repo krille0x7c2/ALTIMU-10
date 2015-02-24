@@ -18,13 +18,19 @@
  *
  * Created on February 16, 2015, 5:30 PM
  */
-#include "uart.h"
 #include <avr/io.h>
+#include "uart.h"
+#include <util/setbaud.h>
 
 void uart_init(void) {
     // Set baud rate
-    UBRR0H = (uint8_t) (UBRR_VALUE >> 8);
-    UBRR0L = (uint8_t) UBRR_VALUE;
+    UBRR0H = UBRRH_VALUE;
+    UBRR0L = UBRRL_VALUE;
+#if USE_2X
+   UCSRA |= (1 << U2X);
+#else
+   UCSR0A &= ~(1 << U2X0);
+#endif
     // Set frame format to 8 data bits, no parity, 1 stop bit
     UCSR0C |= (1 << UCSZ01) | (1 << UCSZ00);
     //enable transmission and reception
@@ -42,7 +48,7 @@ int uart_send_byte(char data, FILE *stream) {
     return 0;
 }
 
-/*Not needed cause the receive part will be interrupt driven
+/*Not needed cause the receiver part(if any), will be interrupt driven
  *but included for debug purpose.
  */
 int uart_receive_byte(FILE *stream) {

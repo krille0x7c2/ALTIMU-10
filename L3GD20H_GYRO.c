@@ -20,7 +20,6 @@
  */
 
 #include <avr/io.h>
-#include <util/delay_basic.h>
 #include <util/delay.h>
 #include "ALTIMU_10.h"
 #include "twi_master.h"
@@ -105,8 +104,6 @@ void wake_gyro(void){
  *************************************************************************/
 void read_gyro_values(struct gyro_data *_gyro_data_) {
 
-//    timer1_init();
-//    while (TCNT1 < DELAY_20M);
     _delay_ms(20);
     if (twi_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
         twi_write(GYRO_OUT_X_L | (1 << 7)); //Auto increment registers by writing the asserting MSB 
