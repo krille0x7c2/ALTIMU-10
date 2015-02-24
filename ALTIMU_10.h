@@ -2,6 +2,12 @@
  * File:   ALTIMU_10.h
  * Author: Christian Bodelsson<bodelsson@gmail.com>
  * Public Key: https://pgp.mit.edu/pks/lookup?op=get&search=0x3DD59D8AB91E4765
+ * 
+ * Description: The ALTIMU_10 contain 4 different sensors one three-axis angular
+ * rate sensor[L3GD20H], one pressure sensor[LPS25H], one 3D digital linear acceleration sensor 
+ * and a 3D digital magnetic sensor[LSM303D]. Here the slave addresses
+ * for each sensor is defined below. Also two function prototypes, to be used
+ * to read/write to the registers on the ALTIMU_10.
  *  
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,8 +33,6 @@ extern "C" {
 #endif
 
 
-
-//7-bit slave addresses for the three sensors
 #define GYRO_SLAVE_ADDRESS  0x6B
 #define ACC_MAG_SLAVE_ADDRESS   0x1D
 #define BAR_SLAVE_ADDRESS   0x5D

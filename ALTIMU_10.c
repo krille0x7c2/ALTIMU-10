@@ -27,9 +27,10 @@ typedef unsigned char byte;
 
 
 /*********************************************************************//**
- *Write to slave register
+ *Description: Write to slave register 
+ *[M:START][address_slave][0][S:ACK][reg_slave][S:ACK][data][S:ACK][M:STOP]
  *
- *Input: [7-bit address to the slave] [Register value on slave] [Byte to send]
+ *Input: [7-bit address to the slave] [Register on slave] [Byte to send]
  *
  *Return: 0 if success
  *        1 if fail
@@ -48,9 +49,10 @@ uint8_t write_to_reg(byte address_slave, byte reg_slave, uint8_t data) {
 }/*write_to_reg*/
 
 /*********************************************************************//**
- *Read from slave register
+ *Description: Read from slave register 
+ *[M:START][address_slave][0][S:ACK][reg_slave][S:ACK][M:REPSTART][address_slave][1][S:ACK][data][S_ACK][M:NAK]
  *
- *Input: [7-bit address to the slave] [Register value on slave]
+ *Input: [7-bit address to the slave] [Register on slave]
  *
  *Return: Byte if success
  *        1 if fail
