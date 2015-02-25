@@ -82,9 +82,9 @@ extern void sleep_gyro(void);
 extern void power_down_gyro(void);
 extern void wake_gyro(void);
 
-extern void read_gyro_values(struct gyro_data *_gyro_data_);
-extern void read_gyro_values_rate_dps(struct gyro_data *_gyro_data_, struct gyro_data_dps *gyro_data_dps);
-extern void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *gyro_data_angle);
+extern void read_gyro_values(struct gyro_data *_gyro_data);
+extern void read_gyro_values_rate_dps(struct gyro_data *gyro_data, struct gyro_data_dps *_gyro_data_dps);
+extern void read_gyro_values_angle(struct gyro_data_dps *gyro_data_dps, struct gyro_data_angle *_gyro_data_angle);
 
 #ifdef	__cplusplus
 }

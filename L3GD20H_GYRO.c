@@ -26,9 +26,6 @@
 #include "L3GD20H_GYRO.h"
 #include "LSM303D_ACC_MAG.h"
 
-
-
-
 /***********************************************************************
  *Description: Initiate the gyro power 5.0mA
  * GYRO_LOW_ODR: LOW ODR DISABLED default setting
@@ -59,10 +56,9 @@ void init_gyro(void) {
  * 
  *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
-void sleep_gyro(void){
+void sleep_gyro(void) {
     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x08);
 }/*sleep_gyro*/
-
 
 /***********************************************************************
  *Description: Power down the gyro 1uA
@@ -74,7 +70,7 @@ void sleep_gyro(void){
  * 
  *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
-void power_down_gyro(void){
+void power_down_gyro(void) {
     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x00);
 }/*power_down_gyro*/
 
@@ -88,10 +84,9 @@ void power_down_gyro(void){
  * 
  *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
-void wake_gyro(void){
+void wake_gyro(void) {
     write_to_reg(GYRO_SLAVE_ADDRESS, GYRO_CTRL1, 0x6F);
 }/*wake_gyro*/
-
 
 /***********************************************************************
  *Description: Read the raw values from all three axis. 16-bit resolution
@@ -102,7 +97,7 @@ void wake_gyro(void){
  * 
  *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
-void read_gyro_values(struct gyro_data *_gyro_data_) {
+void read_gyro_values(struct gyro_data *gyro_data) {
 
     _delay_ms(20);
     if (twi_start(GYRO_SLAVE_ADDRESS << 1) == 0) {
@@ -119,14 +114,15 @@ void read_gyro_values(struct gyro_data *_gyro_data_) {
             uint8_t zhg = twi_read(NAK);
             twi_stop();
 
-            _gyro_data_->x = (int16_t) (xhg << 8 | xlg);
-            _gyro_data_->y = (int16_t) (yhg << 8 | ylg);
-            _gyro_data_->z = (int16_t) (zhg << 8 | zlg);
+            gyro_data->x = (int16_t) (xhg << 8 | xlg);
+            gyro_data->y = (int16_t) (yhg << 8 | ylg);
+            gyro_data->z = (int16_t) (zhg << 8 | zlg);
 
         }
     }
 
 }/*read_gyro_values*/
+
 /***********************************************************************
  *Description:
  *
@@ -136,10 +132,10 @@ void read_gyro_values(struct gyro_data *_gyro_data_) {
  *      
  *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
-void read_gyro_values_rate_dps(struct gyro_data *_gyro_data, struct gyro_data_dps *gyro_data_dps) {
-    gyro_data_dps->x = (float) _gyro_data->x * G_GAIN;
-    gyro_data_dps->y = (float) _gyro_data->y * G_GAIN;
-    gyro_data_dps->z = (float) _gyro_data->z * G_GAIN;
+void read_gyro_values_rate_dps(struct gyro_data *gyro_data, struct gyro_data_dps *gyro_data_dps) {
+    gyro_data_dps->x = (float) gyro_data->x * G_GAIN;
+    gyro_data_dps->y = (float) gyro_data->y * G_GAIN;
+    gyro_data_dps->z = (float) gyro_data->z * G_GAIN;
 
 }/*read_gyro_values_dps*/
 
@@ -152,10 +148,10 @@ void read_gyro_values_rate_dps(struct gyro_data *_gyro_data, struct gyro_data_dp
  *      
  *Author: Christian Bodelsson<bodelsson@gmail.com>
  *************************************************************************/
-void read_gyro_values_angle(struct gyro_data_dps *_gyro_data_dps, struct gyro_data_angle *gyro_data_angle) {
-    gyro_data_angle->x = _gyro_data_dps->x * LOOP_PERIOD;
-    gyro_data_angle->y = _gyro_data_dps->y * LOOP_PERIOD;
-    gyro_data_angle->z = _gyro_data_dps->z * LOOP_PERIOD;
+void read_gyro_values_angle(struct gyro_data_dps *gyro_data_dps, struct gyro_data_angle *gyro_data_angle) {
+    gyro_data_angle->x = gyro_data_dps->x * LOOP_PERIOD;
+    gyro_data_angle->y = gyro_data_dps->y * LOOP_PERIOD;
+    gyro_data_angle->z = gyro_data_dps->z * LOOP_PERIOD;
 
 }/*read_gyro_values_angle*/
 
