@@ -22,8 +22,9 @@
 #ifndef UART_H
 #define	UART_H
 #include <stdio.h>
-
-#define F_CPU 16000000UL
+/*//Defined in makefile. uncomment if needed
+ *#define F_CPU 16000000UL
+ */
 #define BAUD 9600
 
 extern void uart_init(void);
