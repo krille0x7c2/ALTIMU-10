@@ -116,10 +116,6 @@ int main(void) {
     twi_init();
     init_sensor(NONE);
 
-    
-
-
-
 #if DEBUG          
     FILE uart_stream = FDEV_SETUP_STREAM(uart_send_byte, uart_receive_byte, _FDEV_SETUP_RW); //Set stream pointer
     //assign our stream to standard I/O streams, cause why re-invent the wheel? Great for debuging :-)
