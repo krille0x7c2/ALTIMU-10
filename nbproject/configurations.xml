@@ -30,6 +30,9 @@
         <dependencyChecking>false</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-Os -funsigned-char -std=gnu99"/>
+      </flagsDictionary>
       <codeAssistance>
       </codeAssistance>
       <makefileType>
@@ -43,24 +46,38 @@
               <pElem>.</pElem>
             </incDir>
             <preprocessorList>
-              <Elem>F_CPU=16000000UL</Elem>
+              <Elem>F_CPU=1000000UL</Elem>
             </preprocessorList>
           </cTool>
         </makeTool>
       </makefileType>
-      <item path="ALTIMU_10.c" ex="false" tool="0" flavor2="2">
+      <item path="ALTIMU_10.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
       </item>
-      <item path="L3GD20H_GYRO.c" ex="false" tool="0" flavor2="2">
+      <item path="L3GD20H_GYRO.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
       </item>
-      <item path="LPS25H_BAR.c" ex="false" tool="0" flavor2="2">
+      <item path="LPS25H_BAR.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
       </item>
-      <item path="LSM303D_ACC_MAG.c" ex="false" tool="0" flavor2="2">
+      <item path="LSM303D_ACC_MAG.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
       </item>
-      <item path="twi_master.c" ex="false" tool="0" flavor2="2">
+      <item path="twi_master.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
       </item>
       <item path="uart.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
       </item>
     </conf>
     <conf name="program" type="0">
